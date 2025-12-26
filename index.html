@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Ecosistema educativo de alto valor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --dorado: #D6B15A;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--azul-profundo);
+      color: var(--blanco);
+      line-height: 1.5;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 26px;
+    }
+
+    nav a {
+      color: var(--dorado);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 90px 24px 80px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--gris);
+      margin-bottom: 34px;
+    }
+
+    .btn-dorado {
+      display: inline-block;
+      padding: 14px 36px;
+      background-color: var(--dorado);
+      color: #1A1A1A;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 70px 28px;
+    }
+
+    section.blanco {
+      background-color: var(--blanco);
+      color: #1F1F1F;
+    }
+
+    section.blanco p {
+      color: #333;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 14px;
+      color: var(--dorado);
+    }
+
+    section.blanco h2 {
+      color: #1F1F1F;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 600px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    #respuesta {
+      margin-top: 14px;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 13px;
+      color: var(--gris);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <div class="logo">MAGICBANK</div>
+    <ul>
+      <li><a href="#university">University</a></li>
+      <li><a href="#academy">Academia</a></li>
+      <li><a href="#evaluacion">Evaluación</a></li>
+      <li><a href="#pension">Pensión Mágica</a></li>
+      <li><a href="#trading">Trading Cíclico</a></li>
+      <li><a href="#artes">Artes y Oficios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Bienvenido a MagicBank</h1>
+  <p>La puerta a una vida de prosperidad, libertad y crecimiento.</p>
+  <a class="btn-dorado" href="https://academy.magicbank.org">
+    Entrar a la Academia MagicBank
+  </a>
+</section>
+
+<section id="university">
+  <h2>MagicBank University</h2>
+  <p>
+    Plataforma educativa de estudios formales con enseñanza por módulos,
+    evaluación rigurosa y acompañamiento del SuperTutor durante años.
+  </p>
+  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/magicbank-university/">
+    Acceder a MagicBank University
+  </a>
+</section>
+
+<section id="academy" class="blanco">
+  <h2>Academia MagicBank</h2>
+  <p>
+    Cursos avanzados guiados por tutor con aprendizaje real,
+    ritmo personalizado y corrección directa.
+  </p>
+  <a class="btn-dorado" href="https://academy.magicbank.org">
+    Acceder a la Academia
+  </a>
+</section>
+
+<section id="evaluacion">
+  <h2>Evaluación Profesional</h2>
+  <p>
+    Diagnóstico privado para conocer el nivel real de tu conocimiento
+    y orientar decisiones educativas.
+  </p>
+  <a class="btn-dorado" href="https://chatgpt.com/g/g-6946c65239d481918eefe1b9735441ca-evaluador-tutor-pro">
+    Acceder al Evaluador Tutor Pro
+  </a>
+</section>
+
+<section id="pension" class="blanco">
+  <h2>Pensión Mágica</h2>
+  <p>
+    Programa educativo sobre banca descentralizada,
+    billeteras digitales y estructuras financieras modernas.
+  </p>
+  <p>
+    Primero comprendes. Luego decides.
+  </p>
+  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
+    Acceder a Pensión Mágica
+  </a>
+</section>
+
+<section id="trading">
+  <h2>Trading Cíclico</h2>
+  <p>
+    Formación estructurada para interpretar ciclos del mercado
+    con acompañamiento especializado.
+  </p>
+  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/">
+    Acceder a Trading Cíclico
+  </a>
+</section>
+
+<section id="artes" class="blanco">
+  <h2>Artes y Oficios</h2>
+  <p>
+    Programas prácticos para emprendedores con enfoque
+    en producción y comercialización local.
+  </p>
+  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
+    Acceder a Artes y Oficios
+  </a>
+</section>
+
+<section id="contacto">
+  <h2>Contacto MagicBank</h2>
+
+  <form id="contactForm">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+    <button class="btn-dorado" type="submit">Enviar mensaje</button>
+  </form>
+
+  <p id="respuesta"></p>
+</section>
+
+<footer>
+  <p>MagicBank © Ecosistema educativo de alto valor</p>
+  <p>Contacto: magicbankia@gmail.com · WhatsApp: wa.me/573112711772</p>
+</footer>
+
+<script>
+  const form = document.getElementById("contactForm");
+  const respuesta = document.getElementById("respuesta");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    respuesta.textContent = "Enviando mensaje...";
+
+    const data = {
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      mensaje: document.getElementById("mensaje").value
+    };
+
+    try {
+      const res = await fetch(
+        "https://magic-bank-backend-production-713e.up.railway.app/api/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }
+      );
+
+      const result = await res.json();
+      respuesta.textContent = result.message;
+      respuesta.style.color = "var(--dorado)";
+      form.reset();
+    } catch (err) {
+      respuesta.textContent = "Error de conexión con MagicBank";
+      respuesta.style.color = "red";
+    }
+  });
+</script>
+
+</body>
+</html>
