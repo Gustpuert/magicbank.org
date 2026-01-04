@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Fábrica de Tutores Inteligentes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --dorado: #D6B15A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --gris-oscuro: #9CA3AF;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--azul-profundo);
+      color: var(--blanco);
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 90px 24px 80px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    header h1 {
+      font-size: 46px;
+      color: var(--dorado);
+      margin-bottom: 18px;
+      letter-spacing: 0.8px;
+    }
+
+    header p {
+      font-size: 19px;
+      color: var(--gris);
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 24px;
+    }
+
+    .bloque {
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 44px;
+      margin-bottom: 70px;
+      box-shadow: 0 22px 48px rgba(0,0,0,0.45);
+    }
+
+    h2 {
+      font-size: 34px;
+      color: var(--dorado);
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 22px;
+      color: var(--dorado);
+      margin: 28px 0 12px;
+    }
+
+    p {
+      font-size: 16.5px;
+      color: var(--gris);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      padding-left: 22px;
+      margin-top: 14px;
+    }
+
+    li {
+      margin-bottom: 12px;
+      color: var(--gris);
+      font-size: 15.5px;
+    }
+
+    .tutores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      transition: transform .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--dorado);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .cta {
+      margin-top: 44px;
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 38px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      margin: 10px;
+    }
+
+    .btn-whatsapp {
+      background-color: var(--dorado);
+      color: #1A1A1A;
+    }
+
+    .btn-email {
+      background-color: var(--blanco);
+      color: var(--azul-profundo);
+    }
+
+    footer {
+      padding: 50px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gris-oscuro);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Fábrica de Tutores MagicBank</h1>
+  <p>
+    Diseñamos tutores inteligentes a la medida de personas reales, profesiones reales
+    y necesidades reales. Aquí no vendemos cursos genéricos: construimos acompañamiento
+    humano potenciado por Inteligencia Artificial.
+  </p>
+</header>
+
+<main>
+
+<!-- BLOQUE 1: TUTORES PERSONALIZADOS (TEXTO LARGO, VENDEDOR, COMPLETO) -->
+<div class="bloque">
+  <h2>Tutores Personalizados MagicBank</h2>
+
+  <p>
+    La Fábrica de Tutores MagicBank nace de una realidad clara: cada persona aprende,
+    trabaja y vive de manera diferente. Por eso, no todos necesitan el mismo tutor,
+    ni el mismo tono, ni el mismo ritmo, ni la misma forma de explicación.
+  </p>
+
+  <p>
+    En MagicBank podemos construir tutores completamente personalizados para necesidades
+    específicas, humanas y profesionales. Desde un niño con dificultades de aprendizaje,
+    hasta un profesional que se prepara para un examen decisivo. Desde una madre que
+    busca apoyo educativo real para su hijo, hasta una empresa que necesita asistentes
+    inteligentes que no se cansen, no se equivoquen y no pierdan información.
+  </p>
+
+  <p>
+    Podemos crear tutores que:
+  </p>
+
+  <ul>
+    <li>Se adapten a condiciones psicológicas, cognitivas o emocionales específicas.</li>
+    <li>Utilicen un tono paciente, cercano, motivador o técnico según la necesidad.</li>
+    <li>Enseñen varias materias de forma integrada y progresiva.</li>
+    <li>Utilicen ejemplos del entorno real del estudiante o del trabajador.</li>
+    <li>Aprendan el contexto del usuario y lo acompañen en el tiempo.</li>
+  </ul>
+
+  <p>
+    Ejemplos reales de tutores que podemos construir:
+  </p>
+
+  <ul>
+    <li>Tutor para preparación de pruebas de Estado (ICFES, exámenes universitarios, homologaciones).</li>
+    <li>Tutor para niños con dificultades específicas de aprendizaje.</li>
+    <li>Tutor mecánico que guía diagnósticos por modelo, marca y falla del vehículo.</li>
+    <li>Tutor para profesionales de la salud que escucha, redacta y organiza información clínica.</li>
+    <li>Tutor empresarial que acompaña decisiones, informes y procesos.</li>
+  </ul>
+
+  <p>
+    Si puedes explicar qué necesitas, MagicBank puede construir el tutor.
+    No estás limitado a lo que existe hoy: estás entrando a una fábrica viva
+    de inteligencia aplicada.
+  </p>
+
+  <div class="cta">
+    <a class="btn btn-whatsapp" href="https://wa.me/573112711772" target="_blank">Hablar por WhatsApp</a>
+    <a class="btn btn-email" href="mailto:magicbankia@gmail.com">Contactar por Email</a>
+  </div>
+</div>
+
+<!-- BLOQUE 2: TUTORES ESPECIALIZADOS DEMOSTRATIVOS (AGREGADO, SIN DAÑAR LO ANTERIOR) -->
+<div class="bloque">
+  <h2>Tutores Especializados Disponibles para Demostración</h2>
+
+  <p>
+    A continuación puedes ingresar directamente a tutores ya construidos para
+    ver cómo funcionan, cómo interactúan y qué tipo de acompañamiento ofrecen.
+    Este recorrido es demostrativo, no informativo.
+  </p>
+
+  <div class="tutores">
+    <div class="card"><h3>Sensei Tutor Pro</h3><p>Asistente personal que escucha conversaciones y apoya en tiempo real.</p><a href="https://chatgpt.com/g/g-69547fda3efc81918ba83ac2b0ec7af7-sensei-magic-tutor-pro" target="_blank">Entrar</a></div>
+    <div class="card"><h3>SuperTraductor</h3><p>Traducción y enseñanza de idiomas en tiempo real.</p><a href="https://chatgpt.com/g/g-6936d30471708191b9ac5f00163d8605-supertraductor-magic-tutor-pro" target="_blank">Entrar</a></div>
+    <div class="card"><h3>Bienestar Tutor Pro</h3><p>Acompañamiento emocional y escucha activa.</p><a href="https://chatgpt.com/g/g-693e3bb199b881919ad636fff9084249-bienestartutor-pro" target="_blank">Entrar</a></div>
+    <div class="card"><h3>MagicBank Council</h3><p>Consejo de expertos para decisiones estratégicas.</p><a href="https://chatgpt.com/g/g-693b0820918c819199d3922ac8bfd57f-magicbank-council" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Salud</h3><p>Asistente profesional para personal de salud.</p><a href="https://chatgpt.com/g/g-69593c44a6c08191accf43d956372325-tap-salud" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Abogados</h3><p>Asistente jurídico especializado.</p><a href="https://chatgpt.com/g/g-695946138ec88191a7d55a83d238a968-tap-abogados" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Ingeniería</h3><p>Asistente técnico para procesos y documentación.</p><a href="https://chatgpt.com/g/g-695949c461208191b087fe103d72c0ce-tap-ingenieria" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Administración Pública</h3><p>Gestión y apoyo institucional.</p><a href="https://chatgpt.com/g/g-69594ab53b288191bd9ab50247e1a05c-tap-administracion-publica" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Educación</h3><p>Apoyo docente y pedagógico.</p><a href="https://chatgpt.com/g/g-6959471996e4819193965239320a5daa-tap-educacion" target="_blank">Entrar</a></div>
+    <div class="card"><h3>TAP Empresas</h3><p>Asistente corporativo integral.</p><a href="https://chatgpt.com/g/g-695947d7fe30819181bc53041e0c96d2-tap-empresas" target="_blank">Entrar</a></div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  MagicBank © Fábrica de Tutores Inteligentes<br>
+  Tecnología con propósito humano
+</footer>
+
+</body>
+</html>
