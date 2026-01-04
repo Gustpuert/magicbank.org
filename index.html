@@ -2,32 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>MagicBank | Ecosistema educativo de alto valor</title>
+  <title>MagicBank | Educación guiada por Inteligencia Artificial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --azul-profundo: #070C2A;
+      --dorado: #D6B15A;
       --blanco: #FFFFFF;
       --gris: #CFCFD6;
-      --dorado: #D6B15A;
+      --gris-oscuro: #9CA3AF;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background-color: var(--azul-profundo);
       color: var(--blanco);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
+    /* HEADER */
     header {
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
@@ -35,63 +33,86 @@
     nav {
       max-width: 1200px;
       margin: auto;
-      padding: 18px 28px;
+      padding: 20px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    nav .logo {
-      font-weight: 600;
-      letter-spacing: 1px;
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--blanco);
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 26px;
+      gap: 14px;
     }
 
     nav a {
-      color: var(--dorado);
       text-decoration: none;
-      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--dorado);
+      font-size: 13px;
       font-weight: 500;
     }
 
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* HERO */
     .hero {
       text-align: center;
-      padding: 90px 24px 80px;
+      padding: 110px 24px 100px;
     }
 
     .hero h1 {
-      font-size: 40px;
-      margin-bottom: 14px;
+      font-size: 42px;
+      margin-bottom: 18px;
+      font-weight: 700;
     }
 
     .hero p {
       font-size: 18px;
       color: var(--gris);
-      margin-bottom: 34px;
+      max-width: 900px;
+      margin: auto;
+      margin-bottom: 46px;
     }
 
-    .btn-dorado {
-      display: inline-block;
-      padding: 14px 36px;
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons a {
+      padding: 16px 34px;
+      border-radius: 12px;
       background-color: var(--dorado);
       color: #1A1A1A;
       font-weight: 600;
       font-size: 15px;
-      border-radius: 10px;
       text-decoration: none;
-      border: none;
-      cursor: pointer;
     }
 
+    .hero-buttons a.secondary {
+      background-color: rgba(255,255,255,0.12);
+      color: var(--blanco);
+    }
+
+    /* SECTIONS */
     section {
       max-width: 1000px;
       margin: auto;
-      padding: 70px 28px;
+      padding: 80px 28px;
     }
 
     section.blanco {
@@ -105,7 +126,7 @@
 
     h2 {
       font-size: 28px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       color: var(--dorado);
     }
 
@@ -115,37 +136,29 @@
 
     p {
       font-size: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    form {
-      max-width: 600px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 14px;
-      border-radius: 8px;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-    }
-
-    textarea {
-      min-height: 120px;
-    }
-
-    #respuesta {
-      margin-top: 14px;
+    /* CONTACT */
+    .contact-links a {
+      display: inline-block;
+      margin-right: 20px;
+      margin-top: 10px;
+      color: var(--dorado);
       font-weight: 500;
+      text-decoration: none;
     }
 
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
       font-size: 13px;
-      color: var(--gris);
+      color: var(--gris-oscuro);
       border-top: 1px solid rgba(255,255,255,0.08);
     }
   </style>
@@ -158,8 +171,7 @@
     <div class="logo">MAGICBANK</div>
     <ul>
       <li><a href="#university">University</a></li>
-      <li><a href="#academy">Academia</a></li>
-      <li><a href="#evaluacion">Evaluación</a></li>
+      <li><a href="#academy">Academy</a></li>
       <li><a href="#pension">Pensión Mágica</a></li>
       <li><a href="#trading">Trading Cíclico</a></li>
       <li><a href="#artes">Artes y Oficios</a></li>
@@ -169,134 +181,78 @@
 </header>
 
 <section class="hero">
-  <h1>Bienvenido a MagicBank</h1>
-  <p>La puerta a una vida de prosperidad, libertad y crecimiento.</p>
-  <a class="btn-dorado" href="https://academy.magicbank.org">
-    Entrar a la Academia MagicBank
-  </a>
+  <h1>MagicBank</h1>
+  <p>
+    Ecosistema educativo guiado de principio a fin por Tutores potenciados
+    por Inteligencia Artificial, con evaluación rigurosa, enseñanza paso a paso
+    y actualización permanente del conocimiento.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="https://gustpuert.github.io/university.magicbank.org/">MagicBank University</a>
+    <a href="https://academy.magicbank.org" class="secondary">MagicBank Academy</a>
+    <a href="https://magicbank.org/anexos/calidad-academica-magicbank.html" class="secondary">
+      Calidad Educativa
+    </a>
+  </div>
 </section>
 
 <section id="university">
   <h2>MagicBank University</h2>
   <p>
-    Plataforma educativa de estudios formales con enseñanza por módulos,
-    evaluación rigurosa y acompañamiento del SuperTutor durante años.
+    Facultades profesionales con formación estructurada, módulos evaluables
+    y acompañamiento del SuperTutor durante todo el proceso académico.
   </p>
-  <a class="btn-dorado" href="https://gustpuert.github.io/university.magicbank.org/">
-    Acceder a MagicBank University
-  </a>
 </section>
 
 <section id="academy" class="blanco">
-  <h2>Academia MagicBank</h2>
+  <h2>MagicBank Academy</h2>
   <p>
-    Cursos avanzados guiados por tutor con aprendizaje real,
-    ritmo personalizado y corrección directa.
+    Cursos prácticos de alto nivel guiados por Tutor IA desde el primer día,
+    con ritmo personalizado y corrección real.
   </p>
-  <a class="btn-dorado" href="https://academy.magicbank.org">
-    Acceder a la Academia
-  </a>
 </section>
 
-<section id="evaluacion">
-  <h2>Evaluación Profesional</h2>
-  <p>
-    Diagnóstico privado para conocer el nivel real de tu conocimiento
-    y orientar decisiones educativas.
-  </p>
-  <a class="btn-dorado" href="https://chatgpt.com/g/g-6946c65239d481918eefe1b9735441ca-evaluador-tutor-pro">
-    Acceder al Evaluador Tutor Pro
-  </a>
-</section>
-
-<section id="pension" class="blanco">
+<section id="pension">
   <h2>Pensión Mágica</h2>
   <p>
-    Programa educativo sobre banca descentralizada,
-    billeteras digitales y estructuras financieras modernas.
+    Programa educativo sobre banca descentralizada, billeteras digitales
+    y estructuras financieras modernas. Primero comprendes. Luego decides.
   </p>
-  <p>
-    Primero comprendes. Luego decides.
-  </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
-    Acceder a Pensión Mágica
-  </a>
 </section>
 
-<section id="trading">
+<section id="trading" class="blanco">
   <h2>Trading Cíclico</h2>
   <p>
-    Formación estructurada para interpretar ciclos del mercado
-    con acompañamiento especializado.
+    Formación estructurada para interpretar ciclos del mercado con
+    acompañamiento especializado.
   </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/">
-    Acceder a Trading Cíclico
-  </a>
 </section>
 
-<section id="artes" class="blanco">
+<section id="artes">
   <h2>Artes y Oficios</h2>
   <p>
-    Programas prácticos para emprendedores con enfoque
-    en producción y comercialización local.
+    Programas prácticos para emprendedores con enfoque en producción,
+    procesos y comercialización.
   </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
-    Acceder a Artes y Oficios
-  </a>
 </section>
 
-<section id="contacto">
+<section id="contacto" class="blanco">
   <h2>Contacto MagicBank</h2>
+  <p>
+    ¿Deseas más información o asesoría personalizada?
+  </p>
 
-  <form id="contactForm">
-    <input type="text" id="nombre" placeholder="Nombre" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <textarea id="mensaje" placeholder="Mensaje" required></textarea>
-    <button class="btn-dorado" type="submit">Enviar mensaje</button>
-  </form>
-
-  <p id="respuesta"></p>
+  <div class="contact-links">
+    <a href="https://wa.me/573112711772" target="_blank">WhatsApp MagicBank</a>
+    <a href="mailto:magicbankia@gmail.com">magicbankia@gmail.com</a>
+  </div>
 </section>
 
 <footer>
-  <p>MagicBank © Ecosistema educativo de alto valor</p>
-  <p>Contacto: magicbankia@gmail.com · WhatsApp: wa.me/573112711772</p>
+  MagicBank © Ecosistema educativo de alto valor<br>
+  Educación guiada por Inteligencia Artificial
 </footer>
-
-<script>
-  const form = document.getElementById("contactForm");
-  const respuesta = document.getElementById("respuesta");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    respuesta.textContent = "Enviando mensaje...";
-
-    const data = {
-      nombre: document.getElementById("nombre").value,
-      email: document.getElementById("email").value,
-      mensaje: document.getElementById("mensaje").value
-    };
-
-    try {
-      const res = await fetch(
-        "https://magic-bank-backend-production-713e.up.railway.app/api/contact",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        }
-      );
-
-      const result = await res.json();
-      respuesta.textContent = result.message;
-      respuesta.style.color = "var(--dorado)";
-      form.reset();
-    } catch (err) {
-      respuesta.textContent = "Error de conexión con MagicBank";
-      respuesta.style.color = "red";
-    }
-  });
-</script>
 
 </body>
 </html>
