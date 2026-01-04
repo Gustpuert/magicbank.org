@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Acceso Administrativo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --dorado: #D6B15A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --rojo: #E85C5C;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(circle at top, #0A1040, var(--azul-profundo));
+      color: var(--blanco);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 50px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--dorado);
+      font-size: 34px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    p {
+      color: var(--gris);
+      font-size: 15.5px;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      margin-bottom: 18px;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background-color: var(--dorado);
+      color: #1A1A1A;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .error {
+      margin-top: 16px;
+      color: var(--rojo);
+      font-size: 14px;
+      display: none;
+    }
+
+    .links {
+      display: none;
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .links a {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--dorado);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="panel">
+  <h1>MAGICBANK</h1>
+  <p>Acceso administrativo privado<br>Uso exclusivo para demostraciones y gestión interna</p>
+
+  <input type="password" id="codigo" placeholder="CÓDIGO DE ACCESO">
+
+  <button onclick="verificarCodigo()">Ingresar</button>
+
+  <div class="error" id="error">
+    Código incorrecto
+  </div>
+
+  <div class="links" id="links">
+    <h3 style="color:#D6B15A; margin-bottom:18px;">Accesos habilitados</h3>
+
+    <a href="/university/tutores.html">Tutores MagicBank University</a>
+    <a href="/academy/tutores.html">Tutores MagicBank Academy</a>
+    <a href="/fabrica-de-tutores.html">Fábrica de Tutores Inteligentes</a>
+    <a href="/calidad-academica-magicbank.html">Calidad Académica MagicBank</a>
+  </div>
+</div>
+
+<script>
+  function verificarCodigo() {
+    const codigoCorrecto = "MAGICBANK-ADMIN-2026"; // <-- CAMBIAR SOLO AQUÍ
+    const codigoIngresado = document.getElementById("codigo").value;
+    const error = document.getElementById("error");
+    const links = document.getElementById("links");
+
+    if (codigoIngresado === codigoCorrecto) {
+      error.style.display = "none";
+      links.style.display = "block";
+    } else {
+      error.style.display = "block";
+      links.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
