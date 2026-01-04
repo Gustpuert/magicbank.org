@@ -20,12 +20,11 @@
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background-color: var(--azul-profundo);
+      background: var(--azul-profundo);
       color: var(--blanco);
       line-height: 1.6;
     }
 
-    /* HEADER */
     header {
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
@@ -33,17 +32,16 @@
     nav {
       max-width: 1200px;
       margin: auto;
-      padding: 20px 28px;
+      padding: 18px 28px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
     }
 
     .logo {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: 1.5px;
-      color: var(--blanco);
+      letter-spacing: 1.8px;
     }
 
     nav ul {
@@ -54,7 +52,7 @@
 
     nav a {
       text-decoration: none;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 8px;
       background: rgba(255,255,255,0.08);
       color: var(--dorado);
@@ -66,10 +64,9 @@
       background: rgba(255,255,255,0.15);
     }
 
-    /* HERO */
     .hero {
       text-align: center;
-      padding: 110px 24px 100px;
+      padding: 110px 24px 90px;
     }
 
     .hero h1 {
@@ -79,24 +76,24 @@
     }
 
     .hero p {
-      font-size: 18px;
-      color: var(--gris);
       max-width: 900px;
       margin: auto;
-      margin-bottom: 46px;
+      font-size: 18px;
+      color: var(--gris);
+      margin-bottom: 42px;
     }
 
     .hero-buttons {
       display: flex;
       justify-content: center;
-      gap: 22px;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
     .hero-buttons a {
       padding: 16px 34px;
       border-radius: 12px;
-      background-color: var(--dorado);
+      background: var(--dorado);
       color: #1A1A1A;
       font-weight: 600;
       font-size: 15px;
@@ -104,56 +101,65 @@
     }
 
     .hero-buttons a.secondary {
-      background-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.12);
       color: var(--blanco);
     }
 
-    /* SECTIONS */
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       padding: 80px 28px;
     }
 
-    section.blanco {
-      background-color: var(--blanco);
-      color: #1F1F1F;
-    }
-
-    section.blanco p {
-      color: #333;
-    }
-
     h2 {
-      font-size: 28px;
-      margin-bottom: 16px;
       color: var(--dorado);
-    }
-
-    section.blanco h2 {
-      color: #1F1F1F;
+      font-size: 30px;
+      margin-bottom: 14px;
     }
 
     p {
       font-size: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    /* CONTACT */
+    /* PROGRAMAS CLICABLES */
+    .programa {
+      display: block;
+      text-decoration: none;
+      margin-bottom: 50px;
+      padding: 28px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .programa:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    .programa h2 {
+      margin-bottom: 10px;
+    }
+
+    .programa p {
+      color: var(--gris);
+    }
+
+    .programa span {
+      color: var(--dorado);
+      font-weight: 600;
+    }
+
     .contact-links a {
       display: inline-block;
-      margin-right: 20px;
+      margin-right: 24px;
       margin-top: 10px;
       color: var(--dorado);
       font-weight: 500;
       text-decoration: none;
     }
 
-    .contact-links a:hover {
-      text-decoration: underline;
-    }
-
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 50px 20px;
@@ -170,22 +176,18 @@
   <nav>
     <div class="logo">MAGICBANK</div>
     <ul>
-      <li><a href="#university">University</a></li>
-      <li><a href="#academy">Academy</a></li>
-      <li><a href="#pension">Pensión Mágica</a></li>
-      <li><a href="#trading">Trading Cíclico</a></li>
-      <li><a href="#artes">Artes y Oficios</a></li>
+      <li><a href="#programas">Programas</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
   </nav>
 </header>
 
 <section class="hero">
-  <h1>MagicBank</h1>
+  <h1>Educación guiada por Inteligencia Artificial</h1>
   <p>
-    Ecosistema educativo guiado de principio a fin por Tutores potenciados
-    por Inteligencia Artificial, con evaluación rigurosa, enseñanza paso a paso
-    y actualización permanente del conocimiento.
+    MagicBank es un ecosistema educativo donde tutores potenciados por Inteligencia Artificial
+    guían al estudiante antes, durante y después de su formación, con evaluación real,
+    actualización permanente y acompañamiento continuo.
   </p>
 
   <div class="hero-buttons">
@@ -197,52 +199,45 @@
   </div>
 </section>
 
-<section id="university">
-  <h2>MagicBank University</h2>
-  <p>
-    Facultades profesionales con formación estructurada, módulos evaluables
-    y acompañamiento del SuperTutor durante todo el proceso académico.
-  </p>
+<section id="programas">
+
+  <a class="programa" href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
+    <h2>Artes y Oficios</h2>
+    <p>
+      Tutor especializado en producción real: helados, postres, bebidas, pizzas y coctelería internacional.
+    </p>
+    <span>Explorar Artes y Oficios →</span>
+  </a>
+
+  <a class="programa" href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
+    <h2>Pensión Mágica</h2>
+    <p>
+      Educación guiada en banca descentralizada, fondos de liquidez y análisis para renta o pensión futura.
+    </p>
+    <span>Explorar Pensión Mágica →</span>
+  </a>
+
+  <a class="programa" href="https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/">
+    <h2>Trading Cíclico</h2>
+    <p>
+      Aprende a invertir pequeñas cantidades con un tutor experto en ciclos de mercado.
+    </p>
+    <span>Explorar Trading Cíclico →</span>
+  </a>
+
+  <a class="programa" href="https://chatgpt.com/g/g-6946c65239d481918eefe1b9735441ca-evaluador-tutor-pro">
+    <h2>Evaluador Tutor Pro</h2>
+    <p>
+      Diagnóstico profesional privado para conocer tu nivel real, fortalezas y brechas.
+    </p>
+    <span>Acceder al Evaluador →</span>
+  </a>
+
 </section>
 
-<section id="academy" class="blanco">
-  <h2>MagicBank Academy</h2>
-  <p>
-    Cursos prácticos de alto nivel guiados por Tutor IA desde el primer día,
-    con ritmo personalizado y corrección real.
-  </p>
-</section>
-
-<section id="pension">
-  <h2>Pensión Mágica</h2>
-  <p>
-    Programa educativo sobre banca descentralizada, billeteras digitales
-    y estructuras financieras modernas. Primero comprendes. Luego decides.
-  </p>
-</section>
-
-<section id="trading" class="blanco">
-  <h2>Trading Cíclico</h2>
-  <p>
-    Formación estructurada para interpretar ciclos del mercado con
-    acompañamiento especializado.
-  </p>
-</section>
-
-<section id="artes">
-  <h2>Artes y Oficios</h2>
-  <p>
-    Programas prácticos para emprendedores con enfoque en producción,
-    procesos y comercialización.
-  </p>
-</section>
-
-<section id="contacto" class="blanco">
+<section id="contacto">
   <h2>Contacto MagicBank</h2>
-  <p>
-    ¿Deseas más información o asesoría personalizada?
-  </p>
-
+  <p>Habla con una persona real:</p>
   <div class="contact-links">
     <a href="https://wa.me/573112711772" target="_blank">WhatsApp MagicBank</a>
     <a href="mailto:magicbankia@gmail.com">magicbankia@gmail.com</a>
@@ -250,8 +245,7 @@
 </section>
 
 <footer>
-  MagicBank © Ecosistema educativo de alto valor<br>
-  Educación guiada por Inteligencia Artificial
+  MagicBank © Educación guiada por Inteligencia Artificial
 </footer>
 
 </body>
