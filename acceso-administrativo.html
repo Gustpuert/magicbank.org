@@ -5,119 +5,192 @@
   <title>MagicBank | Acceso Administrativo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background: #070C2A;
-      color: #fff;
-      font-family: Inter, system-ui, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    :root {
+      --azul-profundo: #070C2A;
+      --dorado: #D6B15A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --rojo: #C0392B;
     }
 
-    .box {
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--azul-profundo);
+      color: var(--blanco);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .panel {
       background: rgba(255,255,255,0.05);
+      border-radius: 18px;
       padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      text-align: center;
-      max-width: 360px;
       width: 100%;
+      max-width: 520px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+      text-align: center;
     }
 
     h1 {
-      color: #D6B15A;
-      font-size: 22px;
-      margin-bottom: 18px;
+      color: var(--dorado);
+      margin-bottom: 14px;
+      font-size: 26px;
+    }
+
+    p {
+      color: var(--gris);
+      font-size: 14.5px;
+      margin-bottom: 22px;
     }
 
     input {
       width: 100%;
       padding: 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
-      margin-bottom: 16px;
       font-size: 15px;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
     button {
       width: 100%;
       padding: 14px;
-      background: #D6B15A;
-      color: #1a1a1a;
-      font-weight: 600;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
+      background-color: var(--dorado);
+      color: #1A1A1A;
+      font-weight: 700;
+      font-size: 15px;
       cursor: pointer;
     }
 
-    p {
-      margin-top: 14px;
-      font-size: 14px;
-      color: #CFCFD6;
+    .error {
+      color: var(--rojo);
+      margin-top: 12px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .timer {
+      margin-top: 18px;
+      font-size: 15px;
+      color: var(--dorado);
+      font-weight: 600;
+      display: none;
+    }
+
+    .nav-admin {
+      display: none;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .nav-admin a {
+      display: block;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--dorado);
+      font-weight: 500;
+      font-size: 14.5px;
+    }
+
+    .nav-admin a:hover {
+      background: rgba(255,255,255,0.12);
     }
   </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="panel">
   <h1>Acceso Administrativo MagicBank</h1>
-  <input id="clave" type="password" placeholder="Clave administrativa">
-  <button onclick="acceder()">Ingresar</button>
-  <p id="mensaje"></p>
+  <p>
+    Acceso temporal para recorrido institucional y demostraciones.<br>
+    Duración fija: <strong>15 minutos</strong>.
+  </p>
+
+  <input type="password" id="clave" placeholder="Clave administrativa">
+  <button onclick="validarClave()">Ingresar</button>
+
+  <div id="error" class="error">Clave incorrecta</div>
+  <div id="timer" class="timer"></div>
+
+  <!-- NAVEGACIÓN ADMINISTRATIVA -->
+  <div id="navAdmin" class="nav-admin">
+    <a href="https://magicbank.org" target="_blank">🌐 MagicBank (Inicio)</a>
+    <a href="https://gustpuert.github.io/university.magicbank.org/" target="_blank">🎓 MagicBank University</a>
+    <a href="https://academy.magicbank.org" target="_blank">📘 MagicBank Academy</a>
+    <a href="https://gustpuert.github.io/tutores.university.magicbank.org/" target="_blank">🏛 Tutores University</a>
+    <a href="https://gustpuert.github.io/tutores.academy.magicbank.org/" target="_blank">🏫 Tutores Academy</a>
+    <a href="https://magicbank.org/fabrica-de-tutores.html" target="_blank">🧠 Fábrica de Tutores</a>
+    <a href="https://magicbank.org/anexos/calidad-academica-magicbank.html" target="_blank">📜 Calidad Académica</a>
+  </div>
 </div>
 
 <script>
-/* =====================================================
-   MAGICBANK – ACCESO ADMINISTRATIVO CON CLAVE ROTATIVA
-   ===================================================== */
+  const CLAVES = ["admin3232", "admin3233", "admin3234"];
+  const DURACION = 15 * 60 * 1000;
 
-const CLAVES = ["admin3232", "admin3233", "admin3234"];
-const DURACION = 15 * 60 * 1000; // 15 minutos
-
-function claveActual() {
-  const indice = localStorage.getItem("mb_indice_clave");
-  return CLAVES[indice ? parseInt(indice, 10) : 0];
-}
-
-function avanzarClave() {
-  let indice = parseInt(localStorage.getItem("mb_indice_clave") || "0", 10);
-  indice = (indice + 1) % CLAVES.length;
-  localStorage.setItem("mb_indice_clave", indice);
-}
-
-function acceder() {
-  const input = document.getElementById("clave").value;
-  const mensaje = document.getElementById("mensaje");
-
-  if (input !== claveActual()) {
-    mensaje.textContent = "Clave incorrecta.";
-    return;
+  function claveActual() {
+    const bloque = Math.floor(Date.now() / DURACION) % CLAVES.length;
+    return CLAVES[bloque];
   }
 
-  // Guarda inicio de sesión
-  localStorage.setItem("mb_admin_inicio", Date.now());
-  mensaje.textContent = "Acceso concedido. Redirigiendo...";
+  function validarClave() {
+    const input = document.getElementById("clave").value.trim();
+    const error = document.getElementById("error");
 
-  // Redirige a la fábrica de tutores (puedes cambiar destino)
-  setTimeout(() => {
-    window.location.href = "https://magicbank.org/fabrica-de-tutores.html";
-  }, 800);
-}
-
-// Al cargar la página, verifica si expiró la sesión anterior
-(function verificarExpiracion() {
-  const inicio = localStorage.getItem("mb_admin_inicio");
-  if (!inicio) return;
-
-  const ahora = Date.now();
-  if (ahora - parseInt(inicio, 10) > DURACION) {
-    localStorage.removeItem("mb_admin_inicio");
-    avanzarClave(); // 🔁 rota la clave
+    if (input === claveActual()) {
+      localStorage.setItem("mb_admin_session", "active");
+      localStorage.setItem("mb_admin_start", Date.now().toString());
+      error.style.display = "none";
+      iniciarSesion();
+    } else {
+      error.style.display = "block";
+    }
   }
-})();
+
+  function iniciarSesion() {
+    document.getElementById("timer").style.display = "block";
+    document.getElementById("navAdmin").style.display = "block";
+    iniciarCronometro();
+  }
+
+  function iniciarCronometro() {
+    const timer = document.getElementById("timer");
+    const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
+
+    const intervalo = setInterval(() => {
+      const restante = DURACION - (Date.now() - start);
+
+      if (restante <= 0) {
+        clearInterval(intervalo);
+        localStorage.clear();
+        alert("El tiempo de acceso administrativo ha finalizado.");
+        window.location.href = "https://magicbank.org";
+        return;
+      }
+
+      const m = Math.floor(restante / 60000);
+      const s = Math.floor((restante % 60000) / 1000);
+      timer.textContent = `Tiempo restante: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }, 1000);
+  }
+
+  if (localStorage.getItem("mb_admin_session") === "active") {
+    iniciarSesion();
+  }
 </script>
 
 </body>
