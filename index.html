@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>MagicBank | Ecosistema educativo de alto valor</title>
+  <title>MagicBank | Ecosistema educativo guiado por IA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--azul-profundo);
       color: var(--blanco);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     header {
@@ -35,82 +35,77 @@
     nav {
       max-width: 1200px;
       margin: auto;
-      padding: 18px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* ===== LOGO CON MB ADMIN ===== */
-    .logo {
+      padding: 22px 28px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      letter-spacing: 1px;
+      gap: 16px;
     }
 
-    .mb-admin {
-      width: 32px;
-      height: 32px;
+    .admin-mb {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #0A0F3A, #05081F);
-      color: var(--dorado);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 1px;
+      background: radial-gradient(circle at top left, #f2d27a, var(--dorado));
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,0.4),
+        inset 0 -3px 6px rgba(0,0,0,0.25),
+        0 6px 14px rgba(0,0,0,0.45);
+      color: #1a1a1a;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
       text-decoration: none;
-      border: 1px solid rgba(214,177,90,0.4);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.45);
     }
 
-    .mb-admin:hover {
-      transform: scale(1.05);
+    .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 16px;
     }
 
-    nav ul {
-      list-style: none;
+    .hero {
+      max-width: 900px;
+      margin: auto;
+      padding: 90px 24px 70px;
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--gris);
+      max-width: 780px;
+    }
+
+    .hero-links {
+      margin-top: 34px;
       display: flex;
-      gap: 26px;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
-    nav a {
-      color: var(--dorado);
+    .hero-links a {
+      padding: 12px 26px;
+      border-radius: 10px;
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
     }
 
-    .hero {
-      text-align: center;
-      padding: 90px 24px 80px;
-    }
-
-    .hero h1 {
-      font-size: 40px;
-      margin-bottom: 14px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--gris);
-      margin-bottom: 34px;
-    }
-
-    .btn-dorado {
-      display: inline-block;
-      padding: 14px 36px;
+    .btn-principal {
       background-color: var(--dorado);
-      color: #1A1A1A;
-      font-weight: 600;
-      font-size: 15px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
+      color: #1a1a1a;
+    }
+
+    .btn-secundario {
+      border: 1px solid var(--dorado);
+      color: var(--dorado);
     }
 
     section {
@@ -119,51 +114,40 @@
       padding: 70px 28px;
     }
 
-    section.blanco {
-      background-color: var(--blanco);
-      color: #1F1F1F;
-    }
-
-    section.blanco p {
-      color: #333;
-    }
-
     h2 {
-      font-size: 28px;
-      margin-bottom: 14px;
+      font-size: 26px;
       color: var(--dorado);
-    }
-
-    section.blanco h2 {
-      color: #1F1F1F;
+      margin-bottom: 14px;
     }
 
     p {
-      font-size: 16px;
-      margin-bottom: 20px;
+      font-size: 15.5px;
+      color: var(--gris);
+      margin-bottom: 16px;
     }
 
-    form {
-      max-width: 600px;
+    .bloque {
+      margin-bottom: 34px;
     }
 
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 14px;
+    .bloque a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 22px;
       border-radius: 8px;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-    }
-
-    textarea {
-      min-height: 120px;
-    }
-
-    #respuesta {
-      margin-top: 14px;
+      background-color: var(--dorado);
+      color: #1a1a1a;
+      text-decoration: none;
+      font-size: 13.5px;
       font-weight: 500;
+    }
+
+    .contacto a {
+      display: block;
+      color: var(--dorado);
+      text-decoration: none;
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
     footer {
@@ -180,152 +164,79 @@
 
 <header>
   <nav>
-    <div class="logo">
-      <a href="acceso-administrativo.html" class="mb-admin">MB</a>
-      <span>MAGICBANK</span>
-    </div>
-
-    <ul>
-      <li><a href="#university">University</a></li>
-      <li><a href="#academy">Academia</a></li>
-      <li><a href="#evaluacion">Evaluación</a></li>
-      <li><a href="#pension">Pensión Mágica</a></li>
-      <li><a href="#trading">Trading Cíclico</a></li>
-      <li><a href="#artes">Artes y Oficios</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
+    <a href="https://magicbank.org/acceso-administrativo.html" class="admin-mb">MB</a>
+    <div class="logo">MAGICBANK</div>
   </nav>
 </header>
 
-<section class="hero">
-  <h1>Bienvenido a MagicBank</h1>
-  <p>La puerta a una vida de prosperidad, libertad y crecimiento.</p>
-  <a class="btn-dorado" href="https://academy.magicbank.org">
-    Entrar a la Academia MagicBank
-  </a>
-</section>
+<main>
 
-<section id="university">
-  <h2>MagicBank University</h2>
-  <p>
-    Plataforma educativa de estudios formales con enseñanza por módulos,
-    evaluación rigurosa y acompañamiento del SuperTutor durante años.
-  </p>
-  <a class="btn-dorado" href="https://gustpuert.github.io/university.magicbank.org/">
-    Acceder a MagicBank University
-  </a>
-</section>
+  <section class="hero">
+    <h1>Educación, conocimiento aplicado y tutores guiados por Inteligencia Artificial</h1>
+    <p>
+      MagicBank es un ecosistema educativo integral donde cada persona es acompañada
+      por tutores especializados que enseñan paso a paso, evalúan con rigor
+      y guían incluso después de finalizada la formación.
+    </p>
 
-<section id="academy" class="blanco">
-  <h2>Academia MagicBank</h2>
-  <p>
-    Cursos avanzados guiados por tutor con aprendizaje real,
-    ritmo personalizado y corrección directa.
-  </p>
-  <a class="btn-dorado" href="https://academy.magicbank.org">
-    Acceder a la Academia
-  </a>
-</section>
+    <div class="hero-links">
+      <a class="btn-principal" href="https://gustpuert.github.io/university.magicbank.org/">MagicBank University</a>
+      <a class="btn-secundario" href="https://academy.magicbank.org">Academia MagicBank</a>
+      <a class="btn-secundario" href="https://magicbank.org/anexos/calidad-academica-magicbank.html">Calidad Educativa</a>
+    </div>
+  </section>
 
-<section id="evaluacion">
-  <h2>Evaluación Profesional</h2>
-  <p>
-    Diagnóstico privado para conocer el nivel real de tu conocimiento
-    y orientar decisiones educativas.
-  </p>
-  <a class="btn-dorado" href="https://chatgpt.com/g/g-6946c65239d481918eefe1b9735441ca-evaluador-tutor-pro">
-    Acceder al Evaluador Tutor Pro
-  </a>
-</section>
+  <section>
+    <h2>Programas que transforman conocimiento en resultados reales</h2>
 
-<section id="pension" class="blanco">
-  <h2>Pensión Mágica</h2>
-  <p>
-    Programa educativo sobre banca descentralizada,
-    billeteras digitales y estructuras financieras modernas.
-  </p>
-  <p>
-    Primero comprendes. Luego decides.
-  </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
-    Acceder a Pensión Mágica
-  </a>
-</section>
+    <div class="bloque">
+      <p>
+        <strong>Pensión Mágica</strong> es un programa educativo guiado por tutor
+        donde aprendes, sin promesas falsas, cómo funciona la banca descentralizada,
+        los fondos de liquidez y los sistemas modernos de generación de rentas.
+        Primero comprendes. Luego decides.
+      </p>
+      <a href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
+        Acceder a Pensión Mágica
+      </a>
+    </div>
 
-<section id="trading">
-  <h2>Trading Cíclico</h2>
-  <p>
-    Formación estructurada para interpretar ciclos del mercado
-    con acompañamiento especializado.
-  </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/">
-    Acceder a Trading Cíclico
-  </a>
-</section>
+    <div class="bloque">
+      <p>
+        <strong>Artes y Oficios</strong> está diseñado para quienes desean emprender
+        desde casa o con baja inversión. Tutores especializados enseñan procesos
+        productivos reales como fábricas de alimentos, bebidas, postres, pizzas
+        y modelos prácticos de autoempleo.
+      </p>
+      <a href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
+        Acceder a Artes y Oficios
+      </a>
+    </div>
 
-<section id="artes" class="blanco">
-  <h2>Artes y Oficios</h2>
-  <p>
-    Programas prácticos para emprendedores con enfoque
-    en producción y comercialización local.
-  </p>
-  <a class="btn-dorado" href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
-    Acceder a Artes y Oficios
-  </a>
-</section>
+    <div class="bloque">
+      <p>
+        <strong>Fábrica de Tutores</strong> permite acceder a tutores personalizados
+        para necesidades específicas: salud, derecho, ingeniería, educación,
+        empresas o asistentes personales como Sensei. Cada tutor se adapta
+        al contexto, al ritmo y al objetivo del usuario.
+      </p>
+      <a href="https://magicbank2.mitiendanube.com/productos/fabrica-de-tutores/">
+        Acceder a la Fábrica de Tutores
+      </a>
+    </div>
+  </section>
 
-<section id="contacto">
-  <h2>Contacto MagicBank</h2>
+  <section class="contacto">
+    <h2>Contacto</h2>
+    <a href="https://wa.me/573112711772">WhatsApp: +57 311 271 1772</a>
+    <a href="mailto:magicbankia@gmail.com">magicbankia@gmail.com</a>
+  </section>
 
-  <form id="contactForm">
-    <input type="text" id="nombre" placeholder="Nombre" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <textarea id="mensaje" placeholder="Mensaje" required></textarea>
-    <button class="btn-dorado" type="submit">Enviar mensaje</button>
-  </form>
-
-  <p id="respuesta"></p>
-</section>
+</main>
 
 <footer>
-  <p>MagicBank © Ecosistema educativo de alto valor</p>
-  <p>Contacto: magicbankia@gmail.com · WhatsApp: wa.me/573112711772</p>
+  MagicBank © Ecosistema educativo guiado por Inteligencia Artificial
 </footer>
-
-<script>
-  const form = document.getElementById("contactForm");
-  const respuesta = document.getElementById("respuesta");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    respuesta.textContent = "Enviando mensaje...";
-
-    const data = {
-      nombre: document.getElementById("nombre").value,
-      email: document.getElementById("email").value,
-      mensaje: document.getElementById("mensaje").value
-    };
-
-    try {
-      const res = await fetch(
-        "https://magic-bank-backend-production-713e.up.railway.app/api/contact",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        }
-      );
-
-      const result = await res.json();
-      respuesta.textContent = result.message;
-      respuesta.style.color = "var(--dorado)";
-      form.reset();
-    } catch (err) {
-      respuesta.textContent = "Error de conexión con MagicBank";
-      respuesta.style.color = "red";
-    }
-  });
-</script>
 
 </body>
 </html>
