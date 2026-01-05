@@ -68,24 +68,13 @@
     h3 {
       font-size: 22px;
       color: var(--dorado);
-      margin: 28px 0 12px;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 16.5px;
       color: var(--gris);
-      margin-bottom: 16px;
-    }
-
-    ul {
-      padding-left: 22px;
-      margin-top: 14px;
-    }
-
-    li {
-      margin-bottom: 12px;
-      color: var(--gris);
-      font-size: 15.5px;
+      margin-bottom: 14px;
     }
 
     .tutores {
@@ -115,31 +104,6 @@
       text-decoration: none;
     }
 
-    .cta {
-      margin-top: 44px;
-      text-align: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 16px 38px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      margin: 10px;
-    }
-
-    .btn-whatsapp {
-      background-color: var(--dorado);
-      color: #1A1A1A;
-    }
-
-    .btn-email {
-      background-color: var(--blanco);
-      color: var(--azul-profundo);
-    }
-
     footer {
       padding: 50px 20px;
       text-align: center;
@@ -147,10 +111,27 @@
       color: var(--gris-oscuro);
       border-top: 1px solid rgba(255,255,255,0.08);
     }
+
+    #mb-admin-timer {
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      background: rgba(0,0,0,0.55);
+      color: var(--dorado);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      display: none;
+    }
   </style>
 </head>
 
 <body>
+
+<div id="mb-admin-timer">Acceso admin · 15:00</div>
 
 <header>
   <h1>Fábrica de Tutores MagicBank</h1>
@@ -163,81 +144,75 @@
 
 <main>
 
-<!-- BLOQUE 1: TUTORES PERSONALIZADOS (TEXTO LARGO, VENDEDOR, COMPLETO) -->
-<div class="bloque">
-  <h2>Tutores Personalizados MagicBank</h2>
-
-  <p>
-    La Fábrica de Tutores MagicBank nace de una realidad clara: cada persona aprende,
-    trabaja y vive de manera diferente. Por eso, no todos necesitan el mismo tutor,
-    ni el mismo tono, ni el mismo ritmo, ni la misma forma de explicación.
-  </p>
-
-  <p>
-    En MagicBank podemos construir tutores completamente personalizados para necesidades
-    específicas, humanas y profesionales. Desde un niño con dificultades de aprendizaje,
-    hasta un profesional que se prepara para un examen decisivo. Desde una madre que
-    busca apoyo educativo real para su hijo, hasta una empresa que necesita asistentes
-    inteligentes que no se cansen, no se equivoquen y no pierdan información.
-  </p>
-
-  <p>
-    Podemos crear tutores que:
-  </p>
-
-  <ul>
-    <li>Se adapten a condiciones psicológicas, cognitivas o emocionales específicas.</li>
-    <li>Utilicen un tono paciente, cercano, motivador o técnico según la necesidad.</li>
-    <li>Enseñen varias materias de forma integrada y progresiva.</li>
-    <li>Utilicen ejemplos del entorno real del estudiante o del trabajador.</li>
-    <li>Aprendan el contexto del usuario y lo acompañen en el tiempo.</li>
-  </ul>
-
-  <p>
-    Ejemplos reales de tutores que podemos construir:
-  </p>
-
-  <ul>
-    <li>Tutor para preparación de pruebas de Estado (ICFES, exámenes universitarios, homologaciones).</li>
-    <li>Tutor para niños con dificultades específicas de aprendizaje.</li>
-    <li>Tutor mecánico que guía diagnósticos por modelo, marca y falla del vehículo.</li>
-    <li>Tutor para profesionales de la salud que escucha, redacta y organiza información clínica.</li>
-    <li>Tutor empresarial que acompaña decisiones, informes y procesos.</li>
-  </ul>
-
-  <p>
-    Si puedes explicar qué necesitas, MagicBank puede construir el tutor.
-    No estás limitado a lo que existe hoy: estás entrando a una fábrica viva
-    de inteligencia aplicada.
-  </p>
-
-  <div class="cta">
-    <a class="btn btn-whatsapp" href="https://wa.me/573112711772" target="_blank">Hablar por WhatsApp</a>
-    <a class="btn btn-email" href="mailto:magicbankia@gmail.com">Contactar por Email</a>
-  </div>
-</div>
-
-<!-- BLOQUE 2: TUTORES ESPECIALIZADOS DEMOSTRATIVOS (AGREGADO, SIN DAÑAR LO ANTERIOR) -->
 <div class="bloque">
   <h2>Tutores Especializados Disponibles para Demostración</h2>
 
-  <p>
-    A continuación puedes ingresar directamente a tutores ya construidos para
-    ver cómo funcionan, cómo interactúan y qué tipo de acompañamiento ofrecen.
-    Este recorrido es demostrativo, no informativo.
-  </p>
-
   <div class="tutores">
-    <div class="card"><h3>Sensei Tutor Pro</h3><p>Asistente personal que escucha conversaciones y apoya en tiempo real.</p><a href="https://chatgpt.com/g/g-69547fda3efc81918ba83ac2b0ec7af7-sensei-magic-tutor-pro" target="_blank">Entrar</a></div>
-    <div class="card"><h3>SuperTraductor</h3><p>Traducción y enseñanza de idiomas en tiempo real.</p><a href="https://chatgpt.com/g/g-6936d30471708191b9ac5f00163d8605-supertraductor-magic-tutor-pro" target="_blank">Entrar</a></div>
-    <div class="card"><h3>Bienestar Tutor Pro</h3><p>Acompañamiento emocional y escucha activa.</p><a href="https://chatgpt.com/g/g-693e3bb199b881919ad636fff9084249-bienestartutor-pro" target="_blank">Entrar</a></div>
-    <div class="card"><h3>MagicBank Council</h3><p>Consejo de expertos para decisiones estratégicas.</p><a href="https://chatgpt.com/g/g-693b0820918c819199d3922ac8bfd57f-magicbank-council" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Salud</h3><p>Asistente profesional para personal de salud.</p><a href="https://chatgpt.com/g/g-69593c44a6c08191accf43d956372325-tap-salud" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Abogados</h3><p>Asistente jurídico especializado.</p><a href="https://chatgpt.com/g/g-695946138ec88191a7d55a83d238a968-tap-abogados" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Ingeniería</h3><p>Asistente técnico para procesos y documentación.</p><a href="https://chatgpt.com/g/g-695949c461208191b087fe103d72c0ce-tap-ingenieria" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Administración Pública</h3><p>Gestión y apoyo institucional.</p><a href="https://chatgpt.com/g/g-69594ab53b288191bd9ab50247e1a05c-tap-administracion-publica" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Educación</h3><p>Apoyo docente y pedagógico.</p><a href="https://chatgpt.com/g/g-6959471996e4819193965239320a5daa-tap-educacion" target="_blank">Entrar</a></div>
-    <div class="card"><h3>TAP Empresas</h3><p>Asistente corporativo integral.</p><a href="https://chatgpt.com/g/g-695947d7fe30819181bc53041e0c96d2-tap-empresas" target="_blank">Entrar</a></div>
+
+    <div class="card">
+      <h3>Sensei Tutor Pro</h3>
+      <p>Asistente personal que escucha, organiza ideas, apoya reuniones, clases y procesos cotidianos en tiempo real.</p>
+      <a href="https://chatgpt.com/g/g-69547fda3efc81918ba83ac2b0ec7af7-sensei-magic-tutor-pro" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>SuperTraductor</h3>
+      <p>
+        Tutor lingüístico avanzado que puede escuchar cualquier idioma,
+        traducirlo al instante y ayudarte a responder o hablar en cualquier idioma.
+        Ideal para viajes, negocios, reuniones internacionales y aprendizaje real.
+      </p>
+      <a href="https://chatgpt.com/g/g-6936d30471708191b9ac5f00163d8605-supertraductor-magic-tutor-pro" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>Bienestar Tutor Pro</h3>
+      <p>Acompañamiento emocional, escucha activa y orientación para equilibrio personal y mental.</p>
+      <a href="https://chatgpt.com/g/g-693e3bb199b881919ad636fff9084249-bienestartutor-pro" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>MagicBank Council</h3>
+      <p>Consejo estratégico de expertos para análisis, decisiones complejas y planificación.</p>
+      <a href="https://chatgpt.com/g/g-693b0820918c819199d3922ac8bfd57f-magicbank-council" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Salud</h3>
+      <p>Asistente profesional para personal de salud: escucha, redacta y organiza información clínica.</p>
+      <a href="https://chatgpt.com/g/g-69593c44a6c08191accf43d956372325-tap-salud" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Abogados</h3>
+      <p>Asistente jurídico que apoya redacción, análisis normativo y organización de casos.</p>
+      <a href="https://chatgpt.com/g/g-695946138ec88191a7d55a83d238a968-tap-abogados" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Ingeniería</h3>
+      <p>Asistente técnico para documentación, procesos, cálculos y soporte ingenieril.</p>
+      <a href="https://chatgpt.com/g/g-695949c461208191b087fe103d72c0ce-tap-ingenieria" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Administración Pública</h3>
+      <p>Apoyo institucional para informes, normativas, gestión pública y procesos administrativos.</p>
+      <a href="https://chatgpt.com/g/g-69594ab53b288191bd9ab50247e1a05c-tap-administracion-publica" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Educación</h3>
+      <p>Asistente pedagógico para docentes, planificación académica y acompañamiento educativo.</p>
+      <a href="https://chatgpt.com/g/g-6959471996e4819193965239320a5daa-tap-educacion" target="_blank">Entrar</a>
+    </div>
+
+    <div class="card">
+      <h3>TAP Empresas</h3>
+      <p>Asistente corporativo integral para análisis, informes, procesos y toma de decisiones.</p>
+      <a href="https://chatgpt.com/g/g-695947d7fe30819181bc53041e0c96d2-tap-empresas" target="_blank">Entrar</a>
+    </div>
+
   </div>
 </div>
 
@@ -247,6 +222,36 @@
   MagicBank © Fábrica de Tutores Inteligentes<br>
   Tecnología con propósito humano
 </footer>
+
+<script>
+  const DURACION = 15 * 60 * 1000;
+  const timerBox = document.getElementById("mb-admin-timer");
+
+  if (!localStorage.getItem("mb_admin_start")) {
+    localStorage.setItem("mb_admin_start", Date.now().toString());
+  }
+
+  function actualizarTimer() {
+    const inicio = parseInt(localStorage.getItem("mb_admin_start"), 10);
+    const ahora = Date.now();
+    const restante = DURACION - (ahora - inicio);
+
+    if (restante <= 0) {
+      localStorage.removeItem("mb_admin_start");
+      location.reload();
+      return;
+    }
+
+    const min = Math.floor(restante / 60000);
+    const seg = Math.floor((restante % 60000) / 1000).toString().padStart(2, "0");
+
+    timerBox.style.display = "block";
+    timerBox.textContent = `Acceso admin · ${min}:${seg}`;
+  }
+
+  setInterval(actualizarTimer, 1000);
+  actualizarTimer();
+</script>
 
 </body>
 </html>
