@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso Administrativo | MagicBank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --dorado: #D6B15A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --rojo: #C0392B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--azul-profundo);
+      color: var(--blanco);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contenedor {
+      max-width: 560px;
+      width: 100%;
+      padding: 50px 40px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--dorado);
+      font-size: 32px;
+      margin-bottom: 14px;
+      letter-spacing: 0.6px;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--gris);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 18px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--dorado);
+      color: #1A1A1A;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .error {
+      color: var(--rojo);
+      margin-top: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .panel {
+      display: none;
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .panel h2 {
+      color: var(--dorado);
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .panel a {
+      display: block;
+      margin-bottom: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: var(--blanco);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .panel a:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .nota {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--gris);
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+    <h1>Acceso Administrativo MagicBank</h1>
+
+    <p>
+      Este acceso está reservado exclusivamente para demostraciones institucionales,
+      presentaciones oficiales, pruebas controladas y evaluaciones autorizadas
+      del ecosistema MagicBank.
+    </p>
+
+    <input
+      type="password"
+      id="codigo"
+      placeholder="Ingrese el código administrativo"
+    >
+
+    <button onclick="validarCodigo()">Ingresar</button>
+
+    <div class="error" id="error">
+      Código incorrecto. Acceso denegado.
+    </div>
+
+    <div class="panel" id="panelAcceso">
+      <h2>Acceso Temporal Habilitado</h2>
+
+      <a href="https://gustpuert.github.io/tutores.university.magicbank.org/" target="_blank">
+        🎓 Tutores MagicBank University
+      </a>
+
+      <a href="https://gustpuert.github.io/tutores.academy.magicbank.org/" target="_blank">
+        📚 Tutores MagicBank Academy
+      </a>
+
+      <a href="https://magicbank.org/fabrica-de-tutores.html" target="_blank">
+        🏭 Fábrica de Tutores Especializados
+      </a>
+
+      <div class="nota">
+        Acceso habilitado por tiempo limitado.<br>
+        Este uso queda bajo responsabilidad del administrador.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const CODIGO_ADMIN = "MAGICBANK-DEMO-2026";
+    const DURACION_MINUTOS = 45;
+
+    function validarCodigo() {
+      const codigo = document.getElementById("codigo").value.trim();
+      const error = document.getElementById("error");
+      const panel = document.getElementById("panelAcceso");
+
+      if (codigo === CODIGO_ADMIN) {
+        const ahora = new Date().getTime();
+        const expiracion = ahora + DURACION_MINUTOS * 60 * 1000;
+        localStorage.setItem("magicbank_admin_exp", expiracion);
+
+        panel.style.display = "block";
+        error.style.display = "none";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    (function verificarSesion() {
+      const exp = localStorage.getItem("magicbank_admin_exp");
+      if (exp && new Date().getTime() < exp) {
+        document.getElementById("panelAcceso").style.display = "block";
+      }
+    })();
+  </script>
+
+</body>
+</html>
