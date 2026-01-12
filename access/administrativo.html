@@ -152,10 +152,8 @@
     const error = document.getElementById("error");
 
     if (input === claveActual()) {
-      if (!localStorage.getItem("mb_admin_start")) {
-        localStorage.setItem("mb_admin_start", Date.now().toString());
-      }
       localStorage.setItem("mb_admin_session", "active");
+      localStorage.setItem("mb_admin_start", Date.now().toString());
       error.style.display = "none";
       iniciarSesion();
     } else {
@@ -166,13 +164,12 @@
   function iniciarSesion() {
     document.getElementById("timer").style.display = "block";
     document.getElementById("navAdmin").style.display = "block";
-
-    if (!intervalo) {
-      iniciarCronometro();
-    }
+    iniciarCronometro();
   }
 
   function iniciarCronometro() {
+    if (intervalo) return;
+
     const timer = document.getElementById("timer");
     const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
 
@@ -194,9 +191,10 @@
     }, 1000);
   }
 
-  if (localStorage.getItem("mb_admin_session") === "active" && localStorage.getItem("mb_admin_start")) {
-    const restante = DURACION - (Date.now() - parseInt(localStorage.getItem("mb_admin_start"), 10));
-    if (restante > 0) {
+  // VALIDACIÓN REAL AL CARGAR
+  if (localStorage.getItem("mb_admin_session") === "active") {
+    const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
+    if (Date.now() - start < DURACION) {
       iniciarSesion();
     } else {
       localStorage.clear();
