@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Acceso Protegido</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root{--azul:#070C2A;--dorado:#D6B15A;--gris:#CFCFD6;--rojo:#C0392B;--blanco:#FFFFFF}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--azul);color:var(--blanco);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+    .card{background:rgba(255,255,255,.05);border-radius:18px;padding:40px;max-width:480px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+    h1{color:var(--dorado);margin-bottom:14px;font-size:24px}
+    p{color:var(--gris);font-size:14.5px;margin-bottom:20px}
+    .timer{font-size:18px;color:var(--dorado);font-weight:700;margin-bottom:24px}
+    button{width:100%;padding:14px;border-radius:10px;border:none;background:var(--dorado);color:#1A1A1A;font-weight:700;font-size:15px;cursor:pointer}
+    .bloqueado{color:var(--rojo);font-weight:600;display:none}
+  </style>
+</head>
+<body>
+<div class="card">
+  <h1>Acceso Protegido MagicBank</h1>
+  <p>Acceso temporal protegido por cronómetro institucional.</p>
+  <div id="timer" class="timer"></div>
+  <button id="btnAcceder" onclick="irAlTutor()">Entrar al Tutor University</button>
+  <div id="bloqueado" class="bloqueado">El tiempo de acceso ha finalizado.</div>
+</div>
+<script>
+  const DURACION=15*60*1000;
+  const TUTOR_URL="https://chatgpt.com/g/g-UNIVERSITY_ID";
+  function verificarSesion(){
+    const inicio=localStorage.getItem("mb_admin_start");
+    if(!inicio){bloquear();return;}
+    const restante=DURACION-(Date.now()-parseInt(inicio,10));
+    if(restante<=0){bloquear();}else{actualizarTimer(restante);}
+  }
+  function actualizarTimer(){
+    const timer=document.getElementById("timer");
+    const i=setInterval(()=>{
+      const inicio=parseInt(localStorage.getItem("mb_admin_start"),10);
+      const r=DURACION-(Date.now()-inicio);
+      if(r<=0){clearInterval(i);bloquear();return;}
+      const m=Math.floor(r/60000),s=Math.floor((r%60000)/1000);
+      timer.textContent=`Tiempo restante: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    },1000);
+  }
+  function irAlTutor(){window.location.href=TUTOR_URL;}
+  function bloquear(){
+    localStorage.clear();
+    document.getElementById("timer").textContent="";
+    document.getElementById("btnAcceder").style.display="none";
+    document.getElementById("bloqueado").style.display="block";
+    setTimeout(()=>{window.location.href="https://magicbank.org";},4000);
+  }
+  verificarSesion();
+</script>
+</body>
+</html>
