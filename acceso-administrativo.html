@@ -5,7 +5,7 @@
   <title>MagicBank | Acceso Administrativo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -168,20 +168,19 @@
   }
 
   function iniciarCronometro() {
-    if (intervalo) return;
-
     const timer = document.getElementById("timer");
     const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
+
+    if (intervalo) clearInterval(intervalo);
 
     intervalo = setInterval(() => {
       const restante = DURACION - (Date.now() - start);
 
       if (restante <= 0) {
         clearInterval(intervalo);
-        intervalo = null;
-        localStorage.clear();
-        alert("El tiempo de acceso administrativo ha finalizado.");
-        window.location.href = "https://magicbank.org";
+        localStorage.removeItem("mb_admin_session");
+        localStorage.removeItem("mb_admin_start");
+        window.location.href = "https://magicbank.org/feedback.html";
         return;
       }
 
@@ -191,14 +190,11 @@
     }, 1000);
   }
 
-  // VALIDACIÓN REAL AL CARGAR
-  if (localStorage.getItem("mb_admin_session") === "active") {
-    const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
-    if (Date.now() - start < DURACION) {
-      iniciarSesion();
-    } else {
-      localStorage.clear();
-    }
+  if (
+    localStorage.getItem("mb_admin_session") === "active" &&
+    localStorage.getItem("mb_admin_start")
+  ) {
+    iniciarSesion();
   }
 </script>
 
