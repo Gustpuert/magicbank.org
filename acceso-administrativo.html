@@ -126,7 +126,6 @@
   <div id="error" class="error">Clave incorrecta</div>
   <div id="timer" class="timer"></div>
 
-  <!-- NAVEGACIÓN ADMINISTRATIVA -->
   <div id="navAdmin" class="nav-admin">
     <a href="https://magicbank.org" target="_blank">🌐 MagicBank (Inicio)</a>
     <a href="https://gustpuert.github.io/university.magicbank.org/" target="_blank">🎓 MagicBank University</a>
@@ -141,6 +140,7 @@
 <script>
   const CLAVES = ["admin3232", "admin3233", "admin3234"];
   const DURACION = 15 * 60 * 1000;
+  let intervalo = null;
 
   function claveActual() {
     const bloque = Math.floor(Date.now() / DURACION) % CLAVES.length;
@@ -152,8 +152,10 @@
     const error = document.getElementById("error");
 
     if (input === claveActual()) {
+      if (!localStorage.getItem("mb_admin_start")) {
+        localStorage.setItem("mb_admin_start", Date.now().toString());
+      }
       localStorage.setItem("mb_admin_session", "active");
-      localStorage.setItem("mb_admin_start", Date.now().toString());
       error.style.display = "none";
       iniciarSesion();
     } else {
@@ -164,18 +166,22 @@
   function iniciarSesion() {
     document.getElementById("timer").style.display = "block";
     document.getElementById("navAdmin").style.display = "block";
-    iniciarCronometro();
+
+    if (!intervalo) {
+      iniciarCronometro();
+    }
   }
 
   function iniciarCronometro() {
     const timer = document.getElementById("timer");
     const start = parseInt(localStorage.getItem("mb_admin_start"), 10);
 
-    const intervalo = setInterval(() => {
+    intervalo = setInterval(() => {
       const restante = DURACION - (Date.now() - start);
 
       if (restante <= 0) {
         clearInterval(intervalo);
+        intervalo = null;
         localStorage.clear();
         alert("El tiempo de acceso administrativo ha finalizado.");
         window.location.href = "https://magicbank.org";
@@ -188,8 +194,13 @@
     }, 1000);
   }
 
-  if (localStorage.getItem("mb_admin_session") === "active") {
-    iniciarSesion();
+  if (localStorage.getItem("mb_admin_session") === "active" && localStorage.getItem("mb_admin_start")) {
+    const restante = DURACION - (Date.now() - parseInt(localStorage.getItem("mb_admin_start"), 10));
+    if (restante > 0) {
+      iniciarSesion();
+    } else {
+      localStorage.clear();
+    }
   }
 </script>
 
