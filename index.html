@@ -15,11 +15,7 @@
       --dorado: #D6B15A;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -46,16 +42,11 @@
       height: 42px;
       border-radius: 50%;
       background: radial-gradient(circle at top left, #f2d27a, var(--dorado));
-      box-shadow:
-        inset 0 2px 4px rgba(255,255,255,0.4),
-        inset 0 -3px 6px rgba(0,0,0,0.25),
-        0 6px 14px rgba(0,0,0,0.45);
       color: #1a1a1a;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 15px;
       text-decoration: none;
     }
 
@@ -86,16 +77,18 @@
     .hero-links {
       margin-top: 34px;
       display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 340px;
     }
 
     .hero-links a {
-      padding: 12px 26px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 500;
+      text-align: center;
     }
 
     .btn-principal {
@@ -108,6 +101,12 @@
       color: var(--dorado);
     }
 
+    .nota-demo {
+      font-size: 13px;
+      color: var(--gris);
+      margin-top: 4px;
+    }
+
     section {
       max-width: 1000px;
       margin: auto;
@@ -118,36 +117,6 @@
       font-size: 26px;
       color: var(--dorado);
       margin-bottom: 14px;
-    }
-
-    p {
-      font-size: 15.5px;
-      color: var(--gris);
-      margin-bottom: 16px;
-    }
-
-    .bloque {
-      margin-bottom: 34px;
-    }
-
-    .bloque a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 22px;
-      border-radius: 8px;
-      background-color: var(--dorado);
-      color: #1a1a1a;
-      text-decoration: none;
-      font-size: 13.5px;
-      font-weight: 500;
-    }
-
-    .contacto a {
-      display: block;
-      color: var(--dorado);
-      text-decoration: none;
-      margin-bottom: 8px;
-      font-size: 14px;
     }
 
     footer {
@@ -180,56 +149,30 @@
     </p>
 
     <div class="hero-links">
-      <a class="btn-principal" href="https://gustpuert.github.io/university.magicbank.org/">MagicBank University</a>
-      <a class="btn-secundario" href="https://academy.magicbank.org">Academia MagicBank</a>
-      <a class="btn-secundario" href="https://magicbank.org/anexos/calidad-academica-magicbank.html">Calidad Educativa</a>
-    </div>
-  </section>
 
-  <section>
-    <h2>Programas que transforman conocimiento en resultados reales</h2>
-
-    <div class="bloque">
-      <p>
-        <strong>Pensión Mágica</strong> es un programa educativo guiado por tutor
-        donde aprendes, sin promesas falsas, cómo funciona la banca descentralizada,
-        los fondos de liquidez y los sistemas modernos de generación de rentas.
-        Primero comprendes. Luego decides.
-      </p>
-      <a href="https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/">
-        Acceder a Pensión Mágica
+      <a class="btn-principal"
+         href="https://gustpuert.github.io/magicbank--demo/"
+         target="_blank">
+        🚀 Visita guiada a MagicBank
       </a>
-    </div>
 
-    <div class="bloque">
-      <p>
-        <strong>Artes y Oficios</strong> está diseñado para quienes desean emprender
-        desde casa o con baja inversión. Tutores especializados enseñan procesos
-        productivos reales como fábricas de alimentos, bebidas, postres, pizzas
-        y modelos prácticos de autoempleo.
-      </p>
-      <a href="https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/">
-        Acceder a Artes y Oficios
+      <div class="nota-demo">
+        Explora la plataforma demostrativa y conoce cómo funcionan nuestros tutores antes de decidir.
+      </div>
+
+      <a class="btn-secundario" href="https://gustpuert.github.io/university.magicbank.org/">
+        MagicBank University
       </a>
-    </div>
 
-    <div class="bloque">
-      <p>
-        <strong>Fábrica de Tutores</strong> permite acceder a tutores personalizados
-        para necesidades específicas: salud, derecho, ingeniería, educación,
-        empresas o asistentes personales como Sensei. Cada tutor se adapta
-        al contexto, al ritmo y al objetivo del usuario.
-      </p>
-      <a href="https://magicbank2.mitiendanube.com/productos/fabrica-de-tutores/">
-        Acceder a la Fábrica de Tutores
+      <a class="btn-secundario" href="https://academy.magicbank.org">
+        Academia MagicBank
       </a>
-    </div>
-  </section>
 
-  <section class="contacto">
-    <h2>Contacto</h2>
-    <a href="https://wa.me/573112711772">WhatsApp: +57 311 271 1772</a>
-    <a href="mailto:magicbankia@gmail.com">magicbankia@gmail.com</a>
+      <a class="btn-secundario" href="https://magicbank.org/anexos/calidad-academica-magicbank.html">
+        Calidad Educativa
+      </a>
+
+    </div>
   </section>
 
 </main>
