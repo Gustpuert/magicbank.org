@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Ecosistema educativo guiado por IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --dorado: #D6B15A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--azul-profundo);
+      color: var(--blanco);
+    }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-mb {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, #f2d27a, var(--dorado));
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
+    .hero {
+      max-width: 900px;
+      margin: auto;
+      padding: 90px 24px 70px;
+      text-align: center;
+    }
+
+    .logo-img {
+      width: 260px;
+      max-width: 90%;
+      margin-bottom: 40px;
+      filter: drop-shadow(0 0 20px rgba(214,177,90,.6));
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--dorado);
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--gris);
+      max-width: 780px;
+      margin: auto;
+    }
+
+    .hero-links {
+      margin-top: 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-links a {
+      padding: 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .btn-principal {
+      background-color: var(--dorado);
+      color: #1a1a1a;
+    }
+
+    .btn-secundario {
+      border: 1px solid var(--dorado);
+      color: var(--dorado);
+    }
+
+    .nota-demo {
+      font-size: 13px;
+      color: var(--gris);
+      margin-top: 4px;
+    }
+
+    /* AULA */
+    .aula {
+      margin-top: 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .aula img {
+      width: 100%;
+      max-width: 980px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(214,177,90,0.25);
+    }
+
+    .aula-titulo {
+      margin-top: 18px;
+      font-size: 18px;
+      color: var(--dorado);
+      letter-spacing: .5px;
+    }
+
+    .orbe {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd76a 0%, #d6b15a 60%, #6b4d1f 100%);
+      transform: translate(-50%, -50%);
+      animation: pulso 3s ease-in-out infinite;
+      box-shadow: 0 0 25px rgba(214,177,90,0.9);
+    }
+
+    @keyframes pulso {
+      0%,100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.3); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 13px;
+      color: var(--gris);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="https://magicbank.org/acceso-administrativo.html" class="admin-mb">MB</a>
+    <div class="logo-text">MAGICBANK</div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <img src="assets/img/logos/logo-magicbank.png" class="logo-img" alt="MagicBank">
+
+    <h1>Educación, conocimiento aplicado y tutores guiados por Inteligencia Artificial</h1>
+
+    <p>
+      MagicBank es un ecosistema educativo integral donde cada persona es acompañada
+      por tutores especializados que enseñan paso a paso, evalúan con rigor
+      y guían incluso después de finalizada la formación.
+    </p>
+
+    <div class="hero-links">
+      <a class="btn-principal" href="https://gustpuert.github.io/magicbank--demo/" target="_blank">
+        🚀 Visita guiada a MagicBank
+      </a>
+
+      <div class="nota-demo">
+        Explora la plataforma demostrativa y conoce cómo funcionan nuestros tutores antes de decidir.
+      </div>
+
+      <a class="btn-secundario" href="https://gustpuert.github.io/university.magicbank.org/">MagicBank University</a>
+      <a class="btn-secundario" href="https://academy.magicbank.org">Academia MagicBank</a>
+      <a class="btn-secundario" href="https://magicbank.org/anexos/calidad-academica-magicbank.html">Calidad Educativa</a>
+    </div>
+
+    <div class="aula">
+      <img src="assets/img/hero/aula-magicbank.png" alt="Aula MagicBank">
+      <div class="orbe"></div>
+      <div class="aula-titulo">Aula MagicBank</div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  MagicBank © Ecosistema educativo guiado por Inteligencia Artificial
+</footer>
+
+</body>
+</html>
