@@ -22,31 +22,42 @@
       background-color: var(--azul-profundo);
       color: var(--blanco);
       line-height: 1.7;
+      padding-top: 80px;
+    }
+
+    /* MENÚ */
+    .menu-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: rgba(7,12,42,0.95);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 10000;
     }
 
     .menu-toggle {
-      position: fixed;
-      top: 18px;
-      left: 18px;
       background: rgba(214,177,90,0.25);
       border: 1px solid rgba(214,177,90,0.5);
       color: var(--dorado);
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 10px;
       cursor: pointer;
-      z-index: 10000;
       font-weight: 600;
     }
 
     .menu {
       position: fixed;
-      top: 0;
-      left: -300px;
-      width: 270px;
-      height: 100vh;
+      top: 80px;
+      left: -280px;
+      width: 260px;
+      height: calc(100vh - 80px);
       background: rgba(7,12,42,0.98);
-      padding: 28px 20px;
-      transition: left .3s ease;
+      padding: 25px 20px;
+      transition: left 0.3s ease;
       z-index: 9999;
     }
 
@@ -57,16 +68,14 @@
       color: var(--gris);
       text-decoration: none;
       font-size: 14px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    .menu a:hover {
-      color: var(--dorado);
-    }
+    .menu a:hover { color: var(--dorado); }
 
     header {
-      padding: 100px 24px 60px;
       text-align: center;
+      padding: 60px 24px 40px;
     }
 
     header h1 {
@@ -79,7 +88,7 @@
       max-width: 900px;
       margin: auto;
       color: var(--gris);
-      font-size: 16px;
+      font-size: 17px;
     }
 
     main {
@@ -90,20 +99,21 @@
 
     .bloque {
       background: rgba(255,255,255,0.05);
-      border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 40px;
+      border-radius: 18px;
+      padding: 50px;
+      margin-bottom: 50px;
     }
 
     .bloque h2 {
       color: var(--dorado);
-      margin-bottom: 16px;
+      margin-bottom: 25px;
+      font-size: 28px;
     }
 
     .bloque p {
       color: var(--blanco);
-      font-size: 15px;
-      margin-bottom: 14px;
+      font-size: 16.5px;
+      margin-bottom: 18px;
     }
 
     footer {
@@ -118,61 +128,148 @@
 
 <body>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰ Menú</div>
+<div class="menu-bar">
+  <div class="menu-toggle" onclick="toggleMenu()">☰ Menú</div>
+</div>
 
 <div class="menu" id="menu">
   <a href="https://magicbank.org">Inicio</a>
-  <a href="https://gustpuert.github.io/university.magicbank.org/">University (Pago)</a>
   <a href="https://academy.magicbank.org/">Academy (Pago)</a>
-  <a href="https://magicbank.org/fabrica-de-tutores-pago.html">Fábrica de Tutores</a>
+  <a href="https://gustpuert.github.io/university.magicbank.org/">University (Pago)</a>
+  <a href="https://magicbank.org/fabrica-de-tutores-pago.html">Fábrica de Tutores (Pago)</a>
 </div>
 
 <header>
   <h1>Calidad Académica MagicBank</h1>
   <p>
-    Sistema educativo automatizado basado en inteligencia artificial,
-    evaluación continua y certificación real del conocimiento.
+    Un modelo educativo avanzado, automatizado y diseñado para formar
+    profesionales reales, con conocimiento profundo, actualizado y aplicable.
   </p>
 </header>
 
 <main>
 
   <div class="bloque">
-    <h2>Modelo Académico Inteligente</h2>
+    <h2>📘 Un modelo educativo único en el mundo</h2>
+
     <p>
-      MagicBank opera sin intervención humana en evaluaciones.
-      El tutor analiza, enseña y certifica de forma autónoma.
+      MagicBank no funciona como una academia tradicional. Su sistema educativo
+      se basa en un <strong>modelo multimodal por capas</strong>, diseñado para que el
+      aprendizaje se adapte completamente al estudiante, y no al revés.
+    </p>
+
+    <p>
+      El tutor analiza el perfil cognitivo del alumno, su forma de razonar,
+      su ritmo de comprensión, sus errores recurrentes y su forma de procesar
+      la información. A partir de allí, ajusta el contenido, el lenguaje,
+      los ejemplos y el nivel de profundidad.
+    </p>
+
+    <p>
+      El estudiante no memoriza. Comprende.  
+      No repite. Domina.  
+      No avanza por tiempo, sino por conocimiento real.
     </p>
   </div>
 
   <div class="bloque">
-    <h2>Evaluación Implícita y Explícita</h2>
+    <h2>🎓 Formación estructurada en 10 módulos reales</h2>
+
     <p>
-      Durante el módulo el tutor evalúa constantemente.
-      Al final, el estudiante debe aprobar un examen explícito obligatorio.
+      Cada facultad de MagicBank está compuesta por <strong>10 módulos obligatorios</strong>,
+      organizados de forma progresiva y con dificultad creciente.
+    </p>
+
+    <p>
+      Cada módulo incluye:
+    </p>
+
+    <p>
+      • Evaluación implícita constante<br>
+      • Análisis del razonamiento del estudiante<br>
+      • Corrección automática de vacíos conceptuales<br>
+      • Adaptación del nivel de enseñanza<br>
+      • Evaluación explícita obligatoria para avanzar
+    </p>
+
+    <p>
+      El estudiante solo avanza cuando demuestra dominio real del contenido.
+      No existe avance automático ni aprobación por asistencia.
     </p>
   </div>
 
   <div class="bloque">
-    <h2>Certificación Automática</h2>
+    <h2>🧠 Evaluación inteligente y aprendizaje real</h2>
+
     <p>
-      El certificado solo se emite cuando el tutor valida que el estudiante
-      domina completamente el contenido.
+      El sistema evalúa al estudiante de forma continua sin que este lo perciba.
+      Analiza su capacidad de razonamiento, coherencia, aplicación práctica
+      y comprensión profunda.
+    </p>
+
+    <p>
+      Si el alumno comete errores conceptuales graves, el tutor retrocede,
+      refuerza la base y explica nuevamente desde otro enfoque.
+    </p>
+
+    <p>
+      Solo cuando el sistema detecta dominio real, se habilita el examen explícito.
+      Esto garantiza que el certificado represente conocimiento auténtico.
     </p>
   </div>
 
   <div class="bloque">
-    <h2>Actualización Permanente</h2>
+    <h2>🌐 Actualización automática y conocimiento vivo</h2>
+
     <p>
-      El sistema se mantiene actualizado automáticamente,
-      garantizando vigencia académica continua.
+      MagicBank utiliza sistemas de actualización automatizada que consultan
+      fuentes oficiales en tiempo real.
+    </p>
+
+    <p>
+      En derecho y contaduría, el sistema se actualiza con información de:
+      cortes supremas, organismos tributarios, legislación vigente y entes oficiales.
+    </p>
+
+    <p>
+      En administración, marketing y tecnología, los contenidos se ajustan
+      a tendencias globales, marcos internacionales y prácticas actuales.
+    </p>
+
+    <p>
+      El conocimiento nunca queda obsoleto. Siempre está vivo.
+    </p>
+  </div>
+
+  <div class="bloque">
+    <h2>📜 Certificación y proyección profesional</h2>
+
+    <p>
+      El certificado de MagicBank acredita conocimiento real y comprobable.
+      No reemplaza licencias profesionales nacionales, pero sí respalda
+      el dominio del contenido.
+    </p>
+
+    <p>
+      El estudiante puede:
+    </p>
+
+    <p>
+      • Prepararse para exámenes universitarios<br>
+      • Homologar conocimientos<br>
+      • Fortalecer su perfil profesional<br>
+      • Utilizar el tutor como asistente permanente
+    </p>
+
+    <p>
+      MagicBank no vende títulos. Forma profesionales capaces.
     </p>
   </div>
 
 </main>
 
 <footer>
-  MagicBank © Sistema Educativo Inteligente
+  MagicBank © Sistema Educativo Inteligente · Excelencia Académica Real
 </footer>
 
 <script>
