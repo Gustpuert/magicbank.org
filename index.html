@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MagicBank | Ecosistema educativo guiado por IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-profundo: #070C2A;
+      --blanco: #FFFFFF;
+      --gris: #CFCFD6;
+      --dorado: #D6B15A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--azul-profundo);
+      color: var(--blanco);
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-mb {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, #f2d27a, var(--dorado));
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
+    .hero {
+      max-width: 900px;
+      margin: auto;
+      padding: 110px 24px 90px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 16.5px;
+      color: var(--gris);
+      max-width: 760px;
+      margin-bottom: 36px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 360px;
+    }
+
+    .hero-links a {
+      padding: 15px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-principal {
+      background-color: var(--dorado);
+      color: #1a1a1a;
+    }
+
+    .btn-secundario {
+      border: 1px solid var(--dorado);
+      color: var(--dorado);
+    }
+
+    .evaluador {
+      max-width: 900px;
+      margin: auto;
+      padding: 80px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .evaluador h2 {
+      color: var(--dorado);
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .evaluador p {
+      color: var(--gris);
+      font-size: 15.5px;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .evaluador a {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 20px;
+      background: var(--dorado);
+      color: #1a1a1a;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 13px;
+      color: var(--gris);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="https://magicbank.org/acceso-administrativo.html" class="admin-mb">MB</a>
+    <div class="logo">MAGICBANK</div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Educación, conocimiento aplicado y tutores guiados por Inteligencia Artificial</h1>
+
+    <p>
+      MagicBank es un ecosistema educativo integral donde cada persona es acompañada
+      por tutores especializados que enseñan paso a paso, evalúan con rigor
+      y guían incluso después de finalizada la formación.
+    </p>
+
+    <div class="hero-links">
+      <a class="btn-principal" href="https://gustpuert.github.io/magicbank--demo/" target="_blank">
+        🚀 Visita guiada a MagicBank
+      </a>
+
+      <a class="btn-secundario" href="https://gustpuert.github.io/university.magicbank.org/">
+        MagicBank University
+      </a>
+
+      <a class="btn-secundario" href="https://academy.magicbank.org">
+        Academia MagicBank
+      </a>
+
+      <a class="btn-secundario" href="https://gustpuert.github.io/magicbank.org/fabrica-de-tutores-pago.html">
+        Fábrica de Tutores
+      </a>
+    </div>
+  </section>
+
+  <!-- EVALUADOR TUTOR PRO -->
+  <section class="evaluador">
+    <h2>Evaluador Tutor Pro</h2>
+
+    <p>
+      El Evaluador Tutor Pro es el sistema inteligente de MagicBank diseñado para medir
+      tu nivel real de conocimiento antes de iniciar o continuar cualquier formación.
+    </p>
+
+    <p>
+      Puedes solicitar una evaluación en áreas como Derecho, Contaduría, Administración,
+      Marketing, Desarrollo de Software, Cocina, Nutrición Inteligente, ChatGPT,
+      Inglés, Francés, Alemán, Portugués o Chino.
+    </p>
+
+    <p>
+      El tutor conversa contigo, analiza tus respuestas, detecta vacíos de conocimiento
+      y determina con precisión tu nivel actual y qué debes reforzar.
+      No es un test automático: es una evaluación guiada e inteligente.
+    </p>
+
+    <p>
+      Esta herramienta te permite saber exactamente dónde estás parado académicamente
+      antes de iniciar cualquier programa dentro de MagicBank.
+    </p>
+
+    <a href="https://chatgpt.com/g/g-6946c65239d481918eefe1b9735441ca-evaluador-tutor-pro" target="_blank">
+      Iniciar Evaluación con Tutor Pro
+    </a>
+  </section>
+</main>
+
+<footer>
+  MagicBank © Ecosistema educativo guiado por Inteligencia Artificial
+</footer>
+
+</body>
+</html>
