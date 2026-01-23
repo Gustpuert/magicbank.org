@@ -22,9 +22,13 @@
       background-color: var(--azul-profundo);
       color: var(--blanco);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    /* BOTÓN MENÚ */
+    body.menu-open {
+      overflow: hidden;
+    }
+
     .menu-toggle {
       position: fixed;
       top: 18px;
@@ -35,33 +39,49 @@
       padding: 10px 14px;
       border-radius: 10px;
       cursor: pointer;
-      z-index: 10000;
+      z-index: 1003;
       font-weight: 600;
     }
 
-    /* MENÚ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      z-index: 1001;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .menu {
       position: fixed;
       top: 0;
-      left: -300px;
-      width: 270px;
-      height: 100vh;
+      left: 0;
+      width: 100%;
+      height: 100dvh;
       background: rgba(7,12,42,0.98);
-      padding: 28px 20px;
-      transition: left .3s ease;
-      z-index: 9999;
+      padding: 80px 24px;
+      transform: translateX(-100%);
+      transition: transform .35s ease;
+      z-index: 1002;
       box-shadow: 8px 0 30px rgba(0,0,0,.6);
-      overflow-y: auto;
     }
 
-    .menu.open { left: 0; }
+    .menu.open {
+      transform: translateX(0);
+    }
 
     .menu a {
       display: block;
       color: var(--gris);
       text-decoration: none;
-      font-size: 14px;
-      margin-bottom: 10px;
+      font-size: 15px;
+      margin-bottom: 14px;
     }
 
     .menu a:hover {
@@ -77,7 +97,6 @@
       font-size: 38px;
       color: var(--dorado);
       margin-bottom: 18px;
-      letter-spacing: 0.5px;
     }
 
     header p {
@@ -149,12 +168,12 @@
 <body>
 
 <div class="menu-toggle" onclick="toggleMenu()">☰ Menú</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <div class="menu" id="menu">
   <a href="https://magicbank.org">Inicio</a>
   <a href="https://gustpuert.github.io/university.magicbank.org/">University (Pago)</a>
   <a href="https://academy.magicbank.org/">Academy (Pago)</a>
-  <a href="https://magicbank.org/fabrica-de-tutores-pago.html">Fábrica de Tutores</a>
 </div>
 
 <header>
@@ -214,6 +233,8 @@
 <script>
   function toggleMenu() {
     document.getElementById("menu").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("active");
+    document.body.classList.toggle("menu-open");
   }
 </script>
 
