@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Activación MagicBank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+font-family:Arial;
+background:#070C2A;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+.card{
+background:#0f172a;
+padding:30px;
+border-radius:12px;
+max-width:500px;
+margin:auto;
+}
+
+.btn{
+background:#D6B15A;
+color:black;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+margin-top:15px;
+display:block;
+}
+
+.token-box{
+background:#020617;
+padding:10px;
+border-radius:6px;
+word-break:break-all;
+margin-top:10px;
+font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Activación de acceso</h2>
+
+<p id="status">Validando información...</p>
+
+<div id="manual" style="display:none;">
+
+<p><strong>Programa:</strong></p>
+<p id="curso"></p>
+
+<p><strong>Correo:</strong></p>
+<p id="email"></p>
+
+<p><strong>Código de acceso:</strong></p>
+<div id="token" class="token-box"></div>
+
+<div class="btn" onclick="copiar()">Copiar acceso</div>
+
+<div class="btn" onclick="accederTutor()">Acceder al tutor</div>
+
+</div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const token = params.get("token");
+const email = params.get("email");
+const curso = params.get("curso");
+
+/* VALIDAR AUTOMÁTICAMENTE AL CARGAR */
+
+fetch("https://magic-bank-backend-production-713e.up.railway.app/api/validate-token", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    token: token,
+    email: email
+  })
+})
+.then(res => res.json())
+.then(data => {
+
+  if (!data.valid) {
+    document.getElementById("status").innerText = "Token inválido o expirado";
+    return;
+  }
+
+  /* MOSTRAR DATOS */
+
+  document.getElementById("status").innerText = "Acceso listo";
+
+  document.getElementById("curso").innerText = curso || data.product || "Programa";
+  document.getElementById("email").innerText = email;
+  document.getElementById("token").innerText = token;
+
+  document.getElementById("manual").style.display = "block";
+
+})
+.catch(() => {
+  document.getElementById("status").innerText = "Error de conexión";
+});
+
+/* COPIAR */
+
+function copiar(){
+  navigator.clipboard.writeText(token);
+  alert("Código copiado");
+}
+
+/* ACCEDER AL TUTOR */
+
+function accederTutor(){
+
+  window.location.href =
+  `https://magic-bank-backend-production-713e.up.railway.app/access/${token}`;
+
+}
+
+</script>
+
+</body>
+</html>
