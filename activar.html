@@ -62,52 +62,43 @@ const params = new URLSearchParams(window.location.search);
 
 const token = params.get("token");
 const email = params.get("email");
+const curso = params.get("curso");
 
-document.getElementById("email").innerText = email;
-document.getElementById("token").innerText = token;
+/* Mostrar info en pantalla */
 
-// 🔥 VALIDACIÓN REAL CON BACKEND
-fetch("https://magic-bank-backend-production-713e.up.railway.app/api/validate-token", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-token: token,
-email: email
-})
-})
-.then(res => res.json())
-.then(data => {
+document.getElementById("curso").innerText = curso || "Tu programa";
+document.getElementById("email").innerText = email || "";
 
-if(data.valid){
+/* BOTÓN ACCESO */
 
-document.getElementById("status").innerText = "Acceso validado. Redirigiendo...";
+function accederTutor() {
 
-// 🔥 REDIRECCIÓN AUTOMÁTICA
-setTimeout(() => {
-window.location.href = `https://magic-bank-backend-production-713e.up.railway.app/access/${token}`;
-}, 1500);
+  fetch("https://magic-bank-backend-production-713e.up.railway.app/api/validate-token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      token: token,
+      email: email
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
 
-}else{
+    if (!data.valid) {
+      alert("Token inválido o expirado");
+      return;
+    }
 
-document.getElementById("status").innerText = "Validación manual requerida";
-document.getElementById("manual").style.display = "block";
+    /* AQUÍ REDIRIGE */
+    window.location.href = `https://magic-bank-backend-production-713e.up.railway.app/access/${token}`;
 
-}
+  })
+  .catch(() => {
+    alert("Error de conexión");
+  });
 
-})
-.catch(err => {
-
-document.getElementById("status").innerText = "Error de conexión";
-document.getElementById("manual").style.display = "block";
-
-});
-
-// COPIAR
-function copiar(){
-navigator.clipboard.writeText(`Correo: ${email}\nToken: ${token}`);
-alert("Copiado");
 }
 
 </script>
