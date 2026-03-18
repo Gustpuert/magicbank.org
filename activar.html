@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Activación MagicBank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+font-family:Inter,sans-serif;
+background:#f4f4f8;
+margin:0;
+}
+
+.top{
+background:#5b4ee6;
+color:#fff;
+padding:16px;
+display:flex;
+align-items:center;
+}
+
+.mb{
+width:38px;height:38px;border-radius:50%;
+background:#fff;color:#5b4ee6;
+display:flex;align-items:center;justify-content:center;
+font-weight:700;text-decoration:none;
+}
+
+.container{
+max-width:900px;
+margin:30px auto;
+padding:20px;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+margin-bottom:20px;
+}
+
+h1{margin-top:0}
+
+.token-box{
+background:#f4f4f4;
+padding:12px;
+border-radius:8px;
+margin-top:5px;
+word-break:break-all;
+}
+
+.btn{
+display:block;
+text-align:center;
+background:#5b4ee6;
+color:#fff;
+padding:14px;
+border-radius:10px;
+text-decoration:none;
+margin-top:15px;
+cursor:pointer;
+}
+
+.small{
+font-size:13px;
+color:#777;
+margin-top:10px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+font-size:12px;
+color:#999;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+<a href="https://magicbank.org" class="mb">MB</a>
+<div style="margin-left:10px;"><strong>MAGICBANK</strong></div>
+</div>
+
+<div class="container">
+
+<div class="card">
+<h1>Bienvenido a tu Tutor MagicBank</h1>
+
+<p>
+Estás a punto de iniciar tu experiencia de aprendizaje con inteligencia artificial.
+</p>
+
+<p>
+Antes de comenzar, debes activar tu acceso correctamente.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🔐 Tu acceso</h3>
+
+<p><strong>Curso:</strong></p>
+<div id="cursoBox"></div>
+
+<p><strong>Correo:</strong></p>
+<div id="emailBox"></div>
+
+<p><strong>Código de acceso:</strong></p>
+<div id="tokenBox" class="token-box"></div>
+
+<div class="btn" onclick="copiarAcceso()">Copiar acceso</div>
+
+<div class="btn" onclick="irTutor()">Ir al tutor</div>
+
+<p class="small">
+Copia tu acceso y pégalo en el chat del tutor. Luego presiona enviar y confirma.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>📘 Recomendaciones importantes</h3>
+
+<p>
+• Este acceso es válido por 30 días.<br>
+• El tutor responde mejor si sigues el mismo tema.<br>
+• Evita mezclar temas diferentes en una sola conversación.<br>
+• En la parte superior izquierda puedes renombrar los chats por módulo.<br>
+• Cada módulo debe trabajarse en un chat diferente para mayor precisión.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+MagicBank Educational Ecosystem
+</footer>
+
+<script>
+
+// ===== CAPTURA PARAMETROS =====
+function getParam(name){
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+const token = getParam("token");
+const email = getParam("email");
+const curso = getParam("curso");
+
+// ===== MOSTRAR DATOS =====
+if(token){
+  document.getElementById("tokenBox").innerText = token;
+}
+
+if(email){
+  document.getElementById("emailBox").innerText = email;
+}
+
+if(curso){
+  document.getElementById("cursoBox").innerText = curso;
+}
+
+// ===== COPIAR =====
+function copiarAcceso(){
+  const texto = `Correo: ${email}\nToken: ${token}`;
+  navigator.clipboard.writeText(texto);
+  alert("Acceso copiado. Ahora pégalo en el tutor.");
+}
+
+// ===== REDIRECCION INTELIGENTE =====
+function irTutor(){
+
+  let url = "";
+
+  // IDIOMAS
+  if(curso === "Inglés"){
+    url = "https://chatgpt.com/g/g-69269540618c8191ad2fcc7a5a86b622";
+  }
+  else if(curso === "Francés"){
+    url = "https://chatgpt.com/g/g-692af8c0b460819197c6c780bb96aaed";
+  }
+  else if(curso === "Chino"){
+    url = "https://chatgpt.com/g/g-694fec2d35c88191833aa2af7d92fce0";
+  }
+  else if(curso === "Portugués"){
+    url = "https://chatgpt.com/g/g-694ff45ee8a88191b72cd536885b0876";
+  }
+  else if(curso === "Italiano"){
+    url = "https://chatgpt.com/g/g-694ff655ce908191871b8656228b5971";
+  }
+  else if(curso === "Alemán"){
+    url = "https://chatgpt.com/g/g-694ff6db1224819184d471e770ab7bf4";
+  }
+
+  // CURSOS
+  else if(curso === "Cocina avanzada"){
+    url = "https://chatgpt.com/g/g-6925b1e4cff88191a3e46165e9ab7824";
+  }
+  else if(curso === "Nutrición inteligente"){
+    url = "https://chatgpt.com/g/g-6927446749dc8191913af12801371ec9";
+  }
+  else if(curso === "Curso avanzado ChatGPT"){
+    url = "https://chatgpt.com/g/g-6925338f45d88191b5c5c2b3080e553a";
+  }
+  else if(curso === "Artes y oficios"){
+    url = "https://chatgpt.com/g/g-69482335eefc81918355d1df644de6d0";
+  }
+  else if(curso === "Trading cíclico"){
+    url = "https://chatgpt.com/g/g-6936550a35bc81919aa54bae25f5e133";
+  }
+  else if(curso === "Pensiones mágicas"){
+    url = "https://chatgpt.com/g/g-6927e4527ac881919cf2697da6dd674b";
+  }
+  else if(curso === "Banca digital"){
+    url = "https://chatgpt.com/g/g-68f5676553c48191b9134e9f3f874efa";
+  }
+
+  // UNIVERSITY
+  else if(curso === "Facultad Derecho"){
+    url = "https://chatgpt.com/g/g-69345443f0848191996abc2cf7cc9786";
+  }
+  else if(curso === "Facultad Contaduría"){
+    url = "https://chatgpt.com/g/g-6934af28002481919dd9799d7156869f";
+  }
+  else if(curso === "Administración y negocios"){
+    url = "https://chatgpt.com/g/g-6934d1a2900c8191ab3aafa382225a65";
+  }
+  else if(curso === "Desarrollo software"){
+    url = "https://chatgpt.com/g/g-69356a835d888191bf80e11a11e39e2e";
+  }
+  else if(curso === "Marketing"){
+    url = "https://chatgpt.com/g/g-693703fa8a008191b91730375fcc4d64";
+  }
+
+  // BACHILLERATO
+  else if(curso === "Bachillerato completo MagicBank"){
+    url = "https://chatgpt.com/g/g-699e59962d20819194b173b12f4857ed-bachillerato-director-academivo-tutor-pro";
+  }
+
+  // CONSERVATORIO
+  else if(curso === "Conservatorio MagicBank"){
+    url = "https://chatgpt.com/g/g-69b0f60650e88191bfdb5508f1b17254-director-musical-magicbank";
+  }
+
+  // FALLBACK
+  if(!url){
+    alert("Tutor no encontrado");
+    return;
+  }
+
+  window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>
