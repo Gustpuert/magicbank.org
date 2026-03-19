@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MagicBank Tutor Factory</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:Inter,sans-serif;background:#f4f4f8;margin:0}
+
+/* TOP */
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px 20px;
+background:#5b4ee6;
+color:white;
+}
+
+.home-btn{
+background:white;
+color:#5b4ee6;
+padding:8px 14px;
+border-radius:8px;
+text-decoration:none;
+font-size:14px;
+font-weight:500;
+}
+
+/* SEARCH */
+.search{
+background:#fff;
+margin:10px;
+padding:12px;
+border-radius:12px;
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.search input{border:none;outline:none;width:100%}
+
+/* SUGGESTIONS */
+#suggestions{
+position:absolute;
+top:45px;
+left:0;
+width:100%;
+background:#fff;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+display:none;
+z-index:999;
+}
+.suggestion{padding:10px;cursor:pointer}
+.suggestion:hover{background:#eee}
+
+/* HERO */
+.hero{max-width:1100px;margin:20px auto;border-radius:16px;overflow:hidden}
+.hero img{width:100%}
+
+/* GRID */
+.container{max-width:1100px;margin:auto;padding:20px}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:14px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.card h3{margin:0 0 10px}
+.card p{font-size:14px;color:#555}
+
+.note{
+font-size:12px;
+color:#777;
+margin-top:10px;
+}
+
+.btn{
+display:block;
+text-align:center;
+background:#5b4ee6;
+color:#fff;
+padding:12px;
+border-radius:10px;
+text-decoration:none;
+margin-top:12px;
+}
+
+.es{
+display:block;
+font-size:13px;
+color:#777;
+margin-top:4px;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:40px;
+background:#fff;
+margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+<div class="top">
+<div><strong>MAGICBANK TUTOR FACTORY</strong></div>
+<a class="home-btn" href="https://magicbank.org">
+Home
+<span class="es">Inicio</span>
+</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search">
+🔍
+<div style="width:100%;position:relative;">
+<input id="searchInput" placeholder="Search / Buscar: empresa, salud, derecho...">
+<div id="suggestions"></div>
+</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+<img src="https://magicbank.org/assets/img/hero/aula-magicbank-oficial.png">
+</div>
+
+<div class="container">
+<div class="grid">
+
+<!-- EMPRESAS -->
+<div class="card">
+<h3>Business Tutors <span class="es">Empresas</span></h3>
+<p>
+Custom AI tutors for companies and business teams.
+<span class="es">Tutores personalizados para empresas y equipos.</span>
+</p>
+<div class="note">Create your intelligent assistant.</div>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-empresas/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- ADMIN PUBLICA -->
+<div class="card">
+<h3>Public Administration <span class="es">Administración Pública</span></h3>
+<p>
+AI tutors for public institutions and governance.
+<span class="es">Tutores para entidades públicas.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-administracion-publica/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- EDUCACION -->
+<div class="card">
+<h3>Education <span class="es">Educación</span></h3>
+<p>
+Tutors for academic institutions and teaching.
+<span class="es">Tutores para educación y formación.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-educacion/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- INGENIERIA -->
+<div class="card">
+<h3>Engineering <span class="es">Ingeniería</span></h3>
+<p>
+Technical tutors for engineering fields.
+<span class="es">Tutores técnicos especializados.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-ingenieros/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- DERECHO -->
+<div class="card">
+<h3>Legal Tutors <span class="es">Derecho</span></h3>
+<p>
+AI assistants for legal professionals.
+<span class="es">Asistentes legales inteligentes.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-derecho/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- SALUD -->
+<div class="card">
+<h3>Health Tutors <span class="es">Salud</span></h3>
+<p>
+Specialized tutors for healthcare.
+<span class="es">Tutores para el sector salud.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/tap-salud/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+<!-- CONTABILIDAD -->
+<div class="card">
+<h3>Accounting Assistant <span class="es">Contabilidad</span></h3>
+<p>
+Professional AI assistant for accounting.
+<span class="es">Asistente profesional contable.</span>
+</p>
+<a class="btn" href="https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/" target="_blank">
+Activate Tutor<span class="es">Activar Tutor</span>
+</a>
+</div>
+
+</div>
+</div>
+
+<footer>
+<strong>MAGICBANK TUTOR FACTORY</strong><br>
+Create your own intelligent assistant
+<span class="es">Crea tu propio tutor inteligente</span>
+</footer>
+
+<script>
+function normalize(t){
+return t.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.trim();
+}
+
+/* ================================
+   DATA DESDE BACKEND
+================================ */
+
+let courses = [];
+
+fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
+.then(res => res.json())
+.then(data => {
+
+courses = data.map(c => ({
+name: c.nombre,
+keywords: [
+c.nombre.toLowerCase(),
+c.area.toLowerCase()
+],
+url: c.store_url
+}));
+
+})
+.catch(err => console.error("Error catálogo:", err));
+
+/* ================================
+   BÚSQUEDA INTELIGENTE (TUYA)
+================================ */
+
+const input=document.getElementById("searchInput");
+const suggestions=document.getElementById("suggestions");
+
+input.addEventListener("input",function(){
+
+let value=normalize(this.value);
+suggestions.innerHTML="";
+
+if(value.length<2){
+suggestions.style.display="none";
+return;
+}
+
+let results=courses.map(c=>{
+let score=0;
+
+c.keywords.forEach(k=>{
+if(normalize(k).includes(value)) score+=2;
+if(value.includes(normalize(k))) score+=1;
+});
+
+return {...c,score};
+});
+
+results=results
+.filter(r=>r.score>0)
+.sort((a,b)=>b.score-a.score)
+.slice(0,6);
+
+results.forEach(r=>{
+let div=document.createElement("div");
+div.className="suggestion";
+div.innerText=r.name;
+div.onclick=()=>window.location.href=r.url;
+suggestions.appendChild(div);
+});
+
+suggestions.style.display=results.length?"block":"none";
+
+});
+
+document.addEventListener("click",(e)=>{
+if(!e.target.closest(".search")) suggestions.style.display="none";
+});
+</script>
+
+</body>
+</html>
