@@ -266,6 +266,7 @@ Modelo educativo MagicBank
 </footer>
 
 <script>
+
 function normalize(t){
 return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
@@ -275,10 +276,16 @@ let catalog = [];
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
+// ✅ CATÁLOGO CORRECTO (PÚBLICO)
 fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
 .then(res => res.json())
-.then(data => catalog = data);
+.then(data => {
+  console.log("CATALOGO PUBLICO OK", data);
+  catalog = data;
+})
+.catch(err => console.error("ERROR CATALOGO:", err));
 
+// ✅ BUSCADOR (YA CORRECTO)
 input.addEventListener("input", function(){
 
 const query = normalize(this.value);
@@ -299,13 +306,9 @@ const div = document.createElement("div");
 div.className = "suggestion";
 div.innerText = c.nombre;
 
+// ✅ USA STORE_URL (YA VIENE DEL BACKEND)
 div.onclick = () => {
-window.location.href =
-"https://magicbank2.mitiendanube.com/productos/" +
-c.nombre.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.replace(/\s+/g,"-");
+  window.location.href = c.store_url;
 };
 
 suggestions.appendChild(div);
@@ -316,9 +319,11 @@ suggestions.style.display = "block";
 
 });
 
+// UX
 document.addEventListener("click",()=>{
 suggestions.style.display="none";
 });
+
 </script>
 
 </body>
