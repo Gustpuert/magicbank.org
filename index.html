@@ -267,7 +267,8 @@ Modelo educativo MagicBank
 
 <script>
 function normalize(t){
-return t.toLowerCase()
+return (t || "")
+.toLowerCase()
 .normalize("NFD")
 .replace(/[\u0300-\u036f]/g,"")
 .trim();
@@ -278,18 +279,34 @@ let catalog = [];
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// cargar catálogo
-fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
-.then(res => res.json())
-.then(data => {
-catalog = data;
-console.log("CATALOGO CARGADO:", catalog);
-});
+// 🔥 CARGA SEGURA DEL CATÁLOGO
+async function loadCatalog(){
+try{
 
-// buscador
+const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico");
+
+if(!res.ok){
+console.error("ERROR FETCH:", res.status);
+return;
+}
+
+const data = await res.json();
+
+catalog = data;
+
+console.log("✅ Catalogo cargado:", catalog.length);
+
+}catch(err){
+console.error("❌ ERROR CARGANDO CATALOGO:", err);
+}
+}
+
+loadCatalog();
+
+// 🔥 BUSCADOR GARANTIZADO
 input.addEventListener("input", function(){
 
-let query = normalize(this.value);
+const query = normalize(this.value);
 suggestions.innerHTML = "";
 
 if(query.length < 2){
@@ -297,15 +314,19 @@ suggestions.style.display = "none";
 return;
 }
 
-// 🔥 FILTRO REAL (NO FALLA)
+// 🔴 SI EL CATÁLOGO NO CARGÓ → NO BUSCA
+if(!catalog.length){
+console.error("Catalogo vacío");
+return;
+}
+
+// 🔥 FILTRO SIMPLE (INFALIBLE)
 let results = catalog.filter(c => {
 
-let nombre = normalize(c.nombre);
+const nombre = normalize(c.nombre);
 
-// match nombre directo
 if(nombre.includes(query)) return true;
 
-// match keywords
 if(c.keywords){
 return c.keywords.some(k => normalize(k).includes(query));
 }
@@ -314,25 +335,28 @@ return false;
 
 });
 
-// ordenar por prioridad
-results = results.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
+// ORDEN
+results = results
+.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
 .slice(0,6);
 
-// render
+// RENDER
 results.forEach(c => {
 
-let div = document.createElement("div");
+const div = document.createElement("div");
 div.className = "suggestion";
 div.innerText = c.nombre;
 
 div.onclick = () => {
 
-if(!c.store_url){
-console.error("URL no encontrada:", c);
+const link = c.store_url || c.url;
+
+if(!link){
+console.error("URL inválida:", c);
 return;
 }
 
-window.location.href = c.store_url;
+window.location.href = link;
 
 };
 
