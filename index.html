@@ -282,7 +282,7 @@ let loaded = false;
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// 🔥 CARGA SEGURA
+// 🔥 CARGA SEGURA DEL BACKEND
 fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
 .then(res => res.json())
 .then(data => {
@@ -290,12 +290,10 @@ catalog = data;
 loaded = true;
 });
 
-// 🔥 BUSCADOR BLOQUEADO HASTA QUE CARGUE
+// 🔥 BUSCADOR INTELIGENTE (TIPO GOOGLE)
 input.addEventListener("input", function(){
 
-if(!loaded){
-return; // ⛔ evita buscar vacío
-}
+if(!loaded) return;
 
 const query = normalize(this.value);
 suggestions.innerHTML = "";
@@ -305,22 +303,36 @@ suggestions.style.display = "none";
 return;
 }
 
-let results = catalog.filter(c => {
+// 🔥 divide búsqueda en palabras
+const words = query.split(" ");
 
-if(normalize(c.nombre).includes(query)) return true;
+let results = catalog.map(c => {
 
-if(c.keywords){
-return c.keywords.some(k => normalize(k).includes(query));
-}
+let score = 0;
 
-return false;
-
+// nombre
+words.forEach(w=>{
+if(normalize(c.nombre).includes(w)) score += 5;
 });
 
-results = results
-.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
+// keywords
+(c.keywords || []).forEach(k=>{
+words.forEach(w=>{
+if(normalize(k).includes(w)) score += 3;
+});
+});
+
+// prioridad
+score += c.prioridad || 0;
+
+return {...c, score};
+
+})
+.filter(r => r.score > 0)
+.sort((a,b)=>b.score-a.score)
 .slice(0,6);
 
+// render
 results.forEach(c => {
 
 const div = document.createElement("div");
@@ -339,6 +351,7 @@ suggestions.style.display = results.length ? "block" : "none";
 
 });
 
+// cerrar sugerencias
 document.addEventListener("click",(e)=>{
 if(!e.target.closest(".search")) suggestions.style.display="none";
 });
