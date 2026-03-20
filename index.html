@@ -281,9 +281,12 @@ const suggestions = document.getElementById("suggestions");
 // cargar catálogo
 fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
 .then(res => res.json())
-.then(data => catalog = data);
+.then(data => {
+catalog = data;
+console.log("CATALOGO CARGADO:", catalog);
+});
 
-// buscador inteligente
+// buscador
 input.addEventListener("input", function(){
 
 let query = normalize(this.value);
@@ -294,28 +297,25 @@ suggestions.style.display = "none";
 return;
 }
 
-// algoritmo inteligente
-let results = catalog.map(c => {
+// 🔥 FILTRO REAL (NO FALLA)
+let results = catalog.filter(c => {
 
-let score = 0;
+let nombre = normalize(c.nombre);
 
-// nombre
-if(normalize(c.nombre).includes(query)) score += 5;
+// match nombre directo
+if(nombre.includes(query)) return true;
 
-// keywords
-(c.keywords || []).forEach(k => {
-if(normalize(k).includes(query)) score += 3;
-if(query.includes(normalize(k))) score += 2;
+// match keywords
+if(c.keywords){
+return c.keywords.some(k => normalize(k).includes(query));
+}
+
+return false;
+
 });
 
-// prioridad
-score += c.prioridad || 0;
-
-return {...c, score};
-
-})
-.filter(r => r.score > 0)
-.sort((a,b)=>b.score-a.score)
+// ordenar por prioridad
+results = results.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
 .slice(0,6);
 
 // render
