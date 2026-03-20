@@ -326,7 +326,14 @@ div.className = "suggestion";
 div.innerText = c.nombre;
 
 div.onclick = () => {
-window.location.href = c.url;
+
+if(!c.store_url){
+console.error("URL no encontrada:", c);
+return;
+}
+
+window.location.href = c.store_url;
+
 };
 
 suggestions.appendChild(div);
