@@ -266,6 +266,8 @@ Modelo educativo MagicBank
 </footer>
 
 <script>
+document.addEventListener("DOMContentLoaded", function(){
+
 function normalize(t){
 return (t || "")
 .toLowerCase()
@@ -275,36 +277,25 @@ return (t || "")
 }
 
 let catalog = [];
+let loaded = false;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// 🔥 CARGA SEGURA DEL CATÁLOGO
-async function loadCatalog(){
-try{
-
-const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico");
-
-if(!res.ok){
-console.error("ERROR FETCH:", res.status);
-return;
-}
-
-const data = await res.json();
-
+// 🔥 CARGA SEGURA
+fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
+.then(res => res.json())
+.then(data => {
 catalog = data;
+loaded = true;
+});
 
-console.log("✅ Catalogo cargado:", catalog.length);
-
-}catch(err){
-console.error("❌ ERROR CARGANDO CATALOGO:", err);
-}
-}
-
-loadCatalog();
-
-// 🔥 BUSCADOR GARANTIZADO
+// 🔥 BUSCADOR BLOQUEADO HASTA QUE CARGUE
 input.addEventListener("input", function(){
+
+if(!loaded){
+return; // ⛔ evita buscar vacío
+}
 
 const query = normalize(this.value);
 suggestions.innerHTML = "";
@@ -314,18 +305,9 @@ suggestions.style.display = "none";
 return;
 }
 
-// 🔴 SI EL CATÁLOGO NO CARGÓ → NO BUSCA
-if(!catalog.length){
-console.error("Catalogo vacío");
-return;
-}
-
-// 🔥 FILTRO SIMPLE (INFALIBLE)
 let results = catalog.filter(c => {
 
-const nombre = normalize(c.nombre);
-
-if(nombre.includes(query)) return true;
+if(normalize(c.nombre).includes(query)) return true;
 
 if(c.keywords){
 return c.keywords.some(k => normalize(k).includes(query));
@@ -335,12 +317,10 @@ return false;
 
 });
 
-// ORDEN
 results = results
 .sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
 .slice(0,6);
 
-// RENDER
 results.forEach(c => {
 
 const div = document.createElement("div");
@@ -348,16 +328,7 @@ div.className = "suggestion";
 div.innerText = c.nombre;
 
 div.onclick = () => {
-
-const link = c.store_url || c.url;
-
-if(!link){
-console.error("URL inválida:", c);
-return;
-}
-
-window.location.href = link;
-
+window.location.href = c.url;
 };
 
 suggestions.appendChild(div);
@@ -368,9 +339,10 @@ suggestions.style.display = results.length ? "block" : "none";
 
 });
 
-// cerrar sugerencias
 document.addEventListener("click",(e)=>{
 if(!e.target.closest(".search")) suggestions.style.display="none";
+});
+
 });
 </script>
 
