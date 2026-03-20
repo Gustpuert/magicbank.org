@@ -265,7 +265,8 @@ Modelo educativo MagicBank
 </a>
 </footer>
 
-<script>
+
+  <script>
 document.addEventListener("DOMContentLoaded", function(){
 
 function normalize(t){
@@ -277,23 +278,24 @@ return (t || "")
 }
 
 let catalog = [];
-let loaded = false;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// 🔥 CARGA SEGURA DEL BACKEND
 fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
 .then(res => res.json())
 .then(data => {
 catalog = data;
-loaded = true;
 });
 
-// 🔥 BUSCADOR INTELIGENTE (TIPO GOOGLE)
-input.addEventListener("input", function(){
+function getLabel(area){
+if(area === "academy") return "🎓 Curso";
+if(area === "university") return "🏛 Facultad";
+if(area === "tutor") return "🤖 Tutor";
+return "";
+}
 
-if(!loaded) return;
+input.addEventListener("input", function(){
 
 const query = normalize(this.value);
 suggestions.innerHTML = "";
@@ -303,41 +305,57 @@ suggestions.style.display = "none";
 return;
 }
 
-// 🔥 divide búsqueda en palabras
 const words = query.split(" ");
 
 let results = catalog.map(c => {
 
 let score = 0;
 
-// nombre
 words.forEach(w=>{
-if(normalize(c.nombre).includes(w)) score += 5;
+if(normalize(c.nombre).includes(w)) score += 10;
 });
 
-// keywords
 (c.keywords || []).forEach(k=>{
 words.forEach(w=>{
-if(normalize(k).includes(w)) score += 3;
+if(normalize(k).includes(w)) score += 5;
 });
 });
 
-// prioridad
+if(score > 0){
 score += c.prioridad || 0;
+}
 
 return {...c, score};
 
 })
 .filter(r => r.score > 0)
 .sort((a,b)=>b.score-a.score)
+.slice(0,10);
+
+// fallback
+if(results.length === 0){
+results = catalog
+.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
 .slice(0,6);
+}
 
 // render
-results.forEach(c => {
+results.forEach((c, index) => {
 
 const div = document.createElement("div");
 div.className = "suggestion";
-div.innerText = c.nombre;
+
+// 🔥 RESULTADO PRINCIPAL
+if(index === 0){
+div.style.background = "#f0edff";
+div.style.fontWeight = "600";
+}
+
+// contenido enriquecido
+div.innerHTML = `
+<div style="font-size:15px">${c.nombre}</div>
+<div style="font-size:12px;color:#777">${getLabel(c.area)}</div>
+`;
 
 div.onclick = () => {
 window.location.href = c.url;
@@ -351,13 +369,12 @@ suggestions.style.display = results.length ? "block" : "none";
 
 });
 
-// cerrar sugerencias
 document.addEventListener("click",(e)=>{
 if(!e.target.closest(".search")) suggestions.style.display="none";
 });
 
 });
-</script>
+  </script>
 
 </body>
 </html>
