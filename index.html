@@ -266,9 +266,11 @@ Modelo educativo MagicBank
 </footer>
 
 <script>
-
 function normalize(t){
-return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+return t.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.trim();
 }
 
 let catalog = [];
@@ -276,19 +278,15 @@ let catalog = [];
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// ✅ CATÁLOGO CORRECTO (PÚBLICO)
+// cargar catálogo
 fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
 .then(res => res.json())
-.then(data => {
-  console.log("CATALOGO PUBLICO OK", data);
-  catalog = data;
-})
-.catch(err => console.error("ERROR CATALOGO:", err));
+.then(data => catalog = data);
 
-// ✅ BUSCADOR (YA CORRECTO)
+// buscador inteligente
 input.addEventListener("input", function(){
 
-const query = normalize(this.value);
+let query = normalize(this.value);
 suggestions.innerHTML = "";
 
 if(query.length < 2){
@@ -296,34 +294,53 @@ suggestions.style.display = "none";
 return;
 }
 
-const results = catalog.filter(c =>
-normalize(c.nombre).includes(query)
-);
+// algoritmo inteligente
+let results = catalog.map(c => {
 
-results.slice(0,6).forEach(c => {
+let score = 0;
 
-const div = document.createElement("div");
+// nombre
+if(normalize(c.nombre).includes(query)) score += 5;
+
+// keywords
+(c.keywords || []).forEach(k => {
+if(normalize(k).includes(query)) score += 3;
+if(query.includes(normalize(k))) score += 2;
+});
+
+// prioridad
+score += c.prioridad || 0;
+
+return {...c, score};
+
+})
+.filter(r => r.score > 0)
+.sort((a,b)=>b.score-a.score)
+.slice(0,6);
+
+// render
+results.forEach(c => {
+
+let div = document.createElement("div");
 div.className = "suggestion";
 div.innerText = c.nombre;
 
-// ✅ USA STORE_URL (YA VIENE DEL BACKEND)
 div.onclick = () => {
-  window.location.href = c.store_url;
+window.location.href = c.url;
 };
 
 suggestions.appendChild(div);
 
 });
 
-suggestions.style.display = "block";
+suggestions.style.display = results.length ? "block" : "none";
 
 });
 
-// UX
-document.addEventListener("click",()=>{
-suggestions.style.display="none";
+// cerrar sugerencias
+document.addEventListener("click",(e)=>{
+if(!e.target.closest(".search")) suggestions.style.display="none";
 });
-
 </script>
 
 </body>
