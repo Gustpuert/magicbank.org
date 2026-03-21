@@ -267,7 +267,7 @@ Modelo educativo MagicBank
 
 
   <script>
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", async function(){
 
 function normalize(t){
 return (t || "")
@@ -278,15 +278,20 @@ return (t || "")
 }
 
 let catalog = [];
+let ready = false;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico")
-.then(res => res.json())
-.then(data => {
-catalog = data;
-});
+// 🔥 ESPERAR CARGA REAL
+try{
+const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico");
+catalog = await res.json();
+ready = true;
+console.log("CATALOGO OK:", catalog.length);
+}catch(e){
+console.error("ERROR CARGANDO CATALOGO", e);
+}
 
 function getLabel(area){
 if(area === "academy") return "🎓 Curso";
@@ -296,6 +301,8 @@ return "";
 }
 
 input.addEventListener("input", function(){
+
+if(!ready) return; // 🔥 evita usar catalog vacío
 
 const query = normalize(this.value);
 suggestions.innerHTML = "";
@@ -345,13 +352,11 @@ results.forEach((c, index) => {
 const div = document.createElement("div");
 div.className = "suggestion";
 
-// 🔥 RESULTADO PRINCIPAL
 if(index === 0){
 div.style.background = "#f0edff";
 div.style.fontWeight = "600";
 }
 
-// contenido enriquecido
 div.innerHTML = `
 <div style="font-size:15px">${c.nombre}</div>
 <div style="font-size:12px;color:#777">${getLabel(c.area)}</div>
@@ -374,7 +379,7 @@ if(!e.target.closest(".search")) suggestions.style.display="none";
 });
 
 });
-  </script>
+</script>
 
 </body>
 </html>
