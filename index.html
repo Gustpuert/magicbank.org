@@ -283,7 +283,7 @@ let ready = false;
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// 🔥 ESPERAR CARGA REAL
+// 🔥 CARGA SEGURA DEL CATÁLOGO
 try{
 const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico");
 catalog = await res.json();
@@ -300,9 +300,10 @@ if(area === "tutor") return "🤖 Tutor";
 return "";
 }
 
+// 🔍 INPUT SEARCH
 input.addEventListener("input", function(){
 
-if(!ready) return; // 🔥 evita usar catalog vacío
+if(!ready) return;
 
 const query = normalize(this.value);
 suggestions.innerHTML = "";
@@ -339,7 +340,7 @@ return {...c, score};
 .sort((a,b)=>b.score-a.score)
 .slice(0,10);
 
-// fallback
+// fallback inteligente
 if(results.length === 0){
 results = catalog
 .sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
@@ -352,6 +353,7 @@ results.forEach((c, index) => {
 const div = document.createElement("div");
 div.className = "suggestion";
 
+// destacar primero
 if(index === 0){
 div.style.background = "#f0edff";
 div.style.fontWeight = "600";
@@ -363,6 +365,7 @@ div.innerHTML = `
 `;
 
 div.onclick = () => {
+suggestions.style.display = "none"; // 🔥 cerrar al seleccionar
 window.location.href = c.url;
 };
 
@@ -374,8 +377,26 @@ suggestions.style.display = results.length ? "block" : "none";
 
 });
 
+// 🔥 CERRAR AL HACER CLICK FUERA
 document.addEventListener("click",(e)=>{
-if(!e.target.closest(".search")) suggestions.style.display="none";
+if(!e.target.closest(".search")){
+suggestions.style.display="none";
+}
+});
+
+// 🔥 CERRAR AL PERDER FOCO (IMPORTANTE)
+input.addEventListener("blur", () => {
+setTimeout(() => {
+suggestions.style.display = "none";
+}, 150);
+});
+
+// 🔥 CERRAR CON ESC (PRO)
+input.addEventListener("keydown", (e)=>{
+if(e.key === "Escape"){
+suggestions.style.display = "none";
+input.blur();
+}
 });
 
 });
