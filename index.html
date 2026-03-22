@@ -279,60 +279,7 @@ Modelo educativo MagicBank
 </footer>
 
 
-<div id="reviewBox" style="max-width:500px;margin:40px auto;padding:20px;background:#fff;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.05);display:none;">
 
-<h3 style="margin-bottom:10px;">¿Cómo fue tu experiencia?</h3>
-
-<select id="rating" style="width:100%;padding:10px;margin-bottom:10px;">
-<option value="">Calificación</option>
-<option value="5">⭐⭐⭐⭐⭐ Excelente</option>
-<option value="4">⭐⭐⭐⭐ Muy buena</option>
-<option value="3">⭐⭐⭐ Normal</option>
-<option value="2">⭐⭐ Mala</option>
-<option value="1">⭐ Muy mala</option>
-</select>
-
-<input id="useful" placeholder="¿Qué te gustó?" style="width:100%;padding:10px;margin-bottom:10px;">
-<input id="improve" placeholder="¿Qué mejorarías?" style="width:100%;padding:10px;margin-bottom:10px;">
-
-<button onclick="sendReview()" style="width:100%;padding:12px;background:#5b4ee6;color:#fff;border:none;border-radius:8px;">
-Enviar opinión
-</button>
-
-</div>
-
-<script>
-function sendReview(){
-
-const token = localStorage.getItem("token"); // ⚠️ IMPORTANTE
-
-if(!token){
-alert("No hay sesión activa");
-return;
-}
-
-const rating = document.getElementById("rating").value;
-const useful = document.getElementById("useful").value;
-const improve = document.getElementById("improve").value;
-
-if(!rating){
-alert("Selecciona una calificación");
-return;
-}
-
-fetch(`https://magic-bank-backend-production-713e.up.railway.app/api/collect-review?token=${token}&rating=${rating}&useful=${encodeURIComponent(useful)}&improve=${encodeURIComponent(improve)}`)
-.then(res=>res.json())
-.then(()=>{
-alert("Gracias por tu opinión 🙌");
-document.getElementById("reviewBox").style.display="none";
-});
-}
-
-// 🔥 MOSTRAR AUTOMÁTICO (PRUEBA)
-setTimeout(()=>{
-document.getElementById("reviewBox").style.display = "block";
-}, 5000);
-</script>
 
   
   <script>
