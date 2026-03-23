@@ -280,10 +280,22 @@ Modelo educativo MagicBank
 
 
 
-
-  
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", async function(){
+
+/* =========================================================
+🔧 CONFIG GLOBAL
+========================================================= */
+
+const API_CHAT = "https://magic-bank-backend-production-713e.up.railway.app/api/chat";
+const API_CATALOGO = "https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico";
+
+/* ⚠️ TOKEN REAL */
+const USER_TOKEN = "414af08183b447891379508e09d336cf99530a1bdb2ad1227dc0d6980f408afb";
+
+/* =========================================================
+🧠 NORMALIZADOR
+========================================================= */
 
 function normalize(t){
 return (t || "")
@@ -293,15 +305,18 @@ return (t || "")
 .trim();
 }
 
+/* =========================================================
+📚 CATALOGO (BUSCADOR ACTUAL)
+========================================================= */
+
 let catalog = [];
 let ready = false;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
-// 🔥 CARGA SEGURA DEL CATÁLOGO
 try{
-const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico");
+const res = await fetch(API_CATALOGO);
 catalog = await res.json();
 ready = true;
 console.log("CATALOGO OK:", catalog.length);
@@ -316,7 +331,10 @@ if(area === "tutor") return "🤖 Tutor";
 return "";
 }
 
-// 🔍 INPUT SEARCH
+/* =========================================================
+🔍 BUSCADOR (SE MANTIENE IGUAL)
+========================================================= */
+
 input.addEventListener("input", function(){
 
 if(!ready) return;
@@ -356,20 +374,17 @@ return {...c, score};
 .sort((a,b)=>b.score-a.score)
 .slice(0,10);
 
-// fallback inteligente
 if(results.length === 0){
 results = catalog
 .sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
 .slice(0,6);
 }
 
-// render
 results.forEach((c, index) => {
 
 const div = document.createElement("div");
 div.className = "suggestion";
 
-// destacar primero
 if(index === 0){
 div.style.background = "#f0edff";
 div.style.fontWeight = "600";
@@ -381,7 +396,7 @@ div.innerHTML = `
 `;
 
 div.onclick = () => {
-suggestions.style.display = "none"; // 🔥 cerrar al seleccionar
+suggestions.style.display = "none";
 window.location.href = c.url;
 };
 
@@ -393,21 +408,22 @@ suggestions.style.display = results.length ? "block" : "none";
 
 });
 
-// 🔥 CERRAR AL HACER CLICK FUERA
+/* =========================================================
+🔐 CIERRES UX
+========================================================= */
+
 document.addEventListener("click",(e)=>{
 if(!e.target.closest(".search")){
 suggestions.style.display="none";
 }
 });
 
-// 🔥 CERRAR AL PERDER FOCO (IMPORTANTE)
 input.addEventListener("blur", () => {
 setTimeout(() => {
 suggestions.style.display = "none";
 }, 150);
 });
 
-// 🔥 CERRAR CON ESC (PRO)
 input.addEventListener("keydown", (e)=>{
 if(e.key === "Escape"){
 suggestions.style.display = "none";
@@ -415,8 +431,103 @@ input.blur();
 }
 });
 
+/* =========================================================
+🤖 CHAT BACKEND (NUEVO)
+========================================================= */
+
+async function sendMessage(message){
+
+try{
+
+const res = await fetch(API_CHAT, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+token: USER_TOKEN,
+message: message
+})
+});
+
+return await res.json();
+
+}catch(e){
+console.error("CHAT ERROR:", e);
+return { message: "Error de conexión" };
+}
+
+}
+
+/* =========================================================
+💬 CHAT UI SIMPLE (INYECTADO DINÁMICO)
+========================================================= */
+
+const chatHTML = `
+<div id="chatBox" style="
+position:fixed;
+bottom:20px;
+right:20px;
+width:320px;
+height:420px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+display:flex;
+flex-direction:column;
+overflow:hidden;
+z-index:9999;
+">
+
+<div style="padding:12px;background:#5b4ee6;color:white;font-weight:600;">
+Tutor IA
+</div>
+
+<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
+
+<div style="padding:10px;border-top:1px solid #eee;">
+<input id="chatInput" placeholder="Escribe..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;">
+</div>
+
+</div>
+`;
+
+document.body.insertAdjacentHTML("beforeend", chatHTML);
+
+const chatInput = document.getElementById("chatInput");
+const chatMessages = document.getElementById("chatMessages");
+
+/* =========================================================
+📩 ENVÍO MENSAJE
+========================================================= */
+
+async function handleChat(){
+
+const msg = chatInput.value.trim();
+if(!msg) return;
+
+chatMessages.innerHTML += `<div><b>Tú:</b> ${msg}</div>`;
+chatInput.value = "";
+
+const res = await sendMessage(msg);
+
+chatMessages.innerHTML += `<div><b>Tutor:</b> ${res.message}</div>`;
+
+chatMessages.scrollTop = chatMessages.scrollHeight;
+
+}
+
+/* ENTER */
+chatInput.addEventListener("keypress", function(e){
+if(e.key === "Enter"){
+handleChat();
+}
+});
+
 });
 </script>
+  
+  
 
 </body>
 </html>
