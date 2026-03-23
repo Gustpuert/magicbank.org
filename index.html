@@ -439,6 +439,8 @@ async function sendMessage(message){
 
 try{
 
+console.log("ENVIANDO MENSAJE...");
+
 const res = await fetch(API_CHAT, {
 method: "POST",
 headers: {
@@ -450,11 +452,23 @@ message: message
 })
 });
 
-return await res.json();
+console.log("STATUS:", res.status);
+
+const text = await res.text();
+console.log("RAW RESPONSE:", text);
+
+try{
+return JSON.parse(text);
+}catch{
+return { message: "Respuesta no válida del servidor" };
+}
 
 }catch(e){
-console.error("CHAT ERROR:", e);
-return { message: "Error de conexión" };
+
+console.error("ERROR REAL:", e);
+
+return { message: "Error de conexión con backend" };
+
 }
 
 }
