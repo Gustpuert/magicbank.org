@@ -522,15 +522,12 @@ async function sendMessage(message){
       headers: {
         "Content-Type": "application/json"
       },
-
       body: JSON.stringify({
-message: message
-})
+        message: message
       })
     });
 
-    const data = await res.json();
-    return data;
+    return await res.json();
 
   }catch(e){
     console.error(e);
