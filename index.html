@@ -279,17 +279,77 @@ Modelo educativo MagicBank
 </footer>
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
 
+/* =========================================================
+CONFIG
+========================================================= */
+
 const API_CHAT = "https://magic-bank-backend-production-713e.up.railway.app/api/landing-chat";
+const API_CATALOGO = "https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico";
 
 /* =========================================================
-CHAT UI (TIPOGRAFÍA + BOTÓN)
+ESTADO
+========================================================= */
+
+let catalogo = [];
+let cursoPendiente = null;
+let inactivityTimer = null;
+
+/* =========================================================
+CARGAR CATÁLOGO
+========================================================= */
+
+async function cargarCatalogo(){
+  try{
+    const res = await fetch(API_CATALOGO);
+    catalogo = await res.json();
+    console.log("✅ Catálogo cargado:", catalogo.length);
+  }catch(e){
+    console.error("❌ Error catálogo", e);
+  }
+}
+
+cargarCatalogo();
+
+/* =========================================================
+BUSCAR CURSOS
+========================================================= */
+
+function buscarCursos(query){
+
+  const q = query.toLowerCase();
+
+  return catalogo.filter(c => {
+
+    const nombre = (c.nombre || "").toLowerCase();
+    const keywords = (c.keywords || []).join(" ").toLowerCase();
+
+    return nombre.includes(q) || keywords.includes(q);
+
+  });
+}
+
+/* =========================================================
+DETECTAR CURSO ÚNICO
+========================================================= */
+
+function detectarCurso(msg){
+  const resultados = buscarCursos(msg);
+  if(resultados.length === 1){
+    return resultados[0];
+  }
+  return null;
+}
+
+/* =========================================================
+CHAT UI
 ========================================================= */
 
 const chatHTML = `
-<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;font-size:18px;">💬</div>
+<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;">💬</div>
 
 <div id="chatBox" style="font-family:Inter,sans-serif;position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
 
@@ -315,7 +375,6 @@ const chatHTML = `
 </div>
 
 </div>
-
 </div>
 `;
 
@@ -334,10 +393,8 @@ const quickBtns = document.getElementById("quickBtns");
 const sendBtn = document.getElementById("sendBtn");
 
 /* =========================================================
-TIMER 20s INTELIGENTE
+TIMER
 ========================================================= */
-
-let inactivityTimer = null;
 
 function resetInactivityTimer(){
 
@@ -346,13 +403,11 @@ function resetInactivityTimer(){
   }
 
   inactivityTimer = setTimeout(function(){
-
     if(document.activeElement !== chatInput){
       chatBox.style.display = "none";
       chatToggle.style.display = "block";
     }
-
-  }, 20000);
+  },20000);
 
 }
 
@@ -372,16 +427,10 @@ chatClose.onclick = function(){
 };
 
 document.addEventListener("click", function(e){
-
-  if(
-    chatBox.style.display === "flex" &&
-    !chatBox.contains(e.target) &&
-    !chatToggle.contains(e.target)
-  ){
-    chatBox.style.display = "none";
-    chatToggle.style.display = "block";
+  if(chatBox.style.display==="flex" && !chatBox.contains(e.target) && !chatToggle.contains(e.target)){
+    chatBox.style.display="none";
+    chatToggle.style.display="block";
   }
-
 });
 
 /* =========================================================
@@ -391,7 +440,7 @@ MENSAJE INICIAL
 chatMessages.innerHTML += `<div><b>Tutor:</b> Hola 👋 ¿En qué quieres información sobre MagicBank?</div>`;
 
 /* =========================================================
-RESPUESTAS LOCALES (PRECISAS)
+RESPUESTAS LOCALES
 ========================================================= */
 
 function localResponse(msg){
@@ -403,22 +452,14 @@ function localResponse(msg){
   }
 
   if(m.includes("qué ofrece magicbank")){
-    return "MagicBank ofrece University, Academy, Fábrica de Tutores, Bachillerato, Conservatorio musical y evaluación profesional con IA.";
-  }
-
-  if(m.includes("university")){
-    return "University ofrece facultades como derecho, contaduría, administración, marketing y software con formación avanzada y certificación automática.";
-  }
-
-  if(m.includes("academy")){
-    return "Academy ofrece cursos prácticos como idiomas, cocina, nutrición inteligente, ChatGPT, finanzas y emprendimiento.";
+    return "MagicBank ofrece University, Academy, Fábrica de Tutores, Bachillerato, Conservatorio musical y evaluación profesional.";
   }
 
   return null;
 }
 
 /* =========================================================
-ENVÍO
+ENVÍO PRINCIPAL
 ========================================================= */
 
 async function send(msg){
@@ -427,34 +468,78 @@ async function send(msg){
 
   chatMessages.innerHTML += "<div><b>Tú:</b> "+msg+"</div>";
 
+  const m = msg.toLowerCase();
+
+  /* CONFIRMACIÓN */
+  if(cursoPendiente){
+
+    if(m.includes("si") || m.includes("sí") || m.includes("ok") || m.includes("dale") || m.includes("vamos")){
+
+      chatMessages.innerHTML += `
+      <div><b>Tutor:</b> Perfecto.<br>
+      Te llevo a la página del curso donde podrás ver toda la información y acceder si lo deseas.</div>
+      `;
+
+      setTimeout(()=>{
+        window.open(cursoPendiente.url, "_blank");
+        cursoPendiente = null;
+      },1200);
+
+      return;
+    }
+
+    if(m.includes("no")){
+      cursoPendiente = null;
+    }
+  }
+
+  /* DETECTAR CURSO */
+  const curso = detectarCurso(msg);
+
+  if(curso){
+
+    cursoPendiente = curso;
+
+    chatMessages.innerHTML += `
+    <div><b>Tutor:</b>
+    Encontré el curso ideal para ti:<br>
+    <b>${curso.nombre}</b><br><br>
+    ¿Quieres explorarlo ahora?
+    </div>
+    `;
+
+    return;
+  }
+
+  /* RESPUESTA LOCAL */
   const local = localResponse(msg);
 
   if(local){
     chatMessages.innerHTML += "<div><b>Tutor:</b> "+local+"</div>";
-  }else{
+    return;
+  }
 
-    try{
-      const res = await fetch(API_CHAT,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({message:msg})
-      });
+  /* FALLBACK BACKEND */
+  try{
+    const res = await fetch(API_CHAT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({message:msg})
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      chatMessages.innerHTML += "<div><b>Tutor:</b> "+(data.message || "Sin respuesta")+"</div>";
+    chatMessages.innerHTML += "<div><b>Tutor:</b> "+(data.message || "Sin respuesta")+"</div>";
 
-    }catch{
-      chatMessages.innerHTML += "<div><b>Tutor:</b> Error conexión</div>";
-    }
-
+  }catch{
+    chatMessages.innerHTML += "<div><b>Tutor:</b> Error conexión</div>";
   }
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 /* =========================================================
-BOTONES
+EVENTOS
 ========================================================= */
 
 quickBtns.addEventListener("click", function(e){
@@ -462,10 +547,6 @@ quickBtns.addEventListener("click", function(e){
   if(!btn) return;
   send(btn.getAttribute("data-msg"));
 });
-
-/* =========================================================
-INPUT + BOTÓN
-========================================================= */
 
 chatInput.addEventListener("keypress", function(e){
   resetInactivityTimer();
@@ -485,8 +566,7 @@ sendBtn.onclick = function(){
 };
 
 });
-</script>
-
+        </script>
   
 
 
