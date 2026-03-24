@@ -478,40 +478,74 @@ return { message: "Error de conexión con backend" };
 ========================================================= */
 
 const chatHTML = `
-<div id="chatBox" style="
+<!-- BOTÓN -->
+<div id="chatToggle" style="
 position:fixed;
 bottom:20px;
+right:20px;
+background:#5b4ee6;
+color:white;
+padding:12px 16px;
+border-radius:50px;
+cursor:pointer;
+box-shadow:0 5px 20px rgba(0,0,0,.2);
+z-index:9999;
+">
+💬
+</div>
+
+<!-- CHAT -->
+<div id="chatBox" style="
+position:fixed;
+bottom:80px;
 right:20px;
 width:320px;
 height:420px;
 background:#fff;
 border-radius:16px;
 box-shadow:0 10px 30px rgba(0,0,0,.2);
-display:flex;
+display:none;
 flex-direction:column;
 overflow:hidden;
 z-index:9999;
 ">
 
-<div style="padding:12px;background:#5b4ee6;color:white;font-weight:600;">
-Tutor IA
+<div style="padding:12px;background:#5b4ee6;color:white;font-weight:600;display:flex;justify-content:space-between;">
+<span>Tutor IA</span>
+<span id="chatClose" style="cursor:pointer;">✖</span>
 </div>
 
 <div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;">
-
 <div style="display:flex;gap:5px;">
 <input id="chatInput" placeholder="Escribe..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
 <button onclick="handleChat()" style="padding:8px 12px;background:#5b4ee6;color:white;border:none;border-radius:8px;">
 Enviar
 </button>
 </div>
-
+</div>
 
 </div>
+
 `;
 
+
+  document.body.insertAdjacentHTML("beforeend", chatHTML);
+
+const chatBox = document.getElementById("chatBox");
+const chatToggle = document.getElementById("chatToggle");
+const chatClose = document.getElementById("chatClose");
+
+chatToggle.onclick = () => {
+chatBox.style.display = "flex";
+chatToggle.style.display = "none";
+};
+
+chatClose.onclick = () => {
+chatBox.style.display = "none";
+chatToggle.style.display = "block";
+};
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
 const chatInput = document.getElementById("chatInput");
