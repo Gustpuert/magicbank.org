@@ -437,39 +437,36 @@ input.blur();
 
 async function sendMessage(message){
 
-try{
+  try{
 
-console.log("ENVIANDO MENSAJE...");
+    const res = await fetch(API_CHAT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        token: USER_TOKEN,
+        message: message
+      })
+    });
 
-const res = await fetch(API_CHAT, {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-token: USER_TOKEN,
-message: message
-})
-});
+    if(!res.ok){
+      throw new Error("HTTP error " + res.status);
+    }
 
-console.log("STATUS:", res.status);
+    const data = await res.json();
 
-const text = await res.text();
-console.log("RAW RESPONSE:", text);
+    return data;
 
-try{
-return JSON.parse(text);
-}catch{
-return { message: "Respuesta no válida del servidor" };
-}
+  }catch(e){
 
-}catch(e){
+    console.error("CHAT ERROR:", e);
 
-console.error("ERROR REAL:", e);
+    return {
+      message: "Error de conexión con el tutor"
+    };
 
-return { message: "Error de conexión con backend" };
-
-}
+  }
 
 }
 
