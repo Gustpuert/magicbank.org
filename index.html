@@ -527,7 +527,35 @@ Enviar
 
 `;
 
+document.body.insertAdjacentHTML("beforeend", chatHTML);
 
+// REFERENCIAS
+const chatBox = document.getElementById("chatBox");
+const chatToggle = document.getElementById("chatToggle");
+const chatClose = document.getElementById("chatClose");
+const chatMessages = document.getElementById("chatMessages");
+
+// VALIDACIÓN (DEBUG)
+if(!chatBox || !chatToggle){
+  console.error("CHAT NO CARGÓ BIEN");
+}
+
+// ABRIR CHAT
+chatToggle.onclick = () => {
+  chatBox.style.display = "flex";
+  chatToggle.style.display = "none";
+};
+
+// CERRAR CHAT
+chatClose.onclick = () => {
+  chatBox.style.display = "none";
+  chatToggle.style.display = "block";
+};
+
+// MENSAJE INICIAL
+chatMessages.innerHTML += `
+<div><b>Tutor:</b> Hola, soy tu tutor inteligente. ¿En qué quieres aprender hoy?</div>
+`;
   document.body.insertAdjacentHTML("beforeend", chatHTML);
 
 const chatBox = document.getElementById("chatBox");
