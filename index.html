@@ -282,20 +282,16 @@ Modelo educativo MagicBank
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
 
-/* =========================================================
-🔧 CONFIG
-========================================================= */
-
 const API_CHAT = "https://magic-bank-backend-production-713e.up.railway.app/api/landing-chat";
 
 /* =========================================================
-💬 CHAT UI (ORIGINAL + BOTONES SEGUROS)
+CHAT UI (TIPOGRAFÍA + BOTÓN)
 ========================================================= */
 
 const chatHTML = `
 <div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;font-size:18px;">💬</div>
 
-<div id="chatBox" style="position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
+<div id="chatBox" style="font-family:Inter,sans-serif;position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
 
 <div style="padding:12px;background:#5b4ee6;color:white;display:flex;justify-content:space-between;">
 <span>Tutor IA</span>
@@ -305,13 +301,19 @@ const chatHTML = `
 <div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;">
-<div id="quickBtns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;">
-<button data-msg="University">University</button>
-<button data-msg="Academy">Academy</button>
-<button data-msg="Tutores">Tutores</button>
-<button data-msg="Bachillerato">Bachillerato</button>
+
+<div id="quickBtns" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;">
+<button data-msg="¿Qué es MagicBank?">¿Qué es MagicBank?</button>
+<button data-msg="¿Qué ofrece MagicBank?">¿Qué ofrece MagicBank?</button>
+<button data-msg="Quiero estudiar en University">Quiero estudiar en University</button>
+<button data-msg="Quiero un curso práctico en Academy">Quiero un curso práctico en Academy</button>
 </div>
-<input id="chatInput" placeholder="Escribe..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;">
+
+<div style="display:flex;gap:6px;">
+<input id="chatInput" placeholder="Escribe tu pregunta..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
+<button id="sendBtn" style="background:#5b4ee6;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">➤</button>
+</div>
+
 </div>
 
 </div>
@@ -320,7 +322,7 @@ const chatHTML = `
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
 /* =========================================================
-🔗 ELEMENTOS
+ELEMENTOS
 ========================================================= */
 
 const chatBox = document.getElementById("chatBox");
@@ -329,9 +331,10 @@ const chatClose = document.getElementById("chatClose");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const quickBtns = document.getElementById("quickBtns");
+const sendBtn = document.getElementById("sendBtn");
 
 /* =========================================================
-⏱ TIMER INACTIVIDAD
+TIMER 20s INTELIGENTE
 ========================================================= */
 
 let inactivityTimer = null;
@@ -343,14 +346,18 @@ function resetInactivityTimer(){
   }
 
   inactivityTimer = setTimeout(function(){
-    chatBox.style.display = "none";
-    chatToggle.style.display = "block";
-  }, 8000);
+
+    if(document.activeElement !== chatInput){
+      chatBox.style.display = "none";
+      chatToggle.style.display = "block";
+    }
+
+  }, 20000);
 
 }
 
 /* =========================================================
-🎯 EVENTOS UI
+EVENTOS UI
 ========================================================= */
 
 chatToggle.onclick = function(){
@@ -364,7 +371,6 @@ chatClose.onclick = function(){
   chatToggle.style.display = "block";
 };
 
-/* CIERRE AL HACER CLICK AFUERA */
 document.addEventListener("click", function(e){
 
   if(
@@ -379,34 +385,40 @@ document.addEventListener("click", function(e){
 });
 
 /* =========================================================
-💬 MENSAJE INICIAL
+MENSAJE INICIAL
 ========================================================= */
 
-chatMessages.innerHTML += `<div><b>Tutor:</b> Hola 👋</div>`;
+chatMessages.innerHTML += `<div><b>Tutor:</b> Hola 👋 ¿En qué quieres información sobre MagicBank?</div>`;
 
 /* =========================================================
-📡 ENVÍO API
+RESPUESTAS LOCALES (PRECISAS)
 ========================================================= */
 
-async function sendMessage(message){
-  try{
-    const res = await fetch(API_CHAT,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({
-        message: message
-      })
-    });
+function localResponse(msg){
 
-    return await res.json();
+  const m = msg.toLowerCase();
 
-  }catch(e){
-    return { message:"Error conexión" };
+  if(m.includes("qué es magicbank")){
+    return "MagicBank es un ecosistema educativo automatizado con tutores IA que enseñan de forma personalizada y certifican automáticamente.";
   }
+
+  if(m.includes("qué ofrece magicbank")){
+    return "MagicBank ofrece University, Academy, Fábrica de Tutores, Bachillerato, Conservatorio musical y evaluación profesional con IA.";
+  }
+
+  if(m.includes("university")){
+    return "University ofrece facultades como derecho, contaduría, administración, marketing y software con formación avanzada y certificación automática.";
+  }
+
+  if(m.includes("academy")){
+    return "Academy ofrece cursos prácticos como idiomas, cocina, nutrición inteligente, ChatGPT, finanzas y emprendimiento.";
+  }
+
+  return null;
 }
 
 /* =========================================================
-⚡ ENVÍO GENERAL
+ENVÍO
 ========================================================= */
 
 async function send(msg){
@@ -415,49 +427,62 @@ async function send(msg){
 
   chatMessages.innerHTML += "<div><b>Tú:</b> "+msg+"</div>";
 
-  const res = await sendMessage(msg);
+  const local = localResponse(msg);
 
-  chatMessages.innerHTML += "<div><b>Tutor:</b> "+(res.message || "Sin respuesta")+"</div>";
+  if(local){
+    chatMessages.innerHTML += "<div><b>Tutor:</b> "+local+"</div>";
+  }else{
 
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    try{
+      const res = await fetch(API_CHAT,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({message:msg})
+      });
 
-}
+      const data = await res.json();
 
-/* =========================================================
-🔘 BOTONES (SEGUROS)
-========================================================= */
+      chatMessages.innerHTML += "<div><b>Tutor:</b> "+(data.message || "Sin respuesta")+"</div>";
 
-if(quickBtns){
-  quickBtns.addEventListener("click", async function(e){
-
-    const btn = e.target.closest("button");
-    if(!btn) return;
-
-    const msg = btn.getAttribute("data-msg");
-    send(msg);
-
-  });
-}
-
-/* =========================================================
-⌨ INPUT
-========================================================= */
-
-chatInput.addEventListener("keypress", function(e){
-
-  resetInactivityTimer();
-
-  if(e.key === "Enter"){
-
-    const msg = chatInput.value.trim();
-    if(!msg) return;
-
-    chatInput.value = "";
-    send(msg);
+    }catch{
+      chatMessages.innerHTML += "<div><b>Tutor:</b> Error conexión</div>";
+    }
 
   }
 
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/* =========================================================
+BOTONES
+========================================================= */
+
+quickBtns.addEventListener("click", function(e){
+  const btn = e.target.closest("button");
+  if(!btn) return;
+  send(btn.getAttribute("data-msg"));
 });
+
+/* =========================================================
+INPUT + BOTÓN
+========================================================= */
+
+chatInput.addEventListener("keypress", function(e){
+  resetInactivityTimer();
+  if(e.key === "Enter"){
+    const msg = chatInput.value.trim();
+    if(!msg) return;
+    chatInput.value = "";
+    send(msg);
+  }
+});
+
+sendBtn.onclick = function(){
+  const msg = chatInput.value.trim();
+  if(!msg) return;
+  chatInput.value = "";
+  send(msg);
+};
 
 });
 </script>
