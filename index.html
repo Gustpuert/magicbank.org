@@ -279,192 +279,23 @@ Modelo educativo MagicBank
 </footer>
 
 
-
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
 
 /* =========================================================
-🔧 CONFIG GLOBAL
+🔧 CONFIG
 ========================================================= */
 
 const API_CHAT = "https://magic-bank-backend-production-713e.up.railway.app/api/landing-chat";
-  
-const API_CATALOGO = "https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico";
-
-/* ⚠️ TOKEN REAL */
-const USER_TOKEN = "414af08183b447891379508e09d336cf99530a1bdb2ad1227dc0d6980f408afb";
 
 /* =========================================================
-🧠 NORMALIZADOR
+💬 CHAT UI (ORIGINAL + BOTONES SEGUROS)
 ========================================================= */
 
-function normalize(t){
-return (t || "")
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.trim();
-}
-
-/* =========================================================
-📚 CATALOGO (BUSCADOR ACTUAL)
-========================================================= */
-
-let catalog = [];
-let ready = false;
-
-const input = document.getElementById("searchInput");
-const suggestions = document.getElementById("suggestions");
-
-try{
-const res = await fetch(API_CATALOGO);
-catalog = await res.json();
-ready = true;
-console.log("CATALOGO OK:", catalog.length);
-}catch(e){
-console.error("ERROR CARGANDO CATALOGO", e);
-}
-
-function getLabel(area){
-if(area === "academy") return "🎓 Curso";
-if(area === "university") return "🏛 Facultad";
-if(area === "tutor") return "🤖 Tutor";
-return "";
-}
-
-/* =========================================================
-🔍 BUSCADOR (SE MANTIENE IGUAL)
-========================================================= */
-
-input.addEventListener("input", function(){
-
-if(!ready) return;
-
-const query = normalize(this.value);
-suggestions.innerHTML = "";
-
-if(query.length < 2){
-suggestions.style.display = "none";
-return;
-}
-
-const words = query.split(" ");
-
-let results = catalog.map(c => {
-
-let score = 0;
-
-words.forEach(w=>{
-if(normalize(c.nombre).includes(w)) score += 10;
-});
-
-(c.keywords || []).forEach(k=>{
-words.forEach(w=>{
-if(normalize(k).includes(w)) score += 5;
-});
-});
-
-if(score > 0){
-score += c.prioridad || 0;
-}
-
-return {...c, score};
-
-})
-.filter(r => r.score > 0)
-.sort((a,b)=>b.score-a.score)
-.slice(0,10);
-
-if(results.length === 0){
-results = catalog
-.sort((a,b)=>(b.prioridad||0)-(a.prioridad||0))
-.slice(0,6);
-}
-
-results.forEach((c, index) => {
-
-const div = document.createElement("div");
-div.className = "suggestion";
-
-if(index === 0){
-div.style.background = "#f0edff";
-div.style.fontWeight = "600";
-}
-
-div.innerHTML = `
-<div style="font-size:15px">${c.nombre}</div>
-<div style="font-size:12px;color:#777">${getLabel(c.area)}</div>
-`;
-
-div.onclick = () => {
-suggestions.style.display = "none";
-window.location.href = c.url;
-};
-
-suggestions.appendChild(div);
-
-});
-
-suggestions.style.display = results.length ? "block" : "none";
-
-});
-
-/* =========================================================
-🔐 CIERRES UX
-========================================================= */
-
-document.addEventListener("click",(e)=>{
-if(!e.target.closest(".search")){
-suggestions.style.display="none";
-}
-});
-
-input.addEventListener("blur", () => {
-setTimeout(() => {
-suggestions.style.display = "none";
-}, 150);
-});
-
-input.addEventListener("keydown", (e)=>{
-if(e.key === "Escape"){
-suggestions.style.display = "none";
-input.blur();
-}
-});
-
-/* =========================================================
-✅ CHAT FUNCIONAL SEGURO
-========================================================= */
-
-// BOTÓN + CHAT HTML
 const chatHTML = `
-<div id="chatToggle" style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:#5b4ee6;
-color:white;
-padding:14px;
-border-radius:50%;
-cursor:pointer;
-z-index:9999;
-font-size:18px;
-">💬</div>
+<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;font-size:18px;">💬</div>
 
-<div id="chatBox" style="
-position:fixed;
-bottom:80px;
-right:20px;
-width:320px;
-height:420px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-display:none;
-flex-direction:column;
-overflow:hidden;
-z-index:9999;
-">
+<div id="chatBox" style="position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
 
 <div style="padding:12px;background:#5b4ee6;color:white;display:flex;justify-content:space-between;">
 <span>Tutor IA</span>
@@ -474,6 +305,12 @@ z-index:9999;
 <div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;">
+<div id="quickBtns" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;">
+<button data-msg="University">University</button>
+<button data-msg="Academy">Academy</button>
+<button data-msg="Tutores">Tutores</button>
+<button data-msg="Bachillerato">Bachillerato</button>
+</div>
 <input id="chatInput" placeholder="Escribe..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;">
 </div>
 
@@ -482,46 +319,80 @@ z-index:9999;
 
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
-// REFERENCIAS
+/* =========================================================
+🔗 ELEMENTOS
+========================================================= */
+
 const chatBox = document.getElementById("chatBox");
 const chatToggle = document.getElementById("chatToggle");
 const chatClose = document.getElementById("chatClose");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
+const quickBtns = document.getElementById("quickBtns");
 
-// DEBUG
-console.log("CHAT INIT:", chatBox, chatToggle);
+/* =========================================================
+⏱ TIMER INACTIVIDAD
+========================================================= */
 
-// ABRIR
-chatToggle.onclick = () => {
+let inactivityTimer = null;
+
+function resetInactivityTimer(){
+
+  if(inactivityTimer){
+    clearTimeout(inactivityTimer);
+  }
+
+  inactivityTimer = setTimeout(function(){
+    chatBox.style.display = "none";
+    chatToggle.style.display = "block";
+  }, 8000);
+
+}
+
+/* =========================================================
+🎯 EVENTOS UI
+========================================================= */
+
+chatToggle.onclick = function(){
   chatBox.style.display = "flex";
   chatToggle.style.display = "none";
+  resetInactivityTimer();
 };
 
-// CERRAR
-chatClose.onclick = () => {
+chatClose.onclick = function(){
   chatBox.style.display = "none";
   chatToggle.style.display = "block";
 };
 
-// MENSAJE INICIAL
-chatMessages.innerHTML += `
-<div><b>Tutor:</b> Hola, soy tu tutor inteligente.</div>
-`;
+/* CIERRE AL HACER CLICK AFUERA */
+document.addEventListener("click", function(e){
+
+  if(
+    chatBox.style.display === "flex" &&
+    !chatBox.contains(e.target) &&
+    !chatToggle.contains(e.target)
+  ){
+    chatBox.style.display = "none";
+    chatToggle.style.display = "block";
+  }
+
+});
 
 /* =========================================================
-ENVÍO MENSAJE
+💬 MENSAJE INICIAL
+========================================================= */
+
+chatMessages.innerHTML += `<div><b>Tutor:</b> Hola 👋</div>`;
+
+/* =========================================================
+📡 ENVÍO API
 ========================================================= */
 
 async function sendMessage(message){
-
   try{
-
-    const res = await fetch(API_CHAT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+    const res = await fetch(API_CHAT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
       body: JSON.stringify({
         message: message
       })
@@ -530,45 +401,67 @@ async function sendMessage(message){
     return await res.json();
 
   }catch(e){
-    console.error(e);
-    return { message: "Error de conexión" };
+    return { message:"Error conexión" };
   }
-
 }
 
 /* =========================================================
-HANDLE CHAT
+⚡ ENVÍO GENERAL
 ========================================================= */
 
-async function handleChat(){
+async function send(msg){
 
-  const msg = chatInput.value.trim();
-  if(!msg) return;
+  resetInactivityTimer();
 
-  chatMessages.innerHTML += `<div><b>Tú:</b> ${msg}</div>`;
-  chatInput.value = "";
-
-  chatMessages.innerHTML += `<div id="loading">...</div>`;
+  chatMessages.innerHTML += "<div><b>Tú:</b> "+msg+"</div>";
 
   const res = await sendMessage(msg);
 
-  document.getElementById("loading")?.remove();
-
-  const reply = res?.message || "Sin respuesta";
-
-  chatMessages.innerHTML += `<div><b>Tutor:</b> ${reply}</div>`;
+  chatMessages.innerHTML += "<div><b>Tutor:</b> "+(res.message || "Sin respuesta")+"</div>";
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
 }
 
-// ENTER
+/* =========================================================
+🔘 BOTONES (SEGUROS)
+========================================================= */
+
+if(quickBtns){
+  quickBtns.addEventListener("click", async function(e){
+
+    const btn = e.target.closest("button");
+    if(!btn) return;
+
+    const msg = btn.getAttribute("data-msg");
+    send(msg);
+
+  });
+}
+
+/* =========================================================
+⌨ INPUT
+========================================================= */
+
 chatInput.addEventListener("keypress", function(e){
+
+  resetInactivityTimer();
+
   if(e.key === "Enter"){
-    handleChat();
+
+    const msg = chatInput.value.trim();
+    if(!msg) return;
+
+    chatInput.value = "";
+    send(msg);
+
   }
+
+});
+
 });
 </script>
+
   
 
 
