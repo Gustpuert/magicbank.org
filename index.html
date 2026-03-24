@@ -571,7 +571,106 @@ chatInput.addEventListener("keypress", function(e){
 });
 </script>
   
-  
+  <script>
+setTimeout(function(){
+
+const chatHTML = `
+<div id="chatToggle" style="
+position:fixed;
+bottom:20px;
+right:20px;
+background:#5b4ee6;
+color:white;
+padding:16px;
+border-radius:50%;
+z-index:99999;
+font-size:20px;
+">💬</div>
+
+<div id="chatBox" style="
+position:fixed;
+bottom:80px;
+right:20px;
+width:90%;
+max-width:320px;
+height:420px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:99999;
+">
+
+<div style="padding:12px;background:#5b4ee6;color:white;display:flex;justify-content:space-between;">
+<span>Tutor IA</span>
+<span id="chatClose" style="cursor:pointer;">✖</span>
+</div>
+
+<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
+
+<div style="padding:10px;border-top:1px solid #eee;">
+<input id="chatInput" placeholder="Escribe..." style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
+</div>
+
+</div>
+`;
+
+document.body.insertAdjacentHTML("beforeend", chatHTML);
+
+const chatBox = document.getElementById("chatBox");
+const chatToggle = document.getElementById("chatToggle");
+const chatClose = document.getElementById("chatClose");
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+
+chatToggle.onclick = function(){
+  chatBox.style.display = "flex";
+  chatToggle.style.display = "none";
+};
+
+chatClose.onclick = function(){
+  chatBox.style.display = "none";
+  chatToggle.style.display = "block";
+};
+
+chatMessages.innerHTML += "<div><b>Tutor:</b> Hola 👋</div>";
+
+async function sendMessage(message){
+  try{
+    const res = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        token:"414af08183b447891379508e09d336cf99530a1bdb2ad1227dc0d6980f408afb",
+        message
+      })
+    });
+    return await res.json();
+  }catch(e){
+    return { message:"Error conexión" };
+  }
+}
+
+chatInput.addEventListener("keypress", async function(e){
+  if(e.key === "Enter"){
+    const msg = chatInput.value.trim();
+    if(!msg) return;
+
+    chatMessages.innerHTML += "<div><b>Tú:</b> "+msg+"</div>";
+    chatInput.value = "";
+
+    const res = await sendMessage(msg);
+
+    chatMessages.innerHTML += "<div><b>Tutor:</b> "+(res.message || "Sin respuesta")+"</div>";
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+});
+
+}, 1000);
+  </script>
 
 </body>
 </html>
