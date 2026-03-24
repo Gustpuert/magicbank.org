@@ -283,18 +283,20 @@ Modelo educativo MagicBank
 <script>
 document.addEventListener("DOMContentLoaded", async function(){
 
-/* =========================================================
+/* =========================
 CONFIG
-========================================================= */
+========================= */
 
 const API_CATALOGO = "https://magic-bank-backend-production-713e.up.railway.app/api/catalogo-publico";
 
 let catalog = [];
 let pendingCourse = null;
+let inactivityTimer = null;
+let isExpanded = false;
 
-/* =========================================================
+/* =========================
 NORMALIZE
-========================================================= */
+========================= */
 
 function normalize(t){
 return (t || "")
@@ -304,105 +306,38 @@ return (t || "")
 .trim();
 }
 
-/* =========================================================
+/* =========================
 LOAD CATALOG
-========================================================= */
+========================= */
 
 try{
 const res = await fetch(API_CATALOGO);
 catalog = await res.json();
 }catch(e){
-console.error("CATALOGO ERROR", e);
+console.error(e);
 }
 
-/* =========================================================
-DETECT INTENT
-========================================================= */
-
-function detectCourseIntent(msg){
-
-const m = msg.toLowerCase();
-
-if(m.includes("italiano")) return "italiano";
-if(m.includes("ingles") || m.includes("inglés")) return "ingles";
-if(m.includes("frances")) return "frances";
-if(m.includes("portugues")) return "portugues";
-if(m.includes("aleman")) return "aleman";
-if(m.includes("chino")) return "chino";
-
-if(m.includes("cocina")) return "cocina";
-if(m.includes("nutricion")) return "nutricion";
-if(m.includes("chatgpt")) return "chatgpt";
-
-if(m.includes("trading")) return "trading";
-if(m.includes("cripto") || m.includes("banca digital")) return "cripto";
-
-return null;
-}
-
-/* =========================================================
-FIND COURSE
-========================================================= */
-
-function findCourse(name){
-return catalog.find(c => normalize(c.nombre).includes(name));
-}
-
-/* =========================================================
-RESPUESTAS PRECISAS
-========================================================= */
-
-function localResponse(msg){
-
-const m = msg.toLowerCase();
-
-if(m.includes("qué es magicbank") || m.includes("que es magicbank")){
-return "MagicBank es un ecosistema educativo con tutores de inteligencia artificial que enseñan, evalúan y certifican automáticamente cuando el conocimiento es real.";
-}
-
-if(m.includes("qué ofrece") || m.includes("que ofrece")){
-return "MagicBank incluye University, Academy, Fábrica de Tutores, Bachillerato, Conservatorio musical y Evaluador Tutor PRO.";
-}
-
-if(m.includes("universidad") || m.includes("university")){
-return "University ofrece formación en derecho, contaduría, administración pública, marketing, negocios y desarrollo de software con nivel de especialización y maestría.";
-}
-
-if(m.includes("academy") || m.includes("curso")){
-return "Academy incluye idiomas, cocina avanzada, nutrición inteligente, ChatGPT avanzado, emprendimiento, banca digital, trading cíclico e inversiones mágicas.";
-}
-
-if(
-m.includes("idioma") ||
-m.includes("español") ||
-m.includes("ingles") ||
-m.includes("frances") ||
-m.includes("italiano")
-){
-return "Idiomas disponibles: español, inglés, francés, italiano, portugués, alemán y chino con tutor que enseña conversación y pronunciación.";
-}
-
-return null;
-}
-
-/* =========================================================
-UI CHAT
-========================================================= */
+/* =========================
+UI
+========================= */
 
 const chatHTML = `
-<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;font-size:18px;">💬</div>
+<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:white;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;">💬</div>
 
 <div id="chatBox" style="position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;font-family:Inter,sans-serif;">
 
-<div style="padding:12px;background:#5b4ee6;color:white;display:flex;justify-content:space-between;">
+<div style="padding:12px;background:#5b4ee6;color:white;display:flex;justify-content:space-between;align-items:center;">
 <span>Tutor IA</span>
+<div>
+<span id="expandChat" style="cursor:pointer;margin-right:10px;">⛶</span>
 <span id="chatClose" style="cursor:pointer;">✖</span>
+</div>
 </div>
 
 <div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;display:flex;gap:5px;">
-<input id="chatInput" placeholder="Escribe tu pregunta..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
+<input id="chatInput" placeholder="Escribe..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
 <button id="sendBtn" style="background:#5b4ee6;color:#fff;border:none;padding:8px 12px;border-radius:8px;">➤</button>
 </div>
 
@@ -411,20 +346,41 @@ const chatHTML = `
 
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
+/* =========================
+ELEMENTS
+========================= */
+
 const chatBox = document.getElementById("chatBox");
 const chatToggle = document.getElementById("chatToggle");
 const chatClose = document.getElementById("chatClose");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
+const expandChat = document.getElementById("expandChat");
 
-/* =========================================================
+/* =========================
+AUTO HIDE (20s)
+========================= */
+
+function resetInactivity(){
+clearTimeout(inactivityTimer);
+
+inactivityTimer = setTimeout(()=>{
+if(document.activeElement !== chatInput){
+chatBox.style.display = "none";
+chatToggle.style.display = "block";
+}
+},20000);
+}
+
+/* =========================
 OPEN / CLOSE
-========================================================= */
+========================= */
 
 chatToggle.onclick = () => {
 chatBox.style.display = "flex";
 chatToggle.style.display = "none";
+resetInactivity();
 };
 
 chatClose.onclick = () => {
@@ -432,23 +388,104 @@ chatBox.style.display = "none";
 chatToggle.style.display = "block";
 };
 
-/* =========================================================
-MENSAJE INICIAL
-========================================================= */
+/* =========================
+EXPAND
+========================= */
 
-chatMessages.innerHTML += `<div><b>Tutor:</b> Hola 👋 ¿Qué quieres aprender en MagicBank?</div>`;
+expandChat.onclick = () => {
 
-/* =========================================================
+if(!isExpanded){
+chatBox.style.width = "100%";
+chatBox.style.height = "100%";
+chatBox.style.bottom = "0";
+chatBox.style.right = "0";
+chatBox.style.borderRadius = "0";
+isExpanded = true;
+}else{
+chatBox.style.width = "320px";
+chatBox.style.height = "420px";
+chatBox.style.bottom = "80px";
+chatBox.style.right = "20px";
+chatBox.style.borderRadius = "16px";
+isExpanded = false;
+}
+
+};
+
+/* =========================
+INTENT DETECTION
+========================= */
+
+function detectIntent(msg){
+
+const m = msg.toLowerCase();
+
+if(m.includes("italiano") || m === "italiano") return "italiano";
+if(m.includes("ingles") || m.includes("inglés")) return "ingles";
+if(m.includes("frances")) return "frances";
+if(m.includes("portugues")) return "portugues";
+
+if(m.includes("cocina")) return "cocina";
+if(m.includes("nutricion")) return "nutricion";
+if(m.includes("chatgpt")) return "chatgpt";
+
+if(m.includes("trading")) return "trading";
+if(m.includes("cripto")) return "cripto";
+
+return null;
+}
+
+/* =========================
+FIND COURSE
+========================= */
+
+function findCourse(name){
+return catalog.find(c => normalize(c.nombre).includes(name));
+}
+
+/* =========================
+RESPUESTA INTELIGENTE
+========================= */
+
+function intelligentReply(msg){
+
+const m = msg.toLowerCase();
+
+/* QUÉ ES */
+
+if(m.includes("magicbank")){
+return "MagicBank es un ecosistema educativo con tutores IA que enseñan, evalúan y certifican automáticamente cuando realmente sabes.";
+}
+
+/* DETECTA CURSO */
+
+const intent = detectIntent(msg);
+
+if(intent){
+
+pendingCourse = intent;
+
+return `Veo que te interesa ${intent}. ¿Quieres explorar este curso ahora?`;
+}
+
+/* DEFAULT */
+
+return "Dime exactamente qué quieres aprender y te guío paso a paso.";
+}
+
+/* =========================
 SEND
-========================================================= */
+========================= */
 
-async function handleSend(){
+async function send(){
 
 const msg = chatInput.value.trim();
 if(!msg) return;
 
 chatMessages.innerHTML += "<div><b>Tú:</b> "+msg+"</div>";
 chatInput.value = "";
+
+resetInactivity();
 
 const lower = msg.toLowerCase();
 
@@ -462,49 +499,39 @@ if(course){
 window.open(course.url, "_blank");
 chatMessages.innerHTML += "<div><b>Tutor:</b> Te llevo al curso 🚀</div>";
 }else{
-chatMessages.innerHTML += "<div><b>Tutor:</b> No encontré el enlace exacto, revisa en Academy.</div>";
+chatMessages.innerHTML += "<div><b>Tutor:</b> No encontré el enlace exacto.</div>";
 }
 
 pendingCourse = null;
 return;
 }
 
-/* DETECTAR INTENCIÓN */
+/* RESPUESTA INTELIGENTE */
 
-const detected = detectCourseIntent(msg);
+const reply = intelligentReply(msg);
 
-if(detected){
-pendingCourse = detected;
+chatMessages.innerHTML += "<div><b>Tutor:</b> "+reply+"</div>";
 
-chatMessages.innerHTML += `<div><b>Tutor:</b> Detecté interés en <b>${detected}</b>. ¿Quieres explorar este curso ahora?</div>`;
-return;
+chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-/* RESPUESTA LOCAL */
-
-const local = localResponse(msg);
-
-if(local){
-chatMessages.innerHTML += "<div><b>Tutor:</b> "+local+"</div>";
-return;
-}
-
-/* DEFAULT */
-
-chatMessages.innerHTML += "<div><b>Tutor:</b> Dime exactamente qué quieres aprender y te guío.</div>";
-}
-
-/* =========================================================
+/* =========================
 EVENTOS
-========================================================= */
+========================= */
 
-sendBtn.onclick = handleSend;
+sendBtn.onclick = send;
 
 chatInput.addEventListener("keypress", function(e){
 if(e.key === "Enter"){
-handleSend();
+send();
 }
 });
+
+/* =========================
+INIT
+========================= */
+
+chatMessages.innerHTML += "<div><b>Tutor:</b> Hola 👋 ¿Qué quieres aprender?</div>";
 
 });
 </script>
