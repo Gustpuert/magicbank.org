@@ -560,7 +560,13 @@ async function handleChat(){
 const msg = chatInput.value.trim();
 if(!msg) return;
 
-chatMessages.innerHTML += `<div><b>Tú:</b> ${msg}</div>`;
+const reply =
+res?.message ||
+res?.reply ||
+res?.response ||
+"Error en respuesta del tutor";
+
+chatMessages.innerHTML += `<div><b>Tutor:</b> ${reply}</div>`;
 chatInput.value = "";
 
 const res = await sendMessage(msg);
