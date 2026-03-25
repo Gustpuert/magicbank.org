@@ -466,91 +466,161 @@ return null;
 RESPUESTA INTELIGENTE
 ========================================= */
 
-function intelligentReply(msg){
+/* ===== MAGICBANK ===== */
 
-const m = normalize(msg);
-
-/* ===== MAGICBANK (PRIORIDAD ALTA) ===== */
-
-if(m.includes("magicbank")){
+if(m.includes("que es magicbank")){
 return `
-<b>MAGICBANK funciona sobre ChatGPT</b> ⚡
+<b>¿Qué es MagicBank?</b>
 
-MagicBank potencia a ChatGPT y ChatGPT potencia MagicBank.
+MagicBank es un ecosistema educativo automatizado  
+que funciona con tutores de inteligencia artificial sobre ChatGPT.
 
-No compras cursos.
+No utilizas profesores humanos,  
+aprendes directamente con tutores IA especializados.
+`;
+}
+
+/* ===== FUNCIONAMIENTO ===== */
+
+if(m.includes("como funciona") || m.includes("funciona magicbank")){
+return `
+<b>¿Cómo funciona MagicBank?</b>
+
+1. Escoges un curso  
+2. Pagas acceso por 30 días  
+3. Recibes un token en tu correo  
+4. Ingresas al tutor  
+5. Pegas tu correo y el token  
+6. El tutor valida tu acceso  
+7. Comienza tu formación
+`;
+}
+
+/* ===== ACCESO ===== */
+
+if(m.includes("acceso") || m.includes("pago")){
+return `
+<b>Acceso a MagicBank</b>
+
+No compras cursos.  
 Compras acceso a tutores por 30 días.
 
-Proceso:
+Puedes renovar, cambiar de curso  
+o tener varios tutores al mismo tiempo.
+`;
+}
 
-1. Escoges curso  
-2. Pagas acceso  
-3. Recibes correo con TOKEN  
-4. Entras al tutor  
-5. Pegas correo + token  
-6. El tutor valida acceso  
-7. Comienza tu formación  
+/* ===== TOKEN ===== */
 
-Importante:
+if(m.includes("token")){
+return `
+<b>¿Qué es el token?</b>
 
-- Puedes cambiar de curso cada mes  
-- No hay permanencia  
-- Puedes tener varios tutores al tiempo  
+Es un código que recibes en tu correo  
+después de realizar el pago.
 
-Recomendación:
+Debes ingresarlo junto con tu correo  
+para que el tutor valide tu acceso.
+`;
+}
 
-Renombra tus chats como:
-MODULO 1, MODULO 2...
+/* ===== UNIVERSITY ===== */
+
+if(m.includes("university")){
+return `
+<b>MagicBank University</b>
+
+Formación profesional con tutores IA.
+
+Incluye facultades como:
+
+- Derecho  
+- Contaduría  
+- Administración  
+- Marketing  
+- Software  
+
+Cada programa tiene módulos, evaluación automática  
+y certificación.
+`;
+}
+
+/* ===== ACADEMY ===== */
+
+if(m.includes("academy")){
+return `
+<b>MagicBank Academy</b>
+
+Programas prácticos con tutores IA.
+
+Incluye:
+
+- Idiomas  
+- Nutrición  
+- Cocina  
+- ChatGPT  
+- Artes y oficios  
+- Trading  
+- Banca digital
+`;
+}
+
+/* ===== TUTOR ===== */
+
+if(m.includes("tutor")){
+return `
+<b>¿Cómo usar el tutor?</b>
+
+1. Ingresa con tu correo y token  
+2. Cambia el nombre del chat a: MODULO 1  
+3. Usa ese chat para avanzar en el curso  
+4. Renombra a MODULO 2 cuando avances  
 
 No mezcles temas en un mismo chat.
-
-¿Quieres que te lleve a un curso ahora? 🚀
 `;
 }
 
-/* ===== CONFIRMACIÓN AUTOMÁTICA ===== */
+/* ===== CALIDAD ===== */
 
-if(pendingCourse){
-
-if(m === "si" || m === "sí"){
-
-const url = pendingCourse.url;
-pendingCourse = null;
-
-setTimeout(()=>{
-window.open(url, "_blank");
-},500);
-
-return "Perfecto 🚀 Te llevo al curso...";
-}
-
-if(m.includes("no")){
-pendingCourse = null;
-return "Perfecto 👍 dime qué quieres explorar.";
-}
-
-}
-
-/* ===== DETECCIÓN DE CURSO ===== */
-
-const course = findCourse(m);
-
-if(course){
-
-pendingCourse = course;
-
+if(m.includes("calidad")){
 return `
-Veo que te interesa <b>${course.nombre}</b>.
+<b>Calidad académica</b>
 
-¿Quieres explorar este curso ahora? 🚀
+MagicBank utiliza un sistema de aprendizaje progresivo  
+guiado por inteligencia artificial.
+
+El tutor evalúa, corrige y adapta el contenido  
+según tu nivel.
 `;
 }
 
-/* ===== DEFAULT ===== */
+/* ===== TUTORIAL ===== */
 
-return "Dime exactamente qué quieres aprender y te guío paso a paso.";
+if(m.includes("tutorial") || m.includes("empezar")){
+return `
+<b>¿Cómo empezar?</b>
+
+1. Entra al tutorial  
+2. Aprende cómo funciona el sistema  
+3. Escoge tu curso  
+4. Activa tu acceso  
+
+Comienza paso a paso para evitar errores.
+`;
 }
 
+/* ===== CHATGPT ===== */
+
+if(m.includes("chatgpt")){
+return `
+<b>MagicBank + ChatGPT</b>
+
+MagicBank funciona sobre ChatGPT.
+
+Debes tener una cuenta activa en ChatGPT  
+para poder acceder a los tutores.
+`;
+}
 /* =========================================
 EVENTOS
 ========================================= */
