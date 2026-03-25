@@ -476,25 +476,56 @@ function intelligentReply(msg){
 
 const m = normalize(msg);
 
-/* CURSO DETECTADO */
+/* RESPUESTA SI YA HAY CURSO PENDIENTE */
+if(pendingCourse){
+
+if(m === "si" || m === "sí" || m.includes("explorar")){
+
+const url = pendingCourse.url;
+pendingCourse = null;
+
+return `
+Perfecto 🚀
+
+Te llevo al curso:
+
+<button onclick="window.open('${url}','_blank')">
+Abrir curso ahora
+</button>
+`;
+
+}
+
+if(m.includes("no")){
+pendingCourse = null;
+return "Perfecto 👍 dime qué te gustaría explorar.";
+}
+
+}
+
+/* BUSCAR CURSO */
 const course = findCourse(m);
 
 if(course){
+
+pendingCourse = course;
+
 return `
 Veo que te interesa ${course.nombre}.
 
 ¿Quieres explorar este curso ahora?
-
 <button onclick="window.open('${course.url}','_blank')">
 Explorar ahora 🚀
 </button>
 `;
+
 }
 
-/* UNIVERSITY */
+/* RESPUESTAS GENERALES */
+
 if(m.includes("university")){
 return `
-La University de MagicBank ofrece:
+La University incluye:
 
 - Derecho  
 - Contaduría  
@@ -502,12 +533,10 @@ La University de MagicBank ofrece:
 - Marketing  
 - Software  
 
-Acceso:
 https://gustpuert.github.io/university.magicbank.org/
 `;
 }
 
-/* ACADEMY */
 if(m.includes("academy")){
 return `
 La Academy incluye:
@@ -520,17 +549,15 @@ La Academy incluye:
 - Banca digital  
 - Trading cíclico  
 
-Acceso:
 https://academy.magicbank.org
 `;
 }
 
-/* INFO */
 if(m.includes("magicbank")){
 return `
 MagicBank es un ecosistema educativo automatizado con tutores IA.
 
-Para información completa usa el tutor oficial:
+Tutor completo:
 https://chatgpt.com/g/g-697a851b8a148191a8971256abf33157-tutor-informativo-magibank
 `;
 }
