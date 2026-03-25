@@ -485,15 +485,12 @@ if(m === "si" || m === "sí" || m.includes("explorar")){
 const url = pendingCourse.url;
 pendingCourse = null;
 
-return `
-Perfecto 🚀
+/* REDIRECCIÓN AUTOMÁTICA */
+setTimeout(() => {
+window.open(url, "_blank");
+}, 500);
 
-Te llevo al curso:
-
-<button onclick="window.open('${url}','_blank')">
-Abrir curso ahora
-</button>
-`;
+return "Perfecto 🚀 Te llevo al curso...";
 
 }
 
