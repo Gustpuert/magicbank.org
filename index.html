@@ -466,23 +466,61 @@ return null;
 RESPUESTA INTELIGENTE
 ========================================= */
 
-/* ===== MAGICBANK ===== */
 
-if(m.includes("que es magicbank")){
+function intelligentReply(msg){
+
+const m = normalize(msg);
+
+/* =========================================
+1. CONFIRMACIÓN CURSO (NO TOCAR)
+========================================= */
+
+if(pendingCourse){
+
+if(m === "si" || m === "sí"){
+
+const url = pendingCourse.url;
+pendingCourse = null;
+
+setTimeout(()=>{
+window.open(url, "_blank");
+},500);
+
+return "Perfecto 🚀 Te llevo al curso...";
+}
+
+if(m.includes("no")){
+pendingCourse = null;
+return "Perfecto 👍 dime qué quieres explorar.";
+}
+
+}
+
+/* =========================================
+2. ¿QUÉ ES MAGICBANK? (DIRECTO)
+========================================= */
+
+if(
+m.includes("magicbank") &&
+(m.includes("que") || m.includes("qué"))
+){
 return `
 <b>¿Qué es MagicBank?</b>
 
 MagicBank es un ecosistema educativo automatizado  
 que funciona con tutores de inteligencia artificial sobre ChatGPT.
-
-No utilizas profesores humanos,  
-aprendes directamente con tutores IA especializados.
 `;
 }
 
-/* ===== FUNCIONAMIENTO ===== */
+/* =========================================
+3. ¿CÓMO FUNCIONA?
+========================================= */
 
-if(m.includes("como funciona") || m.includes("funciona magicbank")){
+if(
+m.includes("como") || 
+m.includes("cómo") || 
+m.includes("funciona")
+){
 return `
 <b>¿Cómo funciona MagicBank?</b>
 
@@ -496,131 +534,47 @@ return `
 `;
 }
 
-/* ===== ACCESO ===== */
-
-if(m.includes("acceso") || m.includes("pago")){
-return `
-<b>Acceso a MagicBank</b>
-
-No compras cursos.  
-Compras acceso a tutores por 30 días.
-
-Puedes renovar, cambiar de curso  
-o tener varios tutores al mismo tiempo.
-`;
-}
-
-/* ===== TOKEN ===== */
-
-if(m.includes("token")){
-return `
-<b>¿Qué es el token?</b>
-
-Es un código que recibes en tu correo  
-después de realizar el pago.
-
-Debes ingresarlo junto con tu correo  
-para que el tutor valide tu acceso.
-`;
-}
-
-/* ===== UNIVERSITY ===== */
-
-if(m.includes("university")){
-return `
-<b>MagicBank University</b>
-
-Formación profesional con tutores IA.
-
-Incluye facultades como:
-
-- Derecho  
-- Contaduría  
-- Administración  
-- Marketing  
-- Software  
-
-Cada programa tiene módulos, evaluación automática  
-y certificación.
-`;
-}
-
-/* ===== ACADEMY ===== */
-
-if(m.includes("academy")){
-return `
-<b>MagicBank Academy</b>
-
-Programas prácticos con tutores IA.
-
-Incluye:
-
-- Idiomas  
-- Nutrición  
-- Cocina  
-- ChatGPT  
-- Artes y oficios  
-- Trading  
-- Banca digital
-`;
-}
-
-/* ===== TUTOR ===== */
-
-if(m.includes("tutor")){
-return `
-<b>¿Cómo usar el tutor?</b>
-
-1. Ingresa con tu correo y token  
-2. Cambia el nombre del chat a: MODULO 1  
-3. Usa ese chat para avanzar en el curso  
-4. Renombra a MODULO 2 cuando avances  
-
-No mezcles temas en un mismo chat.
-`;
-}
-
-/* ===== CALIDAD ===== */
-
-if(m.includes("calidad")){
-return `
-<b>Calidad académica</b>
-
-MagicBank utiliza un sistema de aprendizaje progresivo  
-guiado por inteligencia artificial.
-
-El tutor evalúa, corrige y adapta el contenido  
-según tu nivel.
-`;
-}
-
-/* ===== TUTORIAL ===== */
-
-if(m.includes("tutorial") || m.includes("empezar")){
-return `
-<b>¿Cómo empezar?</b>
-
-1. Entra al tutorial  
-2. Aprende cómo funciona el sistema  
-3. Escoge tu curso  
-4. Activa tu acceso  
-
-Comienza paso a paso para evitar errores.
-`;
-}
-
-/* ===== CHATGPT ===== */
+/* =========================================
+4. CHATGPT
+========================================= */
 
 if(m.includes("chatgpt")){
 return `
-<b>MagicBank + ChatGPT</b>
+<b>MagicBank y ChatGPT</b>
 
 MagicBank funciona sobre ChatGPT.
 
-Debes tener una cuenta activa en ChatGPT  
-para poder acceder a los tutores.
+MagicBank potencia a ChatGPT  
+y ChatGPT potencia MagicBank.
+
+Debes tener una cuenta activa en ChatGPT.
 `;
 }
+
+/* =========================================
+5. DETECCIÓN DE CURSO (CLAVE)
+========================================= */
+
+const course = findCourse(m);
+
+if(course){
+
+pendingCourse = course;
+
+return `
+Veo que te interesa <b>${course.nombre}</b>.
+
+¿Quieres explorar este curso ahora? 🚀
+`;
+}
+
+/* =========================================
+6. DEFAULT
+========================================= */
+
+return "Dime exactamente qué quieres aprender y te guío paso a paso.";
+}
+  
 /* =========================================
 EVENTOS
 ========================================= */
