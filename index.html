@@ -295,8 +295,8 @@ ESTADO
 
 let catalog = [];
 let inactivityTimer = null;
-  
 let pendingCourse = null;
+
 /* =========================================
 NORMALIZADOR
 ========================================= */
@@ -310,7 +310,7 @@ return (text || "")
 }
 
 /* =========================================
-CARGAR CATALOGO (TIENDA NUBE)
+CARGAR CATALOGO
 ========================================= */
 
 try{
@@ -322,7 +322,7 @@ console.error("ERROR CATALOGO", e);
 }
 
 /* =========================================
-CHAT HTML (CLONADO + MEJORADO)
+CHAT HTML
 ========================================= */
 
 const chatHTML = `
@@ -341,13 +341,6 @@ const chatHTML = `
 <div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;">
-<div id="quickButtons" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;">
-<button class="qbtn">¿Qué es MagicBank?</button>
-<button class="qbtn">¿Qué ofrece MagicBank?</button>
-<button class="qbtn">Quiero estudiar en University</button>
-<button class="qbtn">Quiero un curso práctico en Academy</button>
-</div>
-
 <div style="display:flex;gap:6px;">
 <input id="chatInput" placeholder="Escribe..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
 <button id="sendBtn" style="background:#5b4ee6;color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">➤</button>
@@ -394,7 +387,7 @@ chatBox.style.right = "0";
 };
 
 /* =========================================
-AUTO CIERRE (20s)
+AUTO CIERRE
 ========================================= */
 
 function resetInactivity(){
@@ -410,11 +403,11 @@ chatToggle.style.display = "block";
 
 }
 
-document.addEventListener("click", () => resetInactivity());
-chatInput.addEventListener("focus", () => resetInactivity());
+document.addEventListener("click", resetInactivity);
+chatInput.addEventListener("focus", resetInactivity);
 
 /* =========================================
-MENSAJE
+MENSAJES
 ========================================= */
 
 function addMessage(sender,text){
@@ -423,7 +416,7 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 /* =========================================
-BUSCADOR INTELIGENTE (CLAVE)
+BUSCADOR INTELIGENTE
 ========================================= */
 
 function findCourse(message){
@@ -477,31 +470,69 @@ function intelligentReply(msg){
 
 const m = normalize(msg);
 
-/* RESPUESTA SI YA HAY CURSO PENDIENTE */
+/* ===== MAGICBANK (PRIORIDAD ALTA) ===== */
+
+if(m.includes("magicbank")){
+return `
+<b>MAGICBANK funciona sobre ChatGPT</b> ⚡
+
+MagicBank potencia a ChatGPT y ChatGPT potencia MagicBank.
+
+No compras cursos.
+Compras acceso a tutores por 30 días.
+
+Proceso:
+
+1. Escoges curso  
+2. Pagas acceso  
+3. Recibes correo con TOKEN  
+4. Entras al tutor  
+5. Pegas correo + token  
+6. El tutor valida acceso  
+7. Comienza tu formación  
+
+Importante:
+
+- Puedes cambiar de curso cada mes  
+- No hay permanencia  
+- Puedes tener varios tutores al tiempo  
+
+Recomendación:
+
+Renombra tus chats como:
+MODULO 1, MODULO 2...
+
+No mezcles temas en un mismo chat.
+
+¿Quieres que te lleve a un curso ahora? 🚀
+`;
+}
+
+/* ===== CONFIRMACIÓN AUTOMÁTICA ===== */
+
 if(pendingCourse){
 
-if(m === "si" || m === "sí" || m.includes("explorar")){
+if(m === "si" || m === "sí"){
 
 const url = pendingCourse.url;
 pendingCourse = null;
 
-/* REDIRECCIÓN AUTOMÁTICA */
-setTimeout(() => {
+setTimeout(()=>{
 window.open(url, "_blank");
-}, 500);
+},500);
 
 return "Perfecto 🚀 Te llevo al curso...";
-
 }
 
 if(m.includes("no")){
 pendingCourse = null;
-return "Perfecto 👍 dime qué te gustaría explorar.";
+return "Perfecto 👍 dime qué quieres explorar.";
 }
 
 }
 
-/* BUSCAR CURSO */
+/* ===== DETECCIÓN DE CURSO ===== */
+
 const course = findCourse(m);
 
 if(course){
@@ -509,62 +540,19 @@ if(course){
 pendingCourse = course;
 
 return `
-Veo que te interesa ${course.nombre}.
+Veo que te interesa <b>${course.nombre}</b>.
 
-¿Quieres explorar este curso ahora?
-<button onclick="window.open('${course.url}','_blank')">
-Explorar ahora 🚀
-</button>
-`;
-
-}
-
-/* RESPUESTAS GENERALES */
-
-if(m.includes("university")){
-return `
-La University incluye:
-
-- Derecho  
-- Contaduría  
-- Administración  
-- Marketing  
-- Software  
-
-https://gustpuert.github.io/university.magicbank.org/
+¿Quieres explorar este curso ahora? 🚀
 `;
 }
 
-if(m.includes("academy")){
-return `
-La Academy incluye:
-
-- Idiomas  
-- Cocina  
-- Nutrición  
-- ChatGPT  
-- Artes y oficios  
-- Banca digital  
-- Trading cíclico  
-
-https://academy.magicbank.org
-`;
-}
-
-if(m.includes("magicbank")){
-return `
-MagicBank es un ecosistema educativo automatizado con tutores IA.
-
-Tutor completo:
-https://chatgpt.com/g/g-697a851b8a148191a8971256abf33157-tutor-informativo-magibank
-`;
-}
+/* ===== DEFAULT ===== */
 
 return "Dime exactamente qué quieres aprender y te guío paso a paso.";
 }
 
 /* =========================================
-EVENTOS CHAT
+EVENTOS
 ========================================= */
 
 function handleSend(){
@@ -588,19 +576,14 @@ if(e.key === "Enter") handleSend();
 
 sendBtn.onclick = handleSend;
 
-/* BOTONES RÁPIDOS */
-document.querySelectorAll(".qbtn").forEach(btn=>{
-btn.onclick = () => {
-chatInput.value = btn.innerText;
-handleSend();
-};
-});
+/* =========================================
+INIT
+========================================= */
 
-/* MENSAJE INICIAL */
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
 
 });
-                          </script>
+</script>
   
 
 
