@@ -600,6 +600,52 @@ if(e.key === "Enter") handleSend();
 
 sendBtn.onclick = handleSend;
 
+  /* =========================================
+BUSCADOR (FIX MINIMO)
+========================================= */
+
+const searchInput = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestions");
+
+searchInput.addEventListener("input", () => {
+
+const value = searchInput.value.trim();
+
+if(value.length < 2){
+suggestionsBox.style.display = "none";
+return;
+}
+
+const results = catalog
+.filter(c => normalize(c.nombre).includes(normalize(value)))
+.slice(0,5);
+
+if(results.length === 0){
+suggestionsBox.style.display = "none";
+return;
+}
+
+suggestionsBox.innerHTML = results.map(c => `
+<div class="suggestion" data-url="${c.url}">
+${c.nombre}
+</div>
+`).join("");
+
+suggestionsBox.style.display = "block";
+
+});
+
+/* CLICK EN SUGERENCIA */
+suggestionsBox.addEventListener("click", (e) => {
+
+const item = e.target.closest(".suggestion");
+if(!item) return;
+
+const url = item.getAttribute("data-url");
+window.open(url, "_blank");
+
+});
+
 /* =========================================
 INIT
 ========================================= */
