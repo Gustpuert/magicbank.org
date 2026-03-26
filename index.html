@@ -417,12 +417,16 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
 
 /* =========================================
 BUSCADOR INTELIGENTE
-========================================= */
+===========================================*/
 
-function findCourse(message){
+
+
+  function findCourse(message){
 
 const m = normalize(message);
-const words = m.split(" ");
+
+// dividir en palabras + frase completa
+const words = m.split(/\s+/);
 
 let bestMatch = null;
 let bestScore = 0;
@@ -434,20 +438,51 @@ let score = 0;
 const nombre = normalize(c.nombre || "");
 const keywords = (c.keywords || []).map(k => normalize(k));
 
-if(m.includes(nombre)) score += 50;
+// 🔹 match exacto fuerte
+if(m.includes(nombre)){
+score += 100;
+}
 
+// 🔹 coincidencia por keywords
+for(const k of keywords){
+if(m.includes(k)){
+score += 40;
+}
+}
+
+// 🔹 coincidencia por palabras
 for(const w of words){
 
-if(nombre.includes(w)) score += 10;
+if(w.length < 3) continue;
 
+// nombre
+if(nombre.includes(w)){
+score += 15;
+}
+
+// keywords
 for(const k of keywords){
-if(k.includes(w)) score += 6;
+if(k.includes(w)){
+score += 10;
+}
 }
 
 }
 
-score += c.prioridad || 0;
+// 🔹 prioridad backend (muy importante)
+score += (c.prioridad || 0);
 
+// 🔹 boost si tiene URL (producto real)
+if(c.url){
+score += 5;
+}
+
+// 🔹 penalización si no hay nada claro
+if(score < 10){
+score = 0;
+}
+
+// elegir mejor
 if(score > bestScore){
 bestScore = score;
 bestMatch = c;
@@ -455,13 +490,13 @@ bestMatch = c;
 
 }
 
-if(bestScore >= 10){
+// 🔹 umbral más inteligente
+if(bestScore >= 25){
 return bestMatch;
 }
 
 return null;
-}
-
+  }
 /* =========================================
 RESPUESTA INTELIGENTE
 ========================================= */
@@ -562,11 +597,14 @@ if(course){
 pendingCourse = course;
 
 return `
-Veo que te interesa <b>${course.nombre}</b>.
+Veo que te interesa <b>${course.nombre}</b> 🔥
 
-¿Quieres explorar este curso ahora? 🚀
+Puedes empezar aquí directamente:
+
+<a href="${course.url}" target="_blank" style="color:#5b4ee6;font-weight:600;">
+Acceder al curso
+</a>
 `;
-}
 
 /* =========================================
 6. DEFAULT
