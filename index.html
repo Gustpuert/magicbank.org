@@ -690,18 +690,14 @@ const url = item.getAttribute("data-url");
 
 /* 🔥 SOLUCIÓN COMPLETA */
 suggestionsBox.style.display = "none";
-searchInput.value = "";   // ← CLAVE
+
 suggestionsBox.innerHTML = ""; // ← CLAVE
 
 window.open(url, "_blank");
 
 });
 
-  document.addEventListener("click", (e)=>{
-if(!e.target.closest(".search")){
-suggestionsBox.style.display="none";
-}
-});
+  
 
 /* =========================================
 INIT
