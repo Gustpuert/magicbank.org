@@ -664,7 +664,16 @@ return;
 }
 
 const results = catalog
-.filter(c => normalize(c.nombre).includes(normalize(value)))
+.filter(c => {
+
+const text = normalize(value);
+const nombre = normalize(c.nombre || "");
+const keywords = (c.keywords || []).map(k => normalize(k)).join(" ");
+const extra = "curso cursos clase clases aprender estudiar";
+
+return nombre.includes(text) || keywords.includes(text) || extra.includes(text);
+
+})
 .slice(0,5);
 
 if(results.length === 0){
