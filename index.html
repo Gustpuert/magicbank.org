@@ -681,25 +681,26 @@ suggestionsBox.style.display = "none";
 return;
 }
 
-suggestionsBox.innerHTML = results.map(c => `
-<div class="suggestion" data-url="${c.url}">
-${c.nombre}
-</div>
-`).join("");
-
-suggestionsBox.style.display = "block";
-
-});
-
-/* CLICK EN SUGERENCIA */
 suggestionsBox.addEventListener("click", (e) => {
 
 const item = e.target.closest(".suggestion");
 if(!item) return;
 
 const url = item.getAttribute("data-url");
+
+/* 🔥 SOLUCIÓN COMPLETA */
+suggestionsBox.style.display = "none";
+searchInput.value = "";   // ← CLAVE
+suggestionsBox.innerHTML = ""; // ← CLAVE
+
 window.open(url, "_blank");
 
+});
+
+  document.addEventListener("click", (e)=>{
+if(!e.target.closest(".search")){
+suggestionsBox.style.display="none";
+}
 });
 
 /* =========================================
