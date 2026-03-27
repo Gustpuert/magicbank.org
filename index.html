@@ -329,6 +329,9 @@ Modelo educativo MagicBank
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
+/* =========================
+NORMALIZADOR
+========================= */
 function normalize(text){
 return (text || "")
 .toLowerCase()
@@ -338,7 +341,7 @@ return (text || "")
 }
 
 /* =========================
-CATÁLOGO COMPLETO REAL
+CATÁLOGO COMPLETO
 ========================= */
 const catalog = [
 
@@ -372,7 +375,7 @@ const catalog = [
 {name:"Facultad de Desarrollo de Software",url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
 {name:"Facultad de Música",url:"https://magicbank2.mitiendanube.com/productos/facultad-de-musica-6k2ph/"},
 
-/* TAPs COMPLETOS */
+/* TAPs */
 {name:"TAP Salud",url:"https://magicbank2.mitiendanube.com/productos/tap-salud/"},
 {name:"TAP Derecho",url:"https://magicbank2.mitiendanube.com/productos/tap-derecho/"},
 {name:"TAP Contaduría",url:"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/"},
@@ -384,12 +387,27 @@ const catalog = [
 ];
 
 /* =========================
-CHAT UI (ARREGLADO)
+CHAT UI (CORREGIDO)
 ========================= */
 const chatHTML = `
 <div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;padding:14px;border-radius:50%;cursor:pointer;z-index:9999;">💬</div>
 
-<div id="chatBox" style="position:fixed;bottom:80px;right:20px;width:320px;height:420px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
+<div id="chatBox" style="
+position:fixed;
+bottom:90px;
+right:15px;
+width:92%;
+max-width:360px;
+height:60vh;
+max-height:500px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:9999;
+">
 
 <div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
 <span>Tutor IA</span>
@@ -407,6 +425,9 @@ const chatHTML = `
 
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
+/* =========================
+ELEMENTOS CHAT
+========================= */
 const chatBox = document.getElementById("chatBox");
 const chatToggle = document.getElementById("chatToggle");
 const chatClose = document.getElementById("chatClose");
@@ -422,25 +443,40 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 /* =========================
-RESPUESTAS CHAT
+INTELIGENCIA REAL
 ========================= */
 function reply(msg){
 
 const m = normalize(msg);
 
-if(m.includes("magicbank")){
-return "MagicBank es un ecosistema educativo con más de 170 tutores de inteligencia artificial.";
+/* DERECHO */
+if(m.includes("derecho")){
+return `
+Te recomiendo:
+
+• Facultad de Derecho 🎓  
+• TAP Derecho ⚖️  
+
+Selecciona una opción arriba.
+`;
 }
 
-if(m.includes("idioma")){
-return "Puedes aprender inglés, francés, alemán, italiano, portugués, chino y español.";
+/* IDIOMAS */
+if(m.includes("idioma") || m.includes("ingles")){
+return "Puedes aprender inglés, francés, alemán, italiano, portugués, chino o español 🌍";
 }
 
+/* TAP */
 if(m.includes("tap")){
-return "Los TAP son tutores asistentes profesionales para empresas y especialistas.";
+return "Los TAP son asistentes profesionales para empresas y especialistas 🏢";
 }
 
-return "Dime qué quieres aprender y te guío.";
+/* MAGICBANK */
+if(m.includes("magicbank")){
+return "MagicBank es un ecosistema educativo inteligente con tutores de inteligencia artificial.";
+}
+
+return "Dime qué quieres aprender: cursos, idiomas, facultades o TAP.";
 }
 
 /* =========================
@@ -453,7 +489,6 @@ if(!msg) return;
 
 addMessage("Tú",msg);
 chatInput.value="";
-
 addMessage("Tutor",reply(msg));
 }
 });
@@ -475,20 +510,20 @@ return;
 
 const results = catalog.filter(c=>normalize(c.name).includes(value));
 
-suggestions.innerHTML = results.map(c=>
+suggestions.innerHTML = results.slice(0,10).map(c=>
 `<div class="suggestion" data-url="${c.url}">${c.name}</div>`
 ).join("");
 
 suggestions.style.display="block";
 
-/* CONECTA CON CHAT */
+/* 🔥 CONEXIÓN REAL */
 chatBox.style.display="flex";
 chatToggle.style.display="none";
-addMessage("Tutor","Buscando: "+input.value);
+addMessage("Tutor", reply(input.value));
 
 });
 
-/* CLICK */
+/* CLICK RESULTADO */
 suggestions.addEventListener("click",e=>{
 const item = e.target.closest(".suggestion");
 if(!item) return;
@@ -502,7 +537,7 @@ suggestions.style.display="none";
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
 
 });
-</script>
+  </script>
 
   
 
