@@ -605,6 +605,34 @@ return `Así funciona MagicBank:
 ⚠️ Es muy importante seguir las instrucciones del correo para una mejor experiencia.`;
 }
 
+  /* =========================
+INFORMACIÓN / GUÍA COMPLETA (CLAVE)
+========================= */
+if(m.includes("informacion") || m.includes("información") || m.includes("guia") || m.includes("guía")){
+
+return `Claro 👇 Te explico MagicBank de forma clara:
+
+🎓 University (Carreras)
+Derecho, Marketing, Contaduría, Administración, Software
+
+🌎 Academy (Idiomas y cursos)
+Inglés, francés, alemán, cocina, ChatGPT, finanzas y más
+
+🏫 Bachillerato MagicBank
+De 1° a 11°, con tutor que enseña, evalúa y certifica automáticamente
+
+🎵 Conservatorio musical
+Formación completa: teoría, técnica, interpretación y dirección
+
+🧠 TAP (Asistentes profesionales)
+Para empresas, salud, derecho, educación, ingeniería y más
+
+💡 Todo funciona con tutores inteligentes que se adaptan a ti.
+
+👉 También puedes probar una experiencia real antes de empezar.
+
+¿Quieres que te lleve a una visita guiada o prefieres empezar directamente con algo?`;
+}
 /* =========================
 CURSOS / AREAS (MEJORADO)
 ========================= */
@@ -737,28 +765,39 @@ ESCAPE INTELIGENTE (NO ABUSIVO)
 if(
 m.includes("no entiendo") ||
 m.includes("explica") ||
-m.includes("detalle")
+m.includes("detalle") ||
+m.includes("confuso") ||
+m.includes("no se") ||
+m.includes("ayuda")
 ){
-lastAction = "tutorial";
-return `Para una explicación completa y guiada paso a paso, te recomiendo el Tutor Informativo.
 
-¿Quieres que te lleve?`;
+lastAction = "tutorial";
+
+return `Te entiendo 👍
+
+Para que tengas una explicación clara, completa y paso a paso, te recomiendo el Tutor Informativo de MagicBank.
+
+Ahí podrás ver todo bien organizado y sin perderte.
+
+¿Quieres que te lleve ahora?`;
 }
 
 /* =========================
 FALLBACK INTELIGENTE
 ========================= */
-return `Puedo ayudarte a encontrar lo que necesitas.
+return `Estoy aquí para ayudarte 👇
 
-Puedes decir:
+Puedes decirme algo como:
 • "quiero estudiar inglés"  
 • "quiero una carrera"  
 • "quiero cursos"  
+• "quiero bachillerato"  
 
-O si prefieres, puedo guiarte completamente.
+O si prefieres, puedo guiarte paso a paso según tu objetivo.
 
-¿Quieres una guía completa?`;
-}
+👉 Y si quieres ver todo claro y ordenado, puedo llevarte al Tutor Informativo.
+
+¿Qué te gustaría hacer?`;
 
 /* =========================
 🚀 ENVÍO
