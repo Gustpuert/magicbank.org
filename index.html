@@ -518,9 +518,9 @@ document.body.appendChild(chatBox);
 chatBtn.addEventListener("click", ()=> chatBox.style.display="flex");
 chatBox.querySelector("#closeChat").addEventListener("click", ()=> chatBox.style.display="none");
 
-const messages = document.getElementById("chatMessages");
-const inputChat = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
+const messages = chatBox.querySelector("#chatMessages");
+const inputChat = chatBox.querySelector("#chatInput");
+const sendBtn = chatBox.querySelector("#sendBtn");
 
 /* =========================
 💬 MENSAJES
@@ -722,13 +722,7 @@ Vas a ver cómo enseñan, cómo responden y cómo funciona todo.
 ¿Quieres entrar ahora?`;
 }
 
-/* =========================
-IA GRATIS
-========================= */
-if(m.includes("ia")){
-lastAction = "ia";
-return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
-}
+
 
 /* =========================
 COMERCIAL
@@ -784,7 +778,11 @@ Ahí podrás ver todo bien organizado y sin perderte.
 
 ¿Quieres que te lleve ahora?`;
 }
-
+  
+if(m.includes("ia")){
+lastAction = "ia";
+return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
+}
 /* =========================
 FALLBACK INTELIGENTE
 ========================= */
