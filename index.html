@@ -605,34 +605,37 @@ return `Así funciona MagicBank:
 ⚠️ Es muy importante seguir las instrucciones del correo para una mejor experiencia.`;
 }
 
-  /* =========================
-INFORMACIÓN / GUÍA COMPLETA (CLAVE)
+/* =========================
+INFORMACIÓN / GUÍA COMPLETA (CORRECTO)
 ========================= */
 if(m.includes("informacion") || m.includes("información") || m.includes("guia") || m.includes("guía")){
 
-return `Claro 👇 Te explico MagicBank de forma clara:
+lastAction = "tutorial";
+
+return `Claro 👇 Te explico MagicBank:
 
 🎓 University (Carreras)
 Derecho, Marketing, Contaduría, Administración, Software
 
 🌎 Academy (Idiomas y cursos)
-Inglés, francés, alemán, cocina, ChatGPT, finanzas y más
+Inglés, francés, alemán, cocina, ChatGPT, finanzas
 
 🏫 Bachillerato MagicBank
-De 1° a 11°, con tutor que enseña, evalúa y certifica automáticamente
+De 1° a 11°, con tutor que enseña, evalúa y certifica
 
 🎵 Conservatorio musical
-Formación completa: teoría, técnica, interpretación y dirección
+Formación completa profesional
 
 🧠 TAP (Asistentes profesionales)
-Para empresas, salud, derecho, educación, ingeniería y más
+Empresas, salud, derecho, educación, ingeniería
 
-💡 Todo funciona con tutores inteligentes que se adaptan a ti.
+👉 Todo funciona con tutores inteligentes adaptados a ti.
 
-👉 También puedes probar una experiencia real antes de empezar.
-
-¿Quieres que te lleve a una visita guiada o prefieres empezar directamente con algo?`;
+¿Quieres que te lleve a una experiencia real o prefieres empezar directamente?`;
 }
+
+
+  
 /* =========================
 CURSOS / AREAS (MEJORADO)
 ========================= */
