@@ -325,11 +325,10 @@ Modelo educativo MagicBank
 </div>
 </footer>
 
-
 <script>
 
 /* =========================
-NORMALIZADOR GLOBAL
+NORMALIZADOR
 ========================= */
 function normalize(text){
 return (text || "")
@@ -340,7 +339,7 @@ return (text || "")
 }
 
 /* =========================
-CATÁLOGO
+CATÁLOGO (NO TOCAR)
 ========================= */
 const catalog = [
 
@@ -380,7 +379,7 @@ const catalog = [
 ];
 
 /* =========================
-INICIO SEGURO
+INICIO
 ========================= */
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -422,162 +421,59 @@ if(!e.target.closest(".search")){
 suggestions.style.display="none";
 }
 });
+
 /* =========================
-🤖 CHAT MAGICBANK REAL
+🤖 CHAT REAL
 ========================= */
 
-/* BOTÓN ROBOT */
 const chatBtn = document.createElement("div");
 chatBtn.innerHTML = "🤖";
-chatBtn.className = "mb-chat-btn";
+chatBtn.style = "position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;padding:18px;border-radius:50%;font-size:24px;cursor:pointer;z-index:9999;";
 document.body.appendChild(chatBtn);
 
-/* CAJA CHAT */
-const chatHTML = `
-<div id="mbChatBox">
-  <div class="mb-header">
-    <span>MagicBank IA</span>
-    <span id="mbClose">✖</span>
-  </div>
+const chatBox = document.createElement("div");
+chatBox.style = "position:fixed;bottom:90px;right:15px;width:340px;height:520px;background:#fff;border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,.25);display:none;flex-direction:column;z-index:9999;";
+document.body.appendChild(chatBox);
 
-  <div id="mbMessages"></div>
+chatBox.innerHTML = `
+<div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
+<span>MagicBank IA</span>
+<span id="closeChat" style="cursor:pointer;">✖</span>
+</div>
 
-  <div class="mb-input">
-    <input id="mbInput" placeholder="Ej: quiero aprender inglés">
-    <button id="mbSend">➤</button>
-  </div>
+<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;"></div>
+
+<div style="display:flex;padding:10px;border-top:1px solid #eee;">
+<input id="chatInput" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
+<button id="sendBtn">➤</button>
 </div>
 `;
 
-document.body.insertAdjacentHTML("beforeend", chatHTML);
+const messages = chatBox.querySelector("#chatMessages");
+const inputChat = chatBox.querySelector("#chatInput");
+const sendBtn = chatBox.querySelector("#sendBtn");
 
-/* ESTILOS */
-const style = document.createElement("style");
-style.innerHTML = `
-.mb-chat-btn{
-position:fixed;
-bottom:20px;
-right:20px;
-width:65px;
-height:65px;
-border-radius:50%;
-background:linear-gradient(135deg,#5b4ee6,#7a6df0);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-color:#fff;
-cursor:pointer;
-z-index:9999;
-animation:pulse 2.5s infinite;
-}
+chatBtn.onclick = ()=> chatBox.style.display="flex";
+chatBox.querySelector("#closeChat").onclick = ()=> chatBox.style.display="none";
 
-@keyframes pulse{
-0%{box-shadow:0 0 0 0 rgba(91,78,230,.6);}
-70%{box-shadow:0 0 0 20px rgba(91,78,230,0);}
-100%{box-shadow:0 0 0 0 rgba(91,78,230,0);}
-}
-
-#mbChatBox{
-position:fixed;
-bottom:90px;
-right:15px;
-width:340px;
-height:520px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,.25);
-display:none;
-flex-direction:column;
-z-index:9999;
-overflow:hidden;
-}
-
-.mb-header{
-background:#5b4ee6;
-color:#fff;
-padding:12px;
-display:flex;
-justify-content:space-between;
-font-weight:600;
-}
-
-#mbMessages{
-flex:1;
-overflow:auto;
-padding:10px;
-font-size:14px;
-background:#fafafa;
-}
-
-.mb-input{
-display:flex;
-gap:6px;
-padding:10px;
-border-top:1px solid #eee;
-}
-
-.mb-input input{
-flex:1;
-padding:8px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.mb-input button{
-background:#5b4ee6;
-color:#fff;
-border:none;
-padding:8px 12px;
-border-radius:8px;
-cursor:pointer;
-}
-`;
-document.head.appendChild(style);
-
-/* ELEMENTOS */
-const box = document.getElementById("mbChatBox");
-const close = document.getElementById("mbClose");
-const inputChat = document.getElementById("mbInput");
-const sendBtn = document.getElementById("mbSend");
-const messages = document.getElementById("mbMessages");
-
-/* CONTROL */
-chatBtn.onclick = ()=>{
-box.style.display="flex";
-};
-
-close.onclick = ()=>{
-box.style.display="none";
-};
-
-/* MENSAJES */
 function addMsg(user,text){
 messages.innerHTML += `<div><b>${user}:</b> ${text}</div>`;
 messages.scrollTop = messages.scrollHeight;
 }
 
-/* 🧠 INTELIGENCIA MAGICBANK */
 function brain(msg){
 
 const m = normalize(msg);
 
-/* QUE ES */
+/* INTELIGENCIA */
 if(m.includes("magicbank")){
-return "MagicBank es un ecosistema educativo con tutores de inteligencia artificial que enseñan de forma personalizada.";
+return "MagicBank es un ecosistema educativo con IA que enseña de forma personalizada.";
 }
 
-/* COMO FUNCIONA */
-if(m.includes("como funciona")){
-return "Eliges tutor, pagas 30 días, recibes token y accedes inmediatamente.";
-}
-
-/* DINERO */
-if(m.includes("dinero") || m.includes("ingresos")){
+if(m.includes("dinero")){
 return "Te recomiendo Banca Digital, Trading Cíclico o Inversiones Mágicas.";
 }
 
-/* BUSCAR EN CATÁLOGO */
 const found = catalog.find(c =>
 normalize(c.name).includes(m)
 );
@@ -587,11 +483,9 @@ setTimeout(()=>window.open(found.url,"_blank"),500);
 return "Te llevo a " + found.name + " 🚀";
 }
 
-/* DEFAULT */
 return "Dime qué quieres aprender: idiomas, cursos, carreras o TAP.";
 }
 
-/* ENVÍO */
 function send(){
 const msg = inputChat.value.trim();
 if(!msg) return;
@@ -609,12 +503,11 @@ inputChat.addEventListener("keypress", e=>{
 if(e.key==="Enter") send();
 });
 
-/* BIENVENIDA */
-setTimeout(()=>{
-addMsg("Tutor","👋 Bienvenido a MagicBank IA. ¿Qué quieres aprender?");
-},1000);
+addMsg("Tutor","👋 Bienvenido a MagicBank IA");
 
+});
 </script>
+
 
 
 </body>
