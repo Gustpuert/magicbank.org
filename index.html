@@ -328,7 +328,7 @@ Modelo educativo MagicBank
 
 <script>
 
-window.onload = function(){
+document.addEventListener("DOMContentLoaded", function(){
 
 /* =========================
 NORMALIZADOR
@@ -341,11 +341,10 @@ return (text || "")
 .trim();
 }
 
-/* =========================
-CATÁLOGO REAL 
-≈===========================*/
 
-const catalog = [
+CATÁLOGO REAL
+
+
 
 const catalog = [
 
@@ -388,13 +387,7 @@ const catalog = [
 🧠 2. UTILIDAD GLOBAL
 ====================================================== */
 
-function normalize(text){
-return (text || "")
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.trim();
-}
+
 
 
 /* ======================================================
@@ -660,7 +653,7 @@ document.head.appendChild(style);
 
 /* INIT */
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
-
+});
 </script>
 
 
