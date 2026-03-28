@@ -342,8 +342,11 @@ return (text || "")
 }
 
 /* =========================
-CATÁLOGO REAL (NO MODIFICADO)
-========================= */
+CATÁLOGO REAL 
+≈===========================*/
+
+const catalog = [
+
 const catalog = [
 
 {name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutorpro/"},
@@ -381,9 +384,23 @@ const catalog = [
 
 ];
 
-/* =========================
-BUSCADOR (FUNCIONAL)
-========================= */
+/* ======================================================
+🧠 2. UTILIDAD GLOBAL
+====================================================== */
+
+function normalize(text){
+return (text || "")
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.trim();
+}
+
+
+/* ======================================================
+🔍 3. BUSCADOR INTELIGENTE
+====================================================== */
+
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
@@ -402,7 +419,7 @@ const results = catalog.filter(c =>
 normalize(c.name).includes(value)
 );
 
-suggestions.innerHTML = results.slice(0,8).map(c =>
+suggestions.innerHTML = results.map(c =>
 `<div class="suggestion" data-url="${c.url}">${c.name}</div>`
 ).join("");
 
@@ -421,19 +438,31 @@ input.value="";
 
 }
 
-/* =========================
-CHAT (ESTABLE Y FUNCIONAL)
-========================= */
 
-setTimeout(()=>{
+/* ======================================================
+🤖 4. CHAT UI + ROBOT
+====================================================== */
 
 const chatHTML = `
-<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;z-index:9999;">💬</div>
+<div id="chatToggle" class="robot-btn">🤖</div>
 
-<div id="chatBox" style="position:fixed;bottom:80px;right:15px;width:330px;height:500px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:none;flex-direction:column;z-index:9999;overflow:hidden;">
+<div id="chatBox" style="
+position:fixed;
+bottom:80px;
+right:15px;
+width:340px;
+height:520px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+display:none;
+flex-direction:column;
+z-index:9999;
+overflow:hidden;
+">
 
 <div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
-<span>Tutor MagicBank</span>
+<span>MagicBank IA</span>
 <span id="chatClose" style="cursor:pointer;">✖</span>
 </div>
 
@@ -449,7 +478,11 @@ const chatHTML = `
 
 document.body.insertAdjacentHTML("beforeend", chatHTML);
 
-/* ELEMENTOS */
+
+/* ======================================================
+⚙️ 5. CONTROL CHAT
+====================================================== */
+
 const chatBox = document.getElementById("chatBox");
 const chatToggle = document.getElementById("chatToggle");
 const chatClose = document.getElementById("chatClose");
@@ -457,7 +490,6 @@ const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 
-/* CONTROL */
 chatToggle.onclick = ()=>{
 chatBox.style.display="flex";
 chatToggle.style.display="none";
@@ -468,18 +500,74 @@ chatBox.style.display="none";
 chatToggle.style.display="block";
 };
 
-/* MENSAJES */
+
+/* ======================================================
+💬 6. MENSAJES
+====================================================== */
+
 function addMessage(sender,text){
 chatMessages.innerHTML += `<div><b>${sender}:</b> ${text}</div>`;
 chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-/* INTELIGENCIA REAL (SIN INVENTAR) */
+
+/* ======================================================
+🧠 7. MOTOR INTELIGENTE (CHAT REAL)
+====================================================== */
+
 function reply(msg){
 
 const m = normalize(msg);
 
-/* MATCH DIRECTO */
+/* ¿QUÉ ES MAGICBANK? */
+if(m.includes("magicbank") || m.includes("que es")){
+return `
+MagicBank es un ecosistema educativo con tutores de inteligencia artificial.
+
+Puedes estudiar carreras, idiomas o aprender habilidades.
+
+Escribe lo que quieres aprender y te guío.
+`;
+}
+
+/* AREAS */
+if(m.includes("que puedo") || m.includes("estudiar")){
+return `
+Puedes:
+
+• Aprender idiomas
+• Estudiar carreras
+• Tomar cursos prácticos
+• Usar tutores profesionales
+
+Dime qué te interesa.
+`;
+}
+
+/* VISITA GUIADA */
+if(m.includes("visita") || m.includes("demo")){
+window.open("https://gustpuert.github.io/magicbank--demo/","_blank");
+return "Te llevo a la visita guiada 🚀";
+}
+
+/* CURSO IA */
+if(m.includes("ia")){
+window.open("https://magicbank.org/ia/index.html","_blank");
+return "Te llevo al curso gratuito de IA 🤖";
+}
+
+/* CALIDAD */
+if(m.includes("calidad")){
+window.open("https://magicbank.org/anexos/calidad-academica-magicbank.html","_blank");
+return "Aquí puedes ver la calidad académica 📘";
+}
+
+/* SOPORTE */
+if(m.includes("correo") || m.includes("humano")){
+return "Puedes escribirnos a: magicbankia@gmail.com";
+}
+
+/* MATCH REAL (VENTA) */
 const found = catalog.find(c =>
 normalize(c.name).includes(m)
 );
@@ -489,24 +577,15 @@ setTimeout(()=>window.open(found.url,"_blank"),400);
 return "Te llevo a " + found.name + " 🚀";
 }
 
-/* SUGERENCIAS REALES */
-if(m.includes("idioma")){
-return "Puedes escribir: inglés, francés, alemán, italiano, portugués, chino o español.";
-}
-
-if(m.includes("derecho")){
-return "Puedes elegir: Facultad de Derecho o TAP Derecho.";
-}
-
-if(m.includes("curso")){
-return "Puedes escribir: cocina, nutrición, trading, ChatGPT, banca digital…";
-}
-
 /* DEFAULT */
-return "Escribe algo como: inglés, cocina, derecho, marketing…";
+return "Escribe algo como: inglés, derecho, cocina, marketing…";
 }
 
-/* ENVÍO */
+
+/* ======================================================
+🚀 8. ENVÍO
+====================================================== */
+
 function send(){
 
 const msg = chatInput.value.trim();
@@ -517,7 +596,7 @@ chatInput.value="";
 
 setTimeout(()=>{
 addMessage("Tutor", reply(msg));
-},400);
+},300);
 
 }
 
@@ -527,16 +606,62 @@ if(e.key==="Enter") send();
 
 sendBtn.onclick = send;
 
+
+/* ======================================================
+🤖 9. AUTOMATIZACIÓN (VENTA)
+====================================================== */
+
+setTimeout(()=>{
+addMessage("Tutor","👋 Bienvenido a MagicBank ¿Quieres que te recomiende algo?");
+},4000);
+
+setTimeout(()=>{
+addMessage("Tutor","🔥 Los más buscados: inglés, derecho, ChatGPT");
+},10000);
+
+
+/* ======================================================
+✨ 10. ESTILO ROBOT (ANIMADO)
+====================================================== */
+
+const style = document.createElement("style");
+style.innerHTML = `
+.robot-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(135deg,#5b4ee6,#7a6df0);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+z-index:9999;
+font-size:26px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+animation:pulse 2.5s infinite, float 3s ease-in-out infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(91,78,230,.6);}
+70%{box-shadow:0 0 0 18px rgba(91,78,230,0);}
+100%{box-shadow:0 0 0 0 rgba(91,78,230,0);}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-6px);}
+}
+`;
+document.head.appendChild(style);
+
+
 /* INIT */
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
 
-},400);
-
-};
-
 </script>
-
-  
 
 
 </body>
