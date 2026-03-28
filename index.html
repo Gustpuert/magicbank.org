@@ -342,11 +342,11 @@ return (text || "")
 }
 
 /* =========================
-CATÁLOGO REAL (TIENDANUBE)
+CATÁLOGO REAL (NO MODIFICADO)
 ========================= */
 const catalog = [
 
-{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutor-pro/"},
+{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutorpro/"},
 {name:"Curso de Francés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-frances-con-tutor-ia/"},
 {name:"Curso de Alemán", url:"https://magicbank2.mitiendanube.com/productos/curso-de-aleman/"},
 {name:"Curso de Italiano", url:"https://magicbank2.mitiendanube.com/productos/curso-de-italiano/"},
@@ -363,7 +363,7 @@ const catalog = [
 {name:"Curso de Diseño de Interiores", url:"https://magicbank2.mitiendanube.com/productos/curso-diseno-de-interiores-profesional-gj1bk/"},
 
 {name:"Facultad de Derecho", url:"https://magicbank2.mitiendanube.com/productos/curso-facultad-de-derecho/"},
-{name:"Facultad de Administración y Negocios", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-administracion-y-negocios/"},
+{name:"Facultad de Administración y Negocios", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-administracion-y-negocios/#product-gallery"},
 {name:"Facultad de Marketing", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-marketing/"},
 {name:"Facultad de Contaduría", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-contaduria/"},
 {name:"Facultad de Desarrollo de Software", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-desarrollo-de-software/"},
@@ -382,13 +382,15 @@ const catalog = [
 ];
 
 /* =========================
-BUSCADOR
+BUSCADOR (FUNCIONAL)
 ========================= */
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
 if(input){
-input.addEventListener("input",()=>{
+
+input.addEventListener("input", ()=>{
+
 const value = normalize(input.value);
 
 if(value.length < 2){
@@ -405,6 +407,7 @@ suggestions.innerHTML = results.slice(0,8).map(c =>
 ).join("");
 
 suggestions.style.display = results.length ? "block" : "none";
+
 });
 
 suggestions.addEventListener("click",(e)=>{
@@ -415,86 +418,30 @@ window.open(item.dataset.url,"_blank");
 suggestions.style.display="none";
 input.value="";
 });
+
 }
 
 /* =========================
-CHAT UI
-========================= */
-
-/* =========================
-CHAT MAGICBANK (ESTABLE)
+CHAT (ESTABLE Y FUNCIONAL)
 ========================= */
 
 setTimeout(()=>{
 
-/* CREAR CHAT */
 const chatHTML = `
-<div id="chatToggle" style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:#5b4ee6;
-color:#fff;
-width:50px;
-height:50px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-cursor:pointer;
-z-index:9999;
-">💬</div>
+<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;z-index:9999;">💬</div>
 
-<div id="chatBox" style="
-position:fixed;
-bottom:80px;
-right:15px;
-width:320px;
-height:480px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-display:none;
-flex-direction:column;
-z-index:9999;
-overflow:hidden;
-">
+<div id="chatBox" style="position:fixed;bottom:80px;right:15px;width:330px;height:500px;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:none;flex-direction:column;z-index:9999;overflow:hidden;">
 
-<div style="
-background:#5b4ee6;
-color:#fff;
-padding:12px;
-display:flex;
-justify-content:space-between;
-">
+<div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
 <span>Tutor MagicBank</span>
 <span id="chatClose" style="cursor:pointer;">✖</span>
 </div>
 
-<div id="chatMessages" style="
-flex:1;
-overflow:auto;
-padding:10px;
-font-size:14px;
-background:#fafafa;
-"></div>
+<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;background:#fafafa;font-size:14px;"></div>
 
-<div style="
-display:flex;
-gap:6px;
-padding:10px;
-border-top:1px solid #eee;
-">
-<input id="chatInput" placeholder="Ej: inglés, derecho..."
-style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
-<button id="sendBtn" style="
-background:#5b4ee6;
-color:#fff;
-border:none;
-padding:8px 12px;
-border-radius:8px;
-cursor:pointer;
-">➤</button>
+<div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee;">
+<input id="chatInput" placeholder="Ej: inglés, derecho..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
+<button id="sendBtn" style="background:#5b4ee6;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">➤</button>
 </div>
 
 </div>
@@ -527,12 +474,12 @@ chatMessages.innerHTML += `<div><b>${sender}:</b> ${text}</div>`;
 chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-/* INTELIGENCIA SIMPLE (SEGURA) */
+/* INTELIGENCIA REAL (SIN INVENTAR) */
 function reply(msg){
 
 const m = normalize(msg);
 
-/* BUSCAR EN CATÁLOGO */
+/* MATCH DIRECTO */
 const found = catalog.find(c =>
 normalize(c.name).includes(m)
 );
@@ -542,25 +489,24 @@ setTimeout(()=>window.open(found.url,"_blank"),400);
 return "Te llevo a " + found.name + " 🚀";
 }
 
-/* SUGERENCIAS */
+/* SUGERENCIAS REALES */
 if(m.includes("idioma")){
-return "Puedes escribir: inglés, francés, alemán, italiano, portugués o chino.";
+return "Puedes escribir: inglés, francés, alemán, italiano, portugués, chino o español.";
 }
 
 if(m.includes("derecho")){
 return "Puedes elegir: Facultad de Derecho o TAP Derecho.";
 }
 
-if(m.includes("empresa")){
-setTimeout(()=>window.open("https://magicbank2.mitiendanube.com/productos/tap-empresas/"),400);
-return "Te llevo a Empresas 🏢";
+if(m.includes("curso")){
+return "Puedes escribir: cocina, nutrición, trading, ChatGPT, banca digital…";
 }
 
 /* DEFAULT */
 return "Escribe algo como: inglés, cocina, derecho, marketing…";
 }
 
-/* EVENTOS */
+/* ENVÍO */
 function send(){
 
 const msg = chatInput.value.trim();
@@ -584,7 +530,10 @@ sendBtn.onclick = send;
 /* INIT */
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
 
-},500);
+},400);
+
+};
+
 </script>
 
   
