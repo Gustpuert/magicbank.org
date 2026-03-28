@@ -328,10 +328,8 @@ Modelo educativo MagicBank
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
-
 /* =========================
-NORMALIZADOR
+NORMALIZADOR GLOBAL
 ========================= */
 function normalize(text){
 return (text || "")
@@ -341,14 +339,12 @@ return (text || "")
 .trim();
 }
 
-
-CATÁLOGO REAL
-
-
-
+/* =========================
+CATÁLOGO
+========================= */
 const catalog = [
 
-{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutorpro/"},
+{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutor-pro/"},
 {name:"Curso de Francés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-frances-con-tutor-ia/"},
 {name:"Curso de Alemán", url:"https://magicbank2.mitiendanube.com/productos/curso-de-aleman/"},
 {name:"Curso de Italiano", url:"https://magicbank2.mitiendanube.com/productos/curso-de-italiano/"},
@@ -383,21 +379,16 @@ const catalog = [
 
 ];
 
-/* ======================================================
-🧠 2. UTILIDAD GLOBAL
-====================================================== */
+/* =========================
+INICIO SEGURO
+========================= */
+document.addEventListener("DOMContentLoaded", function(){
 
-
-
-
-/* ======================================================
-🔍 3. BUSCADOR INTELIGENTE
-====================================================== */
-
+/* =========================
+BUSCADOR
+========================= */
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
-
-if(input){
 
 input.addEventListener("input", ()=>{
 
@@ -423,236 +414,41 @@ suggestions.style.display = results.length ? "block" : "none";
 suggestions.addEventListener("click",(e)=>{
 const item = e.target.closest(".suggestion");
 if(!item) return;
-
 window.open(item.dataset.url,"_blank");
-suggestions.style.display="none";
-input.value="";
 });
 
+document.addEventListener("click",(e)=>{
+if(!e.target.closest(".search")){
+suggestions.style.display="none";
 }
+});
 
+/* =========================
+CHAT SIMPLE
+========================= */
 
-/* ======================================================
-🤖 4. CHAT UI + ROBOT
-====================================================== */
+const btn = document.createElement("div");
+btn.innerHTML = "🤖";
+btn.style = "position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;padding:15px;border-radius:50%;cursor:pointer;z-index:9999;";
+document.body.appendChild(btn);
 
-const chatHTML = `
-<div id="chatToggle" class="robot-btn">🤖</div>
-
-<div id="chatBox" style="
-position:fixed;
-bottom:80px;
-right:15px;
-width:340px;
-height:520px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-display:none;
-flex-direction:column;
-z-index:9999;
-overflow:hidden;
-">
-
-<div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
-<span>MagicBank IA</span>
-<span id="chatClose" style="cursor:pointer;">✖</span>
-</div>
-
-<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;background:#fafafa;font-size:14px;"></div>
-
-<div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee;">
-<input id="chatInput" placeholder="Ej: inglés, derecho..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
-<button id="sendBtn" style="background:#5b4ee6;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">➤</button>
-</div>
-
-</div>
-`;
-
-document.body.insertAdjacentHTML("beforeend", chatHTML);
-
-
-/* ======================================================
-⚙️ 5. CONTROL CHAT
-====================================================== */
-
-const chatBox = document.getElementById("chatBox");
-const chatToggle = document.getElementById("chatToggle");
-const chatClose = document.getElementById("chatClose");
-const chatMessages = document.getElementById("chatMessages");
-const chatInput = document.getElementById("chatInput");
-const sendBtn = document.getElementById("sendBtn");
-
-chatToggle.onclick = ()=>{
-chatBox.style.display="flex";
-chatToggle.style.display="none";
-};
-
-chatClose.onclick = ()=>{
-chatBox.style.display="none";
-chatToggle.style.display="block";
-};
-
-
-/* ======================================================
-💬 6. MENSAJES
-====================================================== */
-
-function addMessage(sender,text){
-chatMessages.innerHTML += `<div><b>${sender}:</b> ${text}</div>`;
-chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-
-/* ======================================================
-🧠 7. MOTOR INTELIGENTE (CHAT REAL)
-====================================================== */
-
-function reply(msg){
+btn.onclick = ()=>{
+const msg = prompt("¿Qué quieres aprender?");
+if(!msg) return;
 
 const m = normalize(msg);
 
-/* ¿QUÉ ES MAGICBANK? */
-if(m.includes("magicbank") || m.includes("que es")){
-return `
-MagicBank es un ecosistema educativo con tutores de inteligencia artificial.
-
-Puedes estudiar carreras, idiomas o aprender habilidades.
-
-Escribe lo que quieres aprender y te guío.
-`;
-}
-
-/* AREAS */
-if(m.includes("que puedo") || m.includes("estudiar")){
-return `
-Puedes:
-
-• Aprender idiomas
-• Estudiar carreras
-• Tomar cursos prácticos
-• Usar tutores profesionales
-
-Dime qué te interesa.
-`;
-}
-
-/* VISITA GUIADA */
-if(m.includes("visita") || m.includes("demo")){
-window.open("https://gustpuert.github.io/magicbank--demo/","_blank");
-return "Te llevo a la visita guiada 🚀";
-}
-
-/* CURSO IA */
-if(m.includes("ia")){
-window.open("https://magicbank.org/ia/index.html","_blank");
-return "Te llevo al curso gratuito de IA 🤖";
-}
-
-/* CALIDAD */
-if(m.includes("calidad")){
-window.open("https://magicbank.org/anexos/calidad-academica-magicbank.html","_blank");
-return "Aquí puedes ver la calidad académica 📘";
-}
-
-/* SOPORTE */
-if(m.includes("correo") || m.includes("humano")){
-return "Puedes escribirnos a: magicbankia@gmail.com";
-}
-
-/* MATCH REAL (VENTA) */
 const found = catalog.find(c =>
 normalize(c.name).includes(m)
 );
 
 if(found){
-setTimeout(()=>window.open(found.url,"_blank"),400);
-return "Te llevo a " + found.name + " 🚀";
+window.open(found.url,"_blank");
+}else{
+alert("No encontré eso. Intenta: inglés, derecho, cocina...");
 }
+};
 
-/* DEFAULT */
-return "Escribe algo como: inglés, derecho, cocina, marketing…";
-}
-
-
-/* ======================================================
-🚀 8. ENVÍO
-====================================================== */
-
-function send(){
-
-const msg = chatInput.value.trim();
-if(!msg) return;
-
-addMessage("Tú", msg);
-chatInput.value="";
-
-setTimeout(()=>{
-addMessage("Tutor", reply(msg));
-},300);
-
-}
-
-chatInput.addEventListener("keypress", e=>{
-if(e.key==="Enter") send();
-});
-
-sendBtn.onclick = send;
-
-
-/* ======================================================
-🤖 9. AUTOMATIZACIÓN (VENTA)
-====================================================== */
-
-setTimeout(()=>{
-addMessage("Tutor","👋 Bienvenido a MagicBank ¿Quieres que te recomiende algo?");
-},4000);
-
-setTimeout(()=>{
-addMessage("Tutor","🔥 Los más buscados: inglés, derecho, ChatGPT");
-},10000);
-
-
-/* ======================================================
-✨ 10. ESTILO ROBOT (ANIMADO)
-====================================================== */
-
-const style = document.createElement("style");
-style.innerHTML = `
-.robot-btn{
-position:fixed;
-bottom:20px;
-right:20px;
-width:60px;
-height:60px;
-border-radius:50%;
-background:linear-gradient(135deg,#5b4ee6,#7a6df0);
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-z-index:9999;
-font-size:26px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-animation:pulse 2.5s infinite, float 3s ease-in-out infinite;
-}
-
-@keyframes pulse{
-0%{box-shadow:0 0 0 0 rgba(91,78,230,.6);}
-70%{box-shadow:0 0 0 18px rgba(91,78,230,0);}
-100%{box-shadow:0 0 0 0 rgba(91,78,230,0);}
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-6px);}
-}
-`;
-document.head.appendChild(style);
-
-
-/* INIT */
-addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
 });
 </script>
 
