@@ -595,20 +595,13 @@ Puedes probar tutores reales antes de ingresar.
 8. IA GRATIS
 ========================= */
 
-
 if(
 m === "ia" ||
 m.includes("inteligencia artificial") ||
 m.includes("curso de ia")
 ){
-
 lastAction = "ia";
-
 return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
-}
-lastAction = "ia";
-
-return "Tengo un curso gratuito de IA.\n\n¿Quieres que te lleve?";
 }
 
 /* =========================
@@ -854,6 +847,9 @@ Puedes decirme:
 👉 Si quieres una explicación más profunda y organizada, puedo llevarte al Tutor Informativo.
 
 ¿Quieres que te lleve?`;
+}
+
+/* 👈 ESTE } CIERRA brain() */
 
 function send(){
 const msg = inputChat.value.trim();
@@ -879,7 +875,7 @@ addMsg("Tutor","👋 Bienvenido a MagicBank IA");
 GUÍA COMPLETA / INFORMACIÓN
 ========================= */
 
-if(m.includes("guia") || m.includes("guía") || m.includes("informacion")){
+
 
 lastAction = "tutorial";
 
@@ -899,107 +895,9 @@ Incluye:
 
 ¿Quieres que te lleve?`;
 }
-/* =========================
-RESCATE CHAT (SIEMPRE APARECE)
-========================= */
 
-try{
 
-const chatHTML = `
-<div id="chatToggle" style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:#5b4ee6;
-color:#fff;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:26px;
-cursor:pointer;
-z-index:9999;
-">🤖</div>
 
-<div id="chatBox" style="
-position:fixed;
-bottom:90px;
-right:15px;
-width:340px;
-height:500px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-display:none;
-flex-direction:column;
-z-index:9999;
-overflow:hidden;
-">
-
-<div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
-<span>MagicBank IA</span>
-<span id="chatClose" style="cursor:pointer;">✖</span>
-</div>
-
-<div id="chatMessages" style="flex:1;overflow:auto;padding:10px;font-size:14px;"></div>
-
-<div style="display:flex;padding:10px;border-top:1px solid #eee;">
-<input id="chatInput" placeholder="Escribe..." style="flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;">
-<button id="sendBtn" style="background:#5b4ee6;color:#fff;border:none;padding:8px 12px;border-radius:8px;">➤</button>
-</div>
-
-</div>
-`;
-
-document.body.insertAdjacentHTML("beforeend", chatHTML);
-
-/* CONTROL */
-
-const toggle = document.getElementById("chatToggle");
-const box = document.getElementById("chatBox");
-const close = document.getElementById("chatClose");
-const input = document.getElementById("chatInput");
-const btn = document.getElementById("sendBtn");
-const messages = document.getElementById("chatMessages");
-
-toggle.onclick = ()=>{
-box.style.display = "flex";
-toggle.style.display = "none";
-};
-
-close.onclick = ()=>{
-box.style.display = "none";
-toggle.style.display = "flex";
-};
-
-/* MENSAJES */
-
-function addMessage(sender,text){
-messages.innerHTML += `<div><b>${sender}:</b> ${text}</div>`;
-messages.scrollTop = messages.scrollHeight;
-}
-
-/* ENVÍO */
-
-function send(){
-const msg = input.value.trim();
-if(!msg) return;
-
-addMessage("Tú", msg);
-input.value = "";
-
-setTimeout(()=>{
-addMessage("Tutor","Estoy activo 👍 dime qué quieres aprender");
-},300);
-}
-
-btn.onclick = send;
-
-input.addEventListener("keypress", e=>{
-if(e.key === "Enter") send();
-});
 
 /* INIT */
 addMessage("Tutor","👋 Chat activo correctamente");
