@@ -337,7 +337,7 @@ return (text || "")
 .replace(/[\u0300-\u036f]/g,"")
 .trim();
 }
-
+let lastAction = null;
 /* =========================
 CATÁLOGO (NO TOCAR)
 ========================= */
@@ -541,28 +541,29 @@ return `Así funciona MagicBank:
 ⚠️ Lee las instrucciones que recibes para aprovechar al máximo tu experiencia.`;
 }
 
-/* =========================
-5. INFORMACIÓN GENERAL
-========================= */
 
-if(m.includes("informacion")){
+
+  
+  if(m.includes("informacion")){
 
 lastAction = "tutorial";
 
 return `Claro 👇
 
-MagicBank es un ecosistema educativo con tutores de inteligencia artificial.
+MagicBank es un ecosistema educativo con más de 170 tutores de inteligencia artificial.
 
 Puedes aprender:
-• Carreras  
+• Carreras profesionales  
 • Idiomas  
-• Cursos  
-• TAP profesionales  
+• Cursos especializados  
+• Asistentes profesionales (TAP)  
+• Bachillerato completo  
+• Música profesional  
 
-👉 Puedo llevarte al Tutor Informativo para ver todo en detalle.
+👉 También puedes vivir una experiencia real con los tutores.
 
-¿Quieres que te lleve?`;
-}
+¿Quieres que te lleve a una visita guiada o prefieres ver toda la información completa?`;
+  }
 
 /* =========================
 6. TUTOR INFORMATIVO
@@ -722,15 +723,21 @@ Aprendes a entender riesgos y tomar decisiones informadas.`;
 }
 
 /* =========================
-17. COMERCIAL
+ 17-COMERCIAL
 ========================= */
 
-if(m.includes("empresa") || m.includes("contrato")){
-return "Contacto comercial:\n\n📩 magicbankia@gmail.com";
+if(m.includes("comercial") || m.includes("empresa") || m.includes("contrato")){
+return `Perfecto 🤝
+
+Para alianzas, negocios o soluciones empresariales puedes escribir directamente a:
+
+📩 magicbankia@gmail.com
+
+Nuestro equipo te responderá personalmente.`;
 }
 
 /* =========================
-18. MATCH INTELIGENTE
+18. MATCH INTELIGENTE VENDEDOR
 ========================= */
 
 const words = m.split(" ");
@@ -741,8 +748,58 @@ return words.some(w => name.includes(w));
 });
 
 if(found && m.length > 3){
+
+let descripcion = "";
+
+/* DESCRIPCIONES POR AREA */
+
+if(found.name.includes("Inglés")){
+descripcion = "Aprenderás a hablar, entender y comunicarte con fluidez en inglés, con práctica real y acompañamiento paso a paso.";
+}
+
+else if(found.name.includes("Derecho")){
+descripcion = "Formación jurídica completa con enfoque práctico para comprender leyes, casos reales y ejercicio profesional.";
+}
+
+else if(found.name.includes("Marketing")){
+descripcion = "Aprenderás marketing digital, estrategias, ventas y posicionamiento para negocios reales.";
+}
+
+else if(found.name.includes("Contaduría")){
+descripcion = "Domina contabilidad, finanzas y gestión empresarial con enfoque profesional.";
+}
+
+else if(found.name.includes("Software")){
+descripcion = "Aprende programación y desarrollo de software desde cero hasta nivel profesional.";
+}
+
+else if(found.name.includes("Bachillerato")){
+descripcion = "Formación completa de 1° a 11° con tutor que enseña, evalúa y certifica automáticamente.";
+}
+
+else if(found.name.includes("ChatGPT")){
+descripcion = "Aprende a usar ChatGPT a nivel profesional para trabajo, negocios y automatización.";
+}
+
+else{
+descripcion = "Formación guiada con tutor de inteligencia artificial adaptado a tu nivel.";
+}
+
+/* RESPUESTA VENDEDORA */
+
 go(found.url);
-return "Perfecto 🚀 Te llevo a " + found.name;
+
+return `🔥 Excelente elección
+
+${found.name}
+
+${descripcion}
+
+✅ Acceso inmediato  
+✅ Tutor inteligente personalizado  
+✅ Aprendizaje a tu ritmo  
+
+Te estoy llevando ahora 🚀`;
 }
 
 /* =========================
