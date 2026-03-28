@@ -575,22 +575,37 @@ return "Te conecto con el Tutor Informativo 🧠";
 }
 
 /* =========================
-7. VISITA GUIADA
+ 7-VISITA GUIADA (PRIORIDAD ALTA)
 ========================= */
 
-if(m.includes("demo") || m.includes("probar")){
+if(m.includes("visita") || m.includes("guiada") || m.includes("demo")){
 
 lastAction = "demo";
 
-return "Puedes probar tutores reales.\n\n¿Quieres que te lleve a la experiencia?";
+return `Perfecto 🚀
+
+Puedes probar tutores reales antes de ingresar.
+
+👉 Vas a poder interactuar, ver cómo enseñan y entender la experiencia.
+
+¿Quieres que te lleve ahora?`;
 }
 
 /* =========================
 8. IA GRATIS
 ========================= */
 
-if(m.includes("ia")){
 
+if(
+m === "ia" ||
+m.includes("inteligencia artificial") ||
+m.includes("curso de ia")
+){
+
+lastAction = "ia";
+
+return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
+}
 lastAction = "ia";
 
 return "Tengo un curso gratuito de IA.\n\n¿Quieres que te lleve?";
@@ -801,21 +816,44 @@ ${descripcion}
 
 Te estoy llevando ahora 🚀`;
 }
+/* =========================
+ESCAPE INTELIGENTE (TUTOR INFORMATIVO)
+========================= */
 
+if(
+m.includes("no entiendo") ||
+m.includes("explica mejor") ||
+m.includes("ayuda") ||
+m.includes("no se") ||
+m.includes("confuso") ||
+m.includes("explicacion") ||
+m.includes("explicación")
+){
+
+lastAction = "tutorial";
+
+return `Te entiendo 👍
+
+Para que tengas una explicación clara, completa y bien guiada, te recomiendo usar el Tutor Informativo de MagicBank.
+
+Ahí podrás ver todo paso a paso y resolver cualquier duda en profundidad.
+
+¿Quieres que te lleve ahora?`;
+}
 /* =========================
 19. FALLBACK
 ========================= */
 
-return `Puedo ayudarte a encontrar lo que necesitas.
+return `Puedo ayudarte a encontrar exactamente lo que necesitas dentro de MagicBank.
 
-Ejemplos:
-• inglés  
-• derecho  
-• marketing  
-• cocina  
+Puedes decirme:
+• qué quieres aprender  
+• qué área te interesa  
+• o pedir una guía completa  
 
-O puedo darte una guía completa.`;
-}
+👉 Si quieres una explicación más profunda y organizada, puedo llevarte al Tutor Informativo.
+
+¿Quieres que te lleve?`;
 
 function send(){
 const msg = inputChat.value.trim();
@@ -837,6 +875,31 @@ if(e.key==="Enter") send();
 addMsg("Tutor","👋 Bienvenido a MagicBank IA");
 
 });
+/* =========================
+GUÍA COMPLETA / INFORMACIÓN
+========================= */
+
+if(m.includes("guia") || m.includes("guía") || m.includes("informacion")){
+
+lastAction = "tutorial";
+
+return `Claro 👇
+
+MagicBank es un ecosistema educativo con tutores de inteligencia artificial.
+
+Incluye:
+
+🎓 University (carreras)  
+🌎 Academy (idiomas y cursos)  
+🧠 TAP (asistentes profesionales)  
+🏫 Bachillerato completo  
+🎵 Conservatorio musical  
+
+👉 Puedo llevarte al Tutor Informativo donde está toda la explicación detallada.
+
+¿Quieres que te lleve?`;
+}
+
 </script>
 
 
