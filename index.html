@@ -546,69 +546,173 @@ function go(url){
 setTimeout(()=>window.open(url,"_blank"),400);
 }
 
-/* =========================
-🧠 BRAIN PREMIUM
-========================= */
+/* BRAIN  */
 
 function brain(msg){
 
 const m = normalize(msg);
 
-/* RESPUESTA SI */
+/* =========================
+RESPUESTA SI
+========================= */
 if(m === "si" || m === "sí"){
 
-if(lastAction === "tutorial"){ go(LINKS.tutorial); return "Te llevo al Tutor Informativo 🧠"; }
-if(lastAction === "demo"){ go(LINKS.demo); return "Te llevo a la experiencia real 🚀"; }
-if(lastAction === "ia"){ go(LINKS.ia); return "Te llevo al curso de IA 🤖"; }
+if(lastAction === "tutorial"){ go(LINKS.tutorial); return "Perfecto 🧠 Te llevo al Tutor Informativo"; }
+if(lastAction === "demo"){ go(LINKS.demo); return "Perfecto 🚀 Te llevo a la experiencia real"; }
+if(lastAction === "ia"){ go(LINKS.ia); return "Perfecto 🤖 Te llevo al curso de IA"; }
 
-return "¿Qué deseas que haga exactamente?";
+return "¿Qué quieres que haga exactamente?";
 }
 
-/* SALUDO */
+/* =========================
+SALUDO
+========================= */
 if(m.includes("hola")){
-return "👋 Bienvenido a MagicBank.\n\nPuedo ayudarte a elegir, explicarte o llevarte directo a lo que necesitas.";
+return "👋 Bienvenido a MagicBank.\n\nSoy tu guía inteligente. Puedo explicarte todo o llevarte directo a lo que necesitas.\n\n¿Qué quieres aprender?";
 }
 
-/* QUÉ ES */
+/* =========================
+QUÉ ES MAGICBANK
+========================= */
 if(m.includes("magicbank") || m.includes("que es")){
-return "MagicBank es un ecosistema educativo con más de 170 tutores de inteligencia artificial que enseñan de forma personalizada.";
+return `MagicBank es un ecosistema educativo con más de 170 tutores de inteligencia artificial.
+
+Aprendes de forma personalizada, a tu ritmo y con comprensión real.
+
+Puedes estudiar:
+• Carreras profesionales  
+• Idiomas  
+• Cursos especializados  
+• Bachillerato completo  
+• Música profesional  
+• Asistentes profesionales (TAP)
+
+¿Quieres que te guíe a algo específico?`;
 }
 
-/* FUNCIONAMIENTO */
+/* =========================
+FUNCIONAMIENTO
+========================= */
 if(m.includes("como funciona") || m.includes("acceso")){
-return "Eliges tutor, pagas, recibes acceso por correo y comienzas a aprender paso a paso.";
+return `Así funciona MagicBank:
+
+1. Eliges lo que quieres estudiar  
+2. Realizas el pago  
+3. Recibes acceso por correo  
+4. Ingresas al tutor  
+5. Comienzas a aprender  
+
+⚠️ Es muy importante seguir las instrucciones del correo para una mejor experiencia.`;
 }
 
-/* VISITA */
+/* =========================
+CURSOS / AREAS (MEJORADO)
+========================= */
+if(m.includes("curso") || m.includes("que cursos") || m.includes("que tiene")){
+
+return `En MagicBank puedes aprender:
+
+🌎 Idiomas:
+• Inglés, francés, alemán, italiano, portugués, chino, español  
+
+🎓 Carreras (University):
+• Derecho  
+• Marketing  
+• Contaduría  
+• Administración  
+• Desarrollo de software  
+
+🧠 Cursos (Academy):
+• Cocina avanzada  
+• Nutrición  
+• ChatGPT  
+• Trading  
+• Diseño de interiores  
+• Finanzas  
+
+🏫 Bachillerato completo (1° a 11°)
+
+🎵 Conservatorio musical
+
+¿En cuál te gustaría empezar?`;
+}
+
+/* =========================
+IDIOMAS
+========================= */
+if(m.includes("ingles") || m.includes("idioma")){
+
+let curso = catalog.find(c => normalize(c.name).includes("ingles"));
+
+if(curso){
+go(curso.url);
+return `🔥 Curso de Inglés
+
+Aprendes a hablar, entender y comunicarte con fluidez desde cero hasta avanzado.
+
+✔️ Práctica real  
+✔️ Tutor inteligente  
+✔️ Progreso personalizado  
+
+Te estoy llevando ahora 🚀`;
+}
+
+return "Tengo cursos de idiomas disponibles. ¿Quieres que te muestre inglés?";
+}
+
+/* =========================
+BACHILLERATO (FUERTE)
+========================= */
+if(m.includes("bachillerato")){
+
+return `🏫 Bachillerato MagicBank
+
+• De 1° a 11°  
+• Tutor que enseña y evalúa  
+• Nivelación automática  
+• Certificación  
+
+Es uno de los programas más completos y buscados.
+
+¿Quieres que te lleve directamente?`;
+}
+
+/* =========================
+VISITA GUIADA
+========================= */
 if(m.includes("visita") || m.includes("demo")){
+
 lastAction = "demo";
-return "Puedes probar tutores reales antes de ingresar.\n\n¿Quieres que te lleve?";
+
+return `🚀 Puedes probar tutores reales antes de ingresar.
+
+Vas a ver cómo enseñan, cómo responden y cómo funciona todo.
+
+¿Quieres entrar ahora?`;
 }
 
-/* IA */
+/* =========================
+IA GRATIS
+========================= */
 if(m.includes("ia")){
 lastAction = "ia";
 return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
 }
 
-/* CALIDAD */
-if(m.includes("calidad")){
-go(LINKS.calidad);
-return "Te muestro la calidad académica 📘";
+/* =========================
+COMERCIAL
+========================= */
+if(m.includes("empresa") || m.includes("contrato") || m.includes("negocio")){
+return `🤝 Para alianzas o soluciones empresariales:
+
+📩 magicbankia@gmail.com
+
+Nuestro equipo te responderá directamente.`;
 }
 
-/* INFORMACIÓN */
-if(m.includes("informacion") || m.includes("guia")){
-lastAction = "tutorial";
-return "Puedo explicarte todo o llevarte al Tutor Informativo.\n\n¿Quieres ir?";
-}
-
-/* COMERCIAL */
-if(m.includes("empresa") || m.includes("contrato")){
-return "Para alianzas o negocios escribe a: magicbankia@gmail.com";
-}
-
-/* MATCH INTELIGENTE */
+/* =========================
+MATCH VENDEDOR
+========================= */
 const words = m.split(" ");
 
 let found = catalog.find(c => {
@@ -618,13 +722,42 @@ return words.some(w => name.includes(w));
 
 if(found){
 go(found.url);
-return `🔥 Excelente elección\n\n${found.name}\n\nTe llevo ahora mismo 🚀`;
+return `🔥 Excelente elección
+
+${found.name}
+
+Acceso inmediato, tutor inteligente y aprendizaje real.
+
+Te estoy llevando 🚀`;
 }
 
-/* ESCAPE INTELIGENTE */
+/* =========================
+ESCAPE INTELIGENTE (NO ABUSIVO)
+========================= */
+if(
+m.includes("no entiendo") ||
+m.includes("explica") ||
+m.includes("detalle")
+){
 lastAction = "tutorial";
+return `Para una explicación completa y guiada paso a paso, te recomiendo el Tutor Informativo.
 
-return "Puedo ayudarte mejor o llevarte al Tutor Informativo.\n\n¿Quieres que te lleve?";
+¿Quieres que te lleve?`;
+}
+
+/* =========================
+FALLBACK INTELIGENTE
+========================= */
+return `Puedo ayudarte a encontrar lo que necesitas.
+
+Puedes decir:
+• "quiero estudiar inglés"  
+• "quiero una carrera"  
+• "quiero cursos"  
+
+O si prefieres, puedo guiarte completamente.
+
+¿Quieres una guía completa?`;
 }
 
 /* =========================
