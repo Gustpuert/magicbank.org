@@ -331,11 +331,6 @@ Modelo educativo MagicBank
 window.onload = function(){
 
 /* =========================
-SEGURIDAD: VERIFICACIÓN
-========================= */
-console.log("MAGICBANK SCRIPT OK");
-
-/* =========================
 NORMALIZADOR
 ========================= */
 function normalize(text){
@@ -347,40 +342,42 @@ return (text || "")
 }
 
 /* =========================
-CATÁLOGO EXACTO
+CATÁLOGO REAL (TIENDANUBE)
 ========================= */
 const catalog = [
 
-{name:"Curso de Inglés", url:"https://academy.magicbank.org"},
-{name:"Curso de Francés", url:"https://academy.magicbank.org"},
-{name:"Curso de Italiano", url:"https://academy.magicbank.org"},
-{name:"Curso de Portugués", url:"https://academy.magicbank.org"},
-{name:"Curso de Alemán", url:"https://academy.magicbank.org"},
-{name:"Curso de Español", url:"https://academy.magicbank.org"},
-{name:"Curso de Chino", url:"https://academy.magicbank.org"},
+{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutor-pro/"},
+{name:"Curso de Francés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-frances-con-tutor-ia/"},
+{name:"Curso de Alemán", url:"https://magicbank2.mitiendanube.com/productos/curso-de-aleman/"},
+{name:"Curso de Italiano", url:"https://magicbank2.mitiendanube.com/productos/curso-de-italiano/"},
+{name:"Curso de Portugués", url:"https://magicbank2.mitiendanube.com/productos/curso-de-portugues/"},
+{name:"Curso de Chino", url:"https://magicbank2.mitiendanube.com/productos/curso-de-chino/"},
+{name:"Curso de Español", url:"https://magicbank2.mitiendanube.com/productos/curso-de-espanol-gj55x/"},
 
-{name:"Curso de Cocina Avanzada", url:"https://academy.magicbank.org"},
-{name:"Curso de Nutrición Inteligente", url:"https://academy.magicbank.org"},
-{name:"Curso de ChatGPT Avanzado", url:"https://academy.magicbank.org"},
-{name:"Curso de Trading Cíclico", url:"https://academy.magicbank.org"},
+{name:"Curso de Cocina Avanzada", url:"https://magicbank2.mitiendanube.com/productos/curso-de-cocina-avanzado-con-tutor-con-ia/"},
+{name:"Curso de Nutrición Inteligente", url:"https://magicbank2.mitiendanube.com/productos/nutricion-inteligente-avanzada-con-tutor-ia/"},
+{name:"Curso de ChatGPT Avanzado", url:"https://magicbank2.mitiendanube.com/productos/curso-profesional-de-chatgpt/"},
+{name:"Curso de Trading Cíclico", url:"https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/"},
 {name:"Curso de Banca Digital", url:"https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/"},
-{name:"Curso de Inversiones Mágicas", url:"https://academy.magicbank.org"},
-{name:"Curso de Artes y Oficios", url:"https://academy.magicbank.org"},
+{name:"Curso de Artes y Oficios", url:"https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/"},
 {name:"Curso de Diseño de Interiores", url:"https://magicbank2.mitiendanube.com/productos/curso-diseno-de-interiores-profesional-gj1bk/"},
 
-{name:"Facultad de Derecho", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
-{name:"Facultad de Administración y Negocios", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
-{name:"Facultad de Marketing", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
-{name:"Facultad de Contaduría", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
-{name:"Facultad de Desarrollo de Software", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
+{name:"Facultad de Derecho", url:"https://magicbank2.mitiendanube.com/productos/curso-facultad-de-derecho/"},
+{name:"Facultad de Administración y Negocios", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-administracion-y-negocios/"},
+{name:"Facultad de Marketing", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-marketing/"},
+{name:"Facultad de Contaduría", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-contaduria/"},
+{name:"Facultad de Desarrollo de Software", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-desarrollo-de-software/"},
 
-{name:"TAP Salud", url:"https://magicbank2.mitiendanube.com/productos/tap-salud/"},
-{name:"TAP Derecho", url:"https://magicbank2.mitiendanube.com/productos/tap-derecho/"},
-{name:"TAP Contaduría", url:"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/"},
+{name:"Bachillerato MagicBank", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
+{name:"Facultad de Música", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-musica-6k2ph/"},
+
+{name:"TAP Empresas", url:"https://magicbank2.mitiendanube.com/productos/tap-empresas/"},
 {name:"TAP Administración Pública", url:"https://magicbank2.mitiendanube.com/productos/tap-administracion-publica/"},
 {name:"TAP Educación", url:"https://magicbank2.mitiendanube.com/productos/tap-educacion/"},
+{name:"TAP Derecho", url:"https://magicbank2.mitiendanube.com/productos/tap-derecho/"},
 {name:"TAP Ingeniería", url:"https://magicbank2.mitiendanube.com/productos/tap-ingenieros/"},
-{name:"TAP Empresas", url:"https://magicbank2.mitiendanube.com/productos/tap-empresas/"}
+{name:"TAP Salud", url:"https://magicbank2.mitiendanube.com/productos/tap-salud/"},
+{name:"TAP Contaduría", url:"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/"}
 
 ];
 
@@ -391,9 +388,7 @@ const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 
 if(input){
-
 input.addEventListener("input",()=>{
-
 const value = normalize(input.value);
 
 if(value.length < 2){
@@ -410,7 +405,6 @@ suggestions.innerHTML = results.slice(0,8).map(c =>
 ).join("");
 
 suggestions.style.display = results.length ? "block" : "none";
-
 });
 
 suggestions.addEventListener("click",(e)=>{
@@ -421,53 +415,25 @@ window.open(item.dataset.url,"_blank");
 suggestions.style.display="none";
 input.value="";
 });
-
 }
 
 /* =========================
-CHAT (INYECCIÓN SEGURA)
+CHAT UI
 ========================= */
-setTimeout(()=>{
-
 const chatHTML = `
-<div id="chatToggle" style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:#5b4ee6;
-color:#fff;
-padding:14px;
-border-radius:50%;
-cursor:pointer;
-z-index:99999;
-">💬</div>
+<div id="chatToggle" style="position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;z-index:99999;">💬</div>
 
-<div id="chatBox" style="
-position:fixed;
-bottom:80px;
-right:10px;
-width:92%;
-max-width:360px;
-height:70vh;
-max-height:520px;
-background:#fff;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-display:none;
-flex-direction:column;
-z-index:99999;
-overflow:hidden;
-">
+<div id="chatBox" style="position:fixed;bottom:80px;right:15px;width:340px;height:500px;background:#fff;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.25);display:none;flex-direction:column;z-index:99999;overflow:hidden;">
 
-<div style="background:#5b4ee6;color:#fff;padding:12px;display:flex;justify-content:space-between;">
-<span>Tutor IA</span>
+<div style="background:#5b4ee6;color:#fff;padding:14px;display:flex;justify-content:space-between;">
+<span>Tutor MagicBank</span>
 <span id="chatClose" style="cursor:pointer;">✖</span>
 </div>
 
-<div id="chatMessages" style="flex:1;overflow-y:auto;padding:10px;font-size:14px;"></div>
+<div id="chatMessages" style="flex:1;overflow-y:auto;padding:12px;background:#fafafa;"></div>
 
 <div style="padding:10px;border-top:1px solid #eee;">
-<input id="chatInput" placeholder="Escribe..." style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;">
+<input id="chatInput" placeholder="Ej: inglés, derecho, cocina..." style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;">
 </div>
 
 </div>
@@ -486,6 +452,7 @@ const chatInput = document.getElementById("chatInput");
 chatToggle.onclick = ()=>{
 chatBox.style.display="flex";
 chatToggle.style.display="none";
+setTimeout(()=>chatInput.focus(),200);
 };
 
 chatClose.onclick = ()=>{
@@ -493,58 +460,78 @@ chatBox.style.display="none";
 chatToggle.style.display="block";
 };
 
-/* MENSAJES */
+/* BURBUJAS */
 function addMessage(sender,text){
-chatMessages.innerHTML += `<div><b>${sender}:</b> ${text}</div>`;
+const isUser = sender==="Tú";
+chatMessages.innerHTML += `
+<div style="display:flex;justify-content:${isUser?"flex-end":"flex-start"};margin-bottom:10px;">
+<div style="max-width:75%;padding:10px;border-radius:14px;background:${isUser?"#5b4ee6":"#e9e9ee"};color:${isUser?"#fff":"#111"};">
+${text}
+</div>
+</div>`;
 chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-/* INTELIGENCIA REAL */
+/* EFECTO */
+function typing(callback){
+chatMessages.innerHTML += `<div id="typing" style="font-size:12px;color:#888;">Escribiendo...</div>`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+setTimeout(()=>{
+document.getElementById("typing")?.remove();
+callback();
+},600);
+}
+
+/* INTELIGENCIA */
 function reply(msg){
 
 const m = normalize(msg);
 
 /* MATCH DIRECTO */
-const found = catalog.find(c =>
-normalize(c.name).includes(m)
-);
-
+const found = catalog.find(c => normalize(c.name).includes(m));
 if(found){
-setTimeout(()=>window.open(found.url,"_blank"),500);
+setTimeout(()=>window.open(found.url,"_blank"),400);
 return `Te llevo a ${found.name} 🚀`;
 }
 
 /* INTENCIONES */
-if(m.includes("derecho")) return "Abriendo Derecho ⚖️", window.open("https://magicbank2.mitiendanube.com/productos/tap-derecho/");
-if(m.includes("contaduria")) return "Abriendo Contaduría 📊", window.open("https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/");
-if(m.includes("idioma")) return "Abriendo idiomas 🌍", window.open("https://academy.magicbank.org");
-if(m.includes("curso")) return "Abriendo cursos 🚀", window.open("https://academy.magicbank.org");
-if(m.includes("facultad")) return "Abriendo University 🎓", window.open("https://magicbank2.mitiendanube.com/productos/magicbank-university1/");
-if(m.includes("tap")) return "Abriendo tutores profesionales 🧠", window.open("https://magicbank.org/fabrica-de-tutores-pago.html");
+if(m.includes("derecho")){
+return "¿Quieres Derecho como carrera o como asistente profesional (TAP)?";
+}
 
-/* DEFAULT */
-return "Dime qué quieres aprender: cursos, idiomas, facultades o TAP.";
+if(m.includes("idioma")){
+return "Puedes aprender inglés, francés, alemán, italiano, portugués, chino o español.";
+}
+
+if(m.includes("no se") || m.includes("no sé")){
+return "Te ayudo 👍 ¿Quieres aprender un idioma, una carrera o un curso práctico?";
+}
+
+if(m.includes("bachillerato")){
+setTimeout(()=>window.open("https://magicbank2.mitiendanube.com/productos/magicbank-university1/"),400);
+return "Te llevo al Bachillerato 🏫";
+}
+
+return "Dime qué quieres aprender y te llevo directamente.";
 }
 
 /* EVENTO */
 chatInput.addEventListener("keypress",e=>{
 if(e.key==="Enter"){
-
 const msg = chatInput.value.trim();
 if(!msg) return;
 
 addMessage("Tú",msg);
 chatInput.value="";
 
+typing(()=>{
 addMessage("Tutor", reply(msg));
-
+});
 }
 });
 
 /* INIT */
 addMessage("Tutor","Hola 👋 ¿Qué quieres aprender?");
-
-},200);
 
 };
 
