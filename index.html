@@ -422,34 +422,198 @@ if(!e.target.closest(".search")){
 suggestions.style.display="none";
 }
 });
-
 /* =========================
-CHAT SIMPLE
+🤖 CHAT MAGICBANK REAL
 ========================= */
 
-const btn = document.createElement("div");
-btn.innerHTML = "🤖";
-btn.style = "position:fixed;bottom:20px;right:20px;background:#5b4ee6;color:#fff;padding:15px;border-radius:50%;cursor:pointer;z-index:9999;";
-document.body.appendChild(btn);
+/* BOTÓN ROBOT */
+const chatBtn = document.createElement("div");
+chatBtn.innerHTML = "🤖";
+chatBtn.className = "mb-chat-btn";
+document.body.appendChild(chatBtn);
 
-btn.onclick = ()=>{
-const msg = prompt("¿Qué quieres aprender?");
-if(!msg) return;
+/* CAJA CHAT */
+const chatHTML = `
+<div id="mbChatBox">
+  <div class="mb-header">
+    <span>MagicBank IA</span>
+    <span id="mbClose">✖</span>
+  </div>
+
+  <div id="mbMessages"></div>
+
+  <div class="mb-input">
+    <input id="mbInput" placeholder="Ej: quiero aprender inglés">
+    <button id="mbSend">➤</button>
+  </div>
+</div>
+`;
+
+document.body.insertAdjacentHTML("beforeend", chatHTML);
+
+/* ESTILOS */
+const style = document.createElement("style");
+style.innerHTML = `
+.mb-chat-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:linear-gradient(135deg,#5b4ee6,#7a6df0);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+color:#fff;
+cursor:pointer;
+z-index:9999;
+animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(91,78,230,.6);}
+70%{box-shadow:0 0 0 20px rgba(91,78,230,0);}
+100%{box-shadow:0 0 0 0 rgba(91,78,230,0);}
+}
+
+#mbChatBox{
+position:fixed;
+bottom:90px;
+right:15px;
+width:340px;
+height:520px;
+background:#fff;
+border-radius:16px;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+display:none;
+flex-direction:column;
+z-index:9999;
+overflow:hidden;
+}
+
+.mb-header{
+background:#5b4ee6;
+color:#fff;
+padding:12px;
+display:flex;
+justify-content:space-between;
+font-weight:600;
+}
+
+#mbMessages{
+flex:1;
+overflow:auto;
+padding:10px;
+font-size:14px;
+background:#fafafa;
+}
+
+.mb-input{
+display:flex;
+gap:6px;
+padding:10px;
+border-top:1px solid #eee;
+}
+
+.mb-input input{
+flex:1;
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.mb-input button{
+background:#5b4ee6;
+color:#fff;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+}
+`;
+document.head.appendChild(style);
+
+/* ELEMENTOS */
+const box = document.getElementById("mbChatBox");
+const close = document.getElementById("mbClose");
+const inputChat = document.getElementById("mbInput");
+const sendBtn = document.getElementById("mbSend");
+const messages = document.getElementById("mbMessages");
+
+/* CONTROL */
+chatBtn.onclick = ()=>{
+box.style.display="flex";
+};
+
+close.onclick = ()=>{
+box.style.display="none";
+};
+
+/* MENSAJES */
+function addMsg(user,text){
+messages.innerHTML += `<div><b>${user}:</b> ${text}</div>`;
+messages.scrollTop = messages.scrollHeight;
+}
+
+/* 🧠 INTELIGENCIA MAGICBANK */
+function brain(msg){
 
 const m = normalize(msg);
 
+/* QUE ES */
+if(m.includes("magicbank")){
+return "MagicBank es un ecosistema educativo con tutores de inteligencia artificial que enseñan de forma personalizada.";
+}
+
+/* COMO FUNCIONA */
+if(m.includes("como funciona")){
+return "Eliges tutor, pagas 30 días, recibes token y accedes inmediatamente.";
+}
+
+/* DINERO */
+if(m.includes("dinero") || m.includes("ingresos")){
+return "Te recomiendo Banca Digital, Trading Cíclico o Inversiones Mágicas.";
+}
+
+/* BUSCAR EN CATÁLOGO */
 const found = catalog.find(c =>
 normalize(c.name).includes(m)
 );
 
 if(found){
-window.open(found.url,"_blank");
-}else{
-alert("No encontré eso. Intenta: inglés, derecho, cocina...");
+setTimeout(()=>window.open(found.url,"_blank"),500);
+return "Te llevo a " + found.name + " 🚀";
 }
-};
 
+/* DEFAULT */
+return "Dime qué quieres aprender: idiomas, cursos, carreras o TAP.";
+}
+
+/* ENVÍO */
+function send(){
+const msg = inputChat.value.trim();
+if(!msg) return;
+
+addMsg("Tú", msg);
+inputChat.value="";
+
+setTimeout(()=>{
+addMsg("Tutor", brain(msg));
+},300);
+}
+
+sendBtn.onclick = send;
+inputChat.addEventListener("keypress", e=>{
+if(e.key==="Enter") send();
 });
+
+/* BIENVENIDA */
+setTimeout(()=>{
+addMsg("Tutor","👋 Bienvenido a MagicBank IA. ¿Qué quieres aprender?");
+},1000);
+
 </script>
 
 
