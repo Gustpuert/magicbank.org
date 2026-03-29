@@ -502,10 +502,11 @@ function brain(msg){
 const text = normalize(msg);
 
 /* =========================
-MAPA DIRECTO (CATÁLOGO)
+MAPA COMPLETO
 ========================= */
 const map = {
 
+/* 🌎 IDIOMAS */
 "ingles":"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutor-pro/",
 "frances":"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-frances-con-tutor-ia/",
 "aleman":"https://magicbank2.mitiendanube.com/productos/curso-de-aleman/",
@@ -514,35 +515,43 @@ const map = {
 "chino":"https://magicbank2.mitiendanube.com/productos/curso-de-chino/",
 "espanol":"https://magicbank2.mitiendanube.com/productos/curso-de-espanol-gj55x/",
 
+/* 🧠 CURSOS */
 "cocina":"https://magicbank2.mitiendanube.com/productos/curso-de-cocina-avanzado-con-tutor-con-ia/",
 "nutricion":"https://magicbank2.mitiendanube.com/productos/nutricion-inteligente-avanzada-con-tutor-ia/",
 "chatgpt":"https://magicbank2.mitiendanube.com/productos/curso-profesional-de-chatgpt/",
+"ia":"https://magicbank.org/ia/index.html",
 "trading":"https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/",
 "banca digital":"https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/",
 "artes":"https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/",
 "diseno":"https://magicbank2.mitiendanube.com/productos/curso-diseno-de-interiores-profesional-gj1bk/",
 
+/* 🎓 FACULTADES */
 "derecho":"https://magicbank2.mitiendanube.com/productos/curso-facultad-de-derecho/",
 "administracion":"https://magicbank2.mitiendanube.com/productos/facultad-de-administracion-y-negocios/",
 "marketing":"https://magicbank2.mitiendanube.com/productos/facultad-de-marketing/",
 "contaduria":"https://magicbank2.mitiendanube.com/productos/facultad-de-contaduria/",
 "software":"https://magicbank2.mitiendanube.com/productos/facultad-de-desarrollo-de-software/",
 
+/* 🏫 OTROS */
 "bachillerato":"https://magicbank2.mitiendanube.com/productos/magicbank-university1/",
 "musica":"https://magicbank2.mitiendanube.com/productos/facultad-de-musica-6k2ph/",
 
+/* 🧠 TAP (MEJORADO) */
 "tap salud":"https://magicbank2.mitiendanube.com/productos/tap-salud/",
 "tap derecho":"https://magicbank2.mitiendanube.com/productos/tap-derecho/",
 "tap empresas":"https://magicbank2.mitiendanube.com/productos/tap-empresas/",
 "tap administracion publica":"https://magicbank2.mitiendanube.com/productos/tap-administracion-publica/",
 "tap educacion":"https://magicbank2.mitiendanube.com/productos/tap-educacion/",
 "tap ingenieria":"https://magicbank2.mitiendanube.com/productos/tap-ingenieros/",
-"tap contaduria":"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/"
+"tap contaduria":"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/",
+
+/* SINÓNIMOS */
+"asistente de derecho":"https://magicbank2.mitiendanube.com/productos/tap-derecho/",
+"asistente derecho":"https://magicbank2.mitiendanube.com/productos/tap-derecho/",
+"asistente salud":"https://magicbank2.mitiendanube.com/productos/tap-salud/"
 };
 
-/* =========================
-TILDES
-========================= */
+/* TILDES */
 map["inglés"]=map["ingles"];
 map["francés"]=map["frances"];
 map["alemán"]=map["aleman"];
@@ -550,67 +559,94 @@ map["portugués"]=map["portugues"];
 map["español"]=map["espanol"];
 
 /* =========================
-MATCH DIRECTO
+MATCH DIRECTO (PRIORIDAD)
 ========================= */
 for(let key in map){
-
 if(text.includes(key)){
 go(map[key]);
 return `🔥 Abriendo ${key.toUpperCase()}...`;
 }
-
 }
 
 /* =========================
-INFO MAGICBANK
+INFO COMPLETA
 ========================= */
 if(
 text.includes("magicbank") ||
 text.includes("que es") ||
-text.includes("informacion")
+text.includes("cursos")
 ){
 return `MagicBank es un ecosistema educativo con tutores inteligentes.
 
-Puedes estudiar:
-• Carreras profesionales  
-• Idiomas  
-• Cursos  
-• Bachillerato  
-• Música  
+Puedes aprender:
 
-👉 Escribe el curso y entras directo.`;
+🎓 Facultades:
+Derecho, Administración, Marketing, Contaduría, Software
+
+🌎 Idiomas:
+Inglés, Francés, Alemán, Italiano, Portugués, Chino, Español
+
+🧠 Cursos:
+Cocina, Nutrición, ChatGPT, Trading, Banca Digital, Artes, Diseño
+
+🏫 Bachillerato  
+🎵 Música  
+
+🧠 TAP (Asistentes profesionales):
+Salud, Derecho, Empresas, Administración Pública, Educación, Ingeniería, Contaduría
+
+👉 Escribe directamente lo que quieres y te llevo.`;
+}
+
+/* =========================
+RUTAS INTELIGENTES
+========================= */
+if(text.includes("calidad")){
+go("https://magicbank.org/anexos/calidad-academica-magicbank.html");
+return "Te llevo a Calidad Académica.";
+}
+
+if(text.includes("como acceder") || text.includes("como empezar")){
+go("https://magicbank.org/tutorial.html");
+return "Te llevo al tutorial.";
+}
+
+if(text.includes("ia")){
+go("https://magicbank.org/ia/index.html");
+return "Te llevo al curso gratuito de IA.";
+}
+
+if(text.includes("visita")){
+go("https://gustpuert.github.io/magicbank--demo/");
+return "Te llevo a la visita guiada.";
 }
 
 /* =========================
 TUTOR
 ========================= */
-if(text.includes("tutor")){
+if(
+text.includes("no entiendo") ||
+text.includes("explica") ||
+text.includes("informacion")
+){
 return "¿Quieres ir al Tutor Informativo?";
 }
 
 /* =========================
-VISITA
-========================= */
-if(text.includes("visita")){
-return "¿Quieres hacer una visita guiada?";
-}
-
-/* =========================
-SI
+SI → TUTOR
 ========================= */
 if(text === "si" || text === "sí"){
-
 go("https://chatgpt.com/g/g-697a851b8a148191a8971256abf33157-tutor-informativo-magibank");
 return "Te llevo al Tutor Informativo.";
 }
 
 /* =========================
-PROBLEMAS
+SOPORTE
 ========================= */
 if(
 text.includes("error") ||
 text.includes("problema") ||
-text.includes("ayuda")
+text.includes("pago")
 ){
 return "Escríbenos: magicbankia@gmail.com";
 }
@@ -618,8 +654,7 @@ return "Escríbenos: magicbankia@gmail.com";
 /* =========================
 FALLBACK
 ========================= */
-return "Escribe el curso. Ej: inglés, cocina, derecho, tap salud.";
-
+return "Escribe el curso o área. Ej: inglés, derecho, tap salud.";
 }
 /* =========================
 FUNCIÓN BUSCAR CURSO
