@@ -541,16 +541,23 @@ return "👋 Bienvenido a MagicBank.\n\nDime qué quieres aprender y te llevo di
 if(text.includes("basico") || text.includes("básico")) userProfile.nivel="basico";
 if(text.includes("avanzado")) userProfile.nivel="avanzado";
 
+
 /* INTENCIÓN */
 if(
 text.includes("comprar") ||
 text.includes("quiero") ||
 text.includes("empezar") ||
 text.includes("entrar") ||
-text.includes("activar")
+text.includes("activar") ||
+text === "si" ||
+text === "sí" ||
+text.includes("dale") ||
+text.includes("ok") ||
+text.includes("vamos")
 ){
 userProfile.intencion = "compra";
 }
+  
   /* =========================
 DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
 ========================= */
