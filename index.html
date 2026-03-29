@@ -409,6 +409,59 @@ INICIO SEGURO
 ========================= */
 document.addEventListener("DOMContentLoaded", function(){
 
+  /* =========================
+🔎 BUSCADOR FUNCIONAL
+========================= */
+
+const searchInput = document.getElementById("searchInput");
+const suggestions = document.getElementById("suggestions");
+
+searchInput.addEventListener("input", function(){
+
+const value = normalize(searchInput.value);
+
+suggestions.innerHTML = "";
+
+if(!value){
+suggestions.style.display = "none";
+return;
+}
+
+let results = catalog.filter(c => 
+normalize(c.name).includes(value)
+);
+
+if(results.length === 0){
+suggestions.style.display = "none";
+return;
+}
+
+results.slice(0,6).forEach(item => {
+
+const div = document.createElement("div");
+div.className = "suggestion";
+div.innerText = item.name;
+
+div.onclick = () => {
+go(item.url);
+suggestions.style.display = "none";
+};
+
+suggestions.appendChild(div);
+
+});
+
+suggestions.style.display = "block";
+
+});
+
+/* CERRAR AL HACER CLICK FUERA */
+document.addEventListener("click", function(e){
+if(!searchInput.contains(e.target)){
+suggestions.style.display = "none";
+}
+});
+
 /* =========================
 BOTÓN CHAT
 ========================= */
