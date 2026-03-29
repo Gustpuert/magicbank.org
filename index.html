@@ -555,6 +555,10 @@ userProfile.intencion = "compra";
 DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
 ========================= */
 
+/* =========================
+DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
+========================= */
+
 const intereses = {
   ingles: ["ingles","inglés"],
   frances: ["frances","francés"],
@@ -571,7 +575,7 @@ const intereses = {
 };
 
 for (let key in intereses){
-  if(intereses[key].some(p => m.includes(p))){
+  if(intereses[key].some(p => text.includes(p))){
     userProfile.interes = key;
     break;
   }
