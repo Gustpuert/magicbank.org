@@ -508,135 +508,147 @@ text.includes("no me interesa")
 /* =========================
 BUSCAR CURSO (ROBUSTO)
 ========================= */
+
 function findCourse(keyword){
 
 if(!keyword) return null;
 
+const map = {
+ingles: "ingles",
+frances: "frances",
+aleman: "aleman",
+italiano: "italiano",
+portugues: "portugues",
+chino: "chino",
+espanol: "espanol",
+
+musica: "musica",
+derecho: "derecho",
+software: "software",
+bachillerato: "bachillerato",
+
+contaduria: "contaduria",
+administracion: "administracion",
+marketing: "marketing",
+
+tap: "tap"
+};
+
+const key = map[keyword] || keyword;
+
 return catalog.find(c=>{
 const name = normalize(c.name);
-
-if(keyword==="ingles") return name.includes("ingles");
-if(keyword==="derecho") return name.includes("derecho");
-if(keyword==="musica") return name.includes("musica");
-if(keyword==="software") return name.includes("software");
-if(keyword==="bachillerato") return name.includes("bachillerato");
-
-return name.includes(keyword);
+return name.includes(key);
 });
 }
+
+  
 
 /* =========================
 BRAIN SUPREME
 ========================= */
+
 function brain(msg){
 
 const text = normalize(msg);
 
-/* SALUDO */
-if(text.includes("hola") || text.includes("hello")){
-return "👋 Bienvenido a MagicBank.\n\nDime qué quieres aprender y te llevo directo.";
-}
+/* =========================
+INTENCIÓN
+========================= */
+const isYes = ["si","sí","ok","dale","vamos","de una"].includes(text);
 
-/* NIVEL */
-if(text.includes("basico") || text.includes("básico")) userProfile.nivel="basico";
-if(text.includes("avanzado")) userProfile.nivel="avanzado";
-
-
-/* INTENCIÓN */
 if(
 text.includes("comprar") ||
-text.includes("quiero") ||
-text.includes("empezar") ||
 text.includes("entrar") ||
+text.includes("empezar") ||
 text.includes("activar") ||
-text === "si" ||
-text === "sí" ||
-text.includes("dale") ||
-text.includes("ok") ||
-text.includes("vamos")
+text.includes("quiero") ||
+isYes
 ){
 userProfile.intencion = "compra";
 }
-  
-  /* =========================
-DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
-========================= */
 
 /* =========================
-DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
+NIVEL
 ========================= */
+if(text.includes("basico") || text.includes("básico")) userProfile.nivel="basico";
+if(text.includes("intermedio")) userProfile.nivel="intermedio";
+if(text.includes("avanzado")) userProfile.nivel="avanzado";
 
+/* =========================
+INTERESES
+========================= */
 const intereses = {
-  ingles: ["ingles","inglés"],
-  frances: ["frances","francés"],
-  aleman: ["aleman","alemán"],
-  italiano: ["italiano"],
-  portugues: ["portugues","portugués"],
-  chino: ["chino"],
-  español: ["espanol","español"],
-  musica: ["musica","música","conservatorio"],
-  derecho: ["derecho"],
-  software: ["software","programacion","programación"],
-  bachillerato: ["bachillerato"],
-  ia: ["ia","inteligencia artificial"]
+ingles: ["ingles","inglés"],
+frances: ["frances","francés"],
+aleman: ["aleman","alemán"],
+italiano: ["italiano"],
+portugues: ["portugues","portugués"],
+chino: ["chino"],
+espanol: ["espanol","español"],
+
+musica: ["musica","música","conservatorio"],
+derecho: ["derecho"],
+software: ["software","programacion","programación"],
+bachillerato: ["bachillerato"],
+
+contaduria: ["contaduria","contabilidad"],
+administracion: ["administracion"],
+marketing: ["marketing"],
+
+tap: ["tap"],
+ia: ["ia","inteligencia artificial"]
 };
 
 for (let key in intereses){
-  if(intereses[key].some(p => text.includes(p))){
-    userProfile.interes = key;
-    break;
-  }
+if(intereses[key].some(p => text.includes(p))){
+userProfile.interes = key;
+break;
+}
 }
 
-/* INTERESES */
-if(match(text,["ingles","inglés"])) userProfile.interes="ingles";
-if(match(text,["derecho"])) userProfile.interes="derecho";
-if(match(text,["musica","música"])) userProfile.interes="musica";
-if(match(text,["software","programacion"])) userProfile.interes="software";
-if(match(text,["bachillerato"])) userProfile.interes="bachillerato";
-
-/* COMERCIAL */
-if(
-text.includes("empresa") ||
-text.includes("contrato") ||
-text.includes("negocio")
-){
-return `🤝 Para soluciones empresariales:
-
-📩 magicbankia@gmail.com`;
+/* =========================
+SALUDO
+========================= */
+if(text.includes("hola")){
+return "👋 Bienvenido a MagicBank.\n\nDime qué quieres aprender y te llevo directo.";
 }
 
-/* 🔥 CIERRE AUTOMÁTICO */
+/* =========================
+CIERRE DIRECTO
+========================= */
 if(userProfile.interes && userProfile.intencion==="compra"){
 
 let curso = findCourse(userProfile.interes);
 
 if(curso){
 
-let nivelTxt = "";
+let extra = "";
 
 if(userProfile.nivel==="basico"){
-nivelTxt="\n👉 Empezarás desde nivel básico.";
+extra="\n👉 Empezarás desde nivel básico.";
 }
 
 if(userProfile.nivel==="avanzado"){
-nivelTxt="\n👉 Entrarás directo a nivel avanzado.";
+extra="\n👉 Entrarás directo a nivel avanzado.";
 }
 
 go(curso.url);
 
 return `🔥 ${curso.name}
-${nivelTxt}
 
 ✔️ Acceso inmediato  
 ✔️ Tutor inteligente  
-✔️ Aprendizaje personalizado  
+✔️ Aprendizaje real  
+${extra}
 
 Te estoy llevando ahora 🚀`;
 }
 }
 
-/* EMPUJE VENDEDOR */
+/* =========================
+RESPUESTA COMERCIAL
+========================= */
 if(userProfile.interes){
 
 return `Perfecto 👇
@@ -650,7 +662,9 @@ Puedo darte acceso directo ahora mismo.
 ¿Quieres que te lleve?`;
 }
 
-/* EXPLORACIÓN */
+/* =========================
+EXPLORACIÓN
+========================= */
 if(text.includes("que puedo") || text.includes("opciones")){
 return `Puedes aprender:
 
@@ -663,7 +677,9 @@ return `Puedes aprender:
 Dime qué te interesa y te llevo directo.`;
 }
 
-/* DUDA */
+/* =========================
+DUDA
+========================= */
 if(
 text.includes("como funciona") ||
 text.includes("explica") ||
@@ -679,6 +695,18 @@ return `MagicBank funciona así:
 ¿Quieres que te lleve directo?`;
 }
 
+/* =========================
+FALLBACK
+========================= */
+return `Puedo ayudarte a encontrar lo que necesitas.
+
+Dime algo como:
+• "quiero estudiar inglés"  
+• "quiero una carrera"  
+• "quiero cursos"  
+
+👉 ¿Qué te gustaría hacer?`;
+}
 /* FALLBACK */
 return "Dime qué quieres aprender y te llevo directo 🚀";
 }
