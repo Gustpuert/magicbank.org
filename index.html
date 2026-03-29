@@ -543,9 +543,43 @@ setTimeout(()=>window.open(url,"_blank"),400);
 /* =========================
 🧠 BRAIN (COMPLETO)
 ========================= */
+
 function brain(msg){
 
 const m = normalize(msg);
+
+/* =========================
+DETECCIÓN DE INTERÉS
+========================= */
+
+if(m.includes("ingles")){
+userProfile.interes = "ingles";
+}
+
+if(m.includes("musica") || m.includes("música")){
+userProfile.interes = "musica";
+}
+
+if(m.includes("derecho")){
+userProfile.interes = "derecho";
+}
+
+/* =========================
+DETECCIÓN DE NIVEL
+========================= */
+
+if(m.includes("basico") || m.includes("básico")){
+userProfile.nivel = "basico";
+}
+
+if(m.includes("intermedio")){
+userProfile.nivel = "intermedio";
+}
+
+if(m.includes("avanzado")){
+userProfile.nivel = "avanzado";
+}
+  
   /* =========================
 SALUDO
 ========================= */
@@ -984,6 +1018,59 @@ return `Te recomiendo el Tutor Informativo.
 Ahí tienes la explicación completa paso a paso.
 
 ¿Quieres que te lleve?`;
+}
+  /* =========================
+RESPUESTA POR CONTEXTO (CLAVE)
+========================= */
+
+if(userProfile.interes && userProfile.nivel){
+
+if(userProfile.interes === "musica" && userProfile.nivel === "basico"){
+
+let curso = catalog.find(c => normalize(c.name).includes("musica"));
+
+if(curso){
+go(curso.url);
+
+return `Perfecto 👌 empezar desde nivel básico es lo mejor.
+
+🎵 Conservatorio MagicBank
+
+Vas a comenzar desde cero:
+• Comprensión musical  
+• Ritmo  
+• Técnica básica  
+• Interpretación inicial  
+
+👉 El tutor se adapta a tu nivel automáticamente.
+
+Te llevo ahora 🚀`;
+}
+
+}
+
+if(userProfile.interes === "ingles" && userProfile.nivel === "basico"){
+
+let curso = catalog.find(c => normalize(c.name).includes("ingles"));
+
+if(curso){
+go(curso.url);
+
+return `Excelente decisión empezar desde cero 👌
+
+🔥 Curso de Inglés
+
+• Empiezas desde lo más básico  
+• Aprendes hablando  
+• Corrección en tiempo real  
+
+👉 Avanzas rápido sin complicaciones.
+
+Te llevo 🚀`;
+}
+
+}
+
 }
 
 /* =========================
