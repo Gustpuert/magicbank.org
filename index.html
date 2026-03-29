@@ -329,7 +329,7 @@ Modelo educativo MagicBank
   <script>
 
 /* =========================
-NORMALIZADOR GLOBAL
+NORMALIZADOR
 ========================= */
 function normalize(text){
 return (text || "")
@@ -343,11 +343,12 @@ return (text || "")
 SAFE OPEN
 ========================= */
 function go(url){
-setTimeout(()=>window.open(url,"_blank"),400);
+if(!url) return;
+setTimeout(()=>window.open(url,"_blank"),300);
 }
 
 /* =========================
-ESTADO GLOBAL
+ESTADO GLOBAL (CONTROLADO)
 ========================= */
 let userProfile = {
 interes: null,
@@ -355,53 +356,6 @@ nivel: null,
 intencion: null
 };
 
-/* =========================
-CATÁLOGO (PEGA AQUÍ)
-========================= */
-
-const catalog = [
-
-/* 🌎 IDIOMAS */
-{name:"Curso de Inglés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-ingles-con-magic-tutor-pro/"},
-{name:"Curso de Francés", url:"https://magicbank2.mitiendanube.com/productos/curso-avanzado-de-frances-con-tutor-ia/"},
-{name:"Curso de Alemán", url:"https://magicbank2.mitiendanube.com/productos/curso-de-aleman/"},
-{name:"Curso de Italiano", url:"https://magicbank2.mitiendanube.com/productos/curso-de-italiano/"},
-{name:"Curso de Portugués", url:"https://magicbank2.mitiendanube.com/productos/curso-de-portugues/"},
-{name:"Curso de Chino", url:"https://magicbank2.mitiendanube.com/productos/curso-de-chino/"},
-{name:"Curso de Español", url:"https://magicbank2.mitiendanube.com/productos/curso-de-espanol-gj55x/"},
-
-/* 🧠 CURSOS */
-{name:"Curso de Cocina Avanzada", url:"https://magicbank2.mitiendanube.com/productos/curso-de-cocina-avanzado-con-tutor-con-ia/"},
-{name:"Curso de Nutrición Inteligente", url:"https://magicbank2.mitiendanube.com/productos/nutricion-inteligente-avanzada-con-tutor-ia/"},
-{name:"Curso de ChatGPT Avanzado", url:"https://magicbank2.mitiendanube.com/productos/curso-profesional-de-chatgpt/"},
-{name:"Curso de Trading Cíclico", url:"https://magicbank2.mitiendanube.com/productos/trading-ciclico-social/"},
-{name:"Curso de Banca Digital", url:"https://magicbank2.mitiendanube.com/productos/magicbank-curso-de-banca-digital1/"},
-{name:"Curso de Artes y Oficios", url:"https://magicbank2.mitiendanube.com/productos/artes-y-oficios-magicbank/"},
-{name:"Curso de Diseño de Interiores", url:"https://magicbank2.mitiendanube.com/productos/curso-diseno-de-interiores-profesional-gj1bk/"},
-
-/* 🎓 UNIVERSITY */
-{name:"Facultad de Derecho", url:"https://magicbank2.mitiendanube.com/productos/curso-facultad-de-derecho/"},
-{name:"Facultad de Administración y Negocios", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-administracion-y-negocios/"},
-{name:"Facultad de Marketing", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-marketing/"},
-{name:"Facultad de Contaduría", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-contaduria/"},
-{name:"Facultad de Desarrollo de Software", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-desarrollo-de-software/"},
-
-/* 🏫 BACHILLERATO */
-{name:"Bachillerato MagicBank", url:"https://magicbank2.mitiendanube.com/productos/magicbank-university1/"},
-
-/* 🎵 CONSERVATORIO */
-{name:"Facultad de Música", url:"https://magicbank2.mitiendanube.com/productos/facultad-de-musica-6k2ph/"},
-
-/* 🧠 TAP */
-{name:"TAP Empresas", url:"https://magicbank2.mitiendanube.com/productos/tap-empresas/"},
-{name:"TAP Administración Pública", url:"https://magicbank2.mitiendanube.com/productos/tap-administracion-publica/"},
-{name:"TAP Educación", url:"https://magicbank2.mitiendanube.com/productos/tap-educacion/"},
-{name:"TAP Derecho", url:"https://magicbank2.mitiendanube.com/productos/tap-derecho/"},
-{name:"TAP Ingeniería", url:"https://magicbank2.mitiendanube.com/productos/tap-ingenieros/"},
-{name:"TAP Salud", url:"https://magicbank2.mitiendanube.com/productos/tap-salud/"},
-{name:"TAP Contaduría", url:"https://magicbank2.mitiendanube.com/productos/asistente-profesional-para-contabilidad-b14t5/"}
-
-];
 /* =========================
 INICIO SEGURO
 ========================= */
@@ -438,7 +392,7 @@ box-shadow:0 10px 30px rgba(0,0,0,.25);
 document.body.appendChild(btn);
 
 /* =========================
-UI CHAT
+CHAT BOX
 ========================= */
 const box = document.createElement("div");
 
@@ -492,194 +446,53 @@ messages.scrollTop = messages.scrollHeight;
 }
 
 /* =========================
-MATCH INTELIGENTE
+BRAIN ESTABLE (AUDITADO)
 ========================= */
-function match(text, palabras){
-return palabras.some(p =>
-text.includes(p) &&
-!(
-text.includes("no ") ||
-text.includes("no quiero") ||
-text.includes("no me interesa")
-)
-);
-}
-
-/* =========================
-BUSCAR CURSO (ROBUSTO)
-========================= */
-
-function findCourse(keyword){
-
-if(!keyword) return null;
-
-const map = {
-ingles: "ingles",
-frances: "frances",
-aleman: "aleman",
-italiano: "italiano",
-portugues: "portugues",
-chino: "chino",
-espanol: "espanol",
-
-musica: "musica",
-derecho: "derecho",
-software: "software",
-bachillerato: "bachillerato",
-
-contaduria: "contaduria",
-administracion: "administracion",
-marketing: "marketing",
-
-tap: "tap"
-};
-
-const key = map[keyword] || keyword;
-
-return catalog.find(c=>{
-const name = normalize(c.name);
-return name.includes(key);
-});
-}
-
-  
-
-/* =========================
-BRAIN SUPREME
-========================= */
-
 function brain(msg){
 
 const text = normalize(msg);
 
-/* =========================
-INTENCIÓN
-========================= */
-const isYes = ["si","sí","ok","dale","vamos","de una"].includes(text);
-
-if(
-text.includes("comprar") ||
-text.includes("entrar") ||
-text.includes("empezar") ||
-text.includes("activar") ||
-text.includes("quiero") ||
-isYes
-){
-userProfile.intencion = "compra";
+/* ===== SALUDO ===== */
+if(text.includes("hola") || text.includes("hello")){
+return "👋 Bienvenido a MagicBank.\n\n¿Quieres estudiar una carrera, aprender un idioma o explorar cursos?";
 }
 
-/* =========================
-NIVEL
-========================= */
-if(text.includes("basico") || text.includes("básico")) userProfile.nivel="basico";
+/* ===== DETECCIÓN NIVEL ===== */
+if(text.includes("basico")) userProfile.nivel="basico";
 if(text.includes("intermedio")) userProfile.nivel="intermedio";
 if(text.includes("avanzado")) userProfile.nivel="avanzado";
 
-/* =========================
-INTERESES
-========================= */
-const intereses = {
-ingles: ["ingles","inglés"],
-frances: ["frances","francés"],
-aleman: ["aleman","alemán"],
-italiano: ["italiano"],
-portugues: ["portugues","portugués"],
-chino: ["chino"],
-espanol: ["espanol","español"],
+/* ===== DETECCIÓN INTENCIÓN ===== */
+const wantsAction = [
+"quiero","entrar","empezar","acceder","activar","comprar","ir"
+].some(w => text.includes(w));
 
-musica: ["musica","música","conservatorio"],
-derecho: ["derecho"],
-software: ["software","programacion","programación"],
-bachillerato: ["bachillerato"],
-
-contaduria: ["contaduria","contabilidad"],
-administracion: ["administracion"],
-marketing: ["marketing"],
-
-tap: ["tap"],
-ia: ["ia","inteligencia artificial"]
-};
-
-for (let key in intereses){
-if(intereses[key].some(p => text.includes(p))){
-userProfile.interes = key;
-break;
-}
+if(wantsAction){
+userProfile.intencion = "accion";
 }
 
-/* =========================
-SALUDO
-========================= */
-if(text.includes("hola")){
-return "👋 Bienvenido a MagicBank.\n\nDime qué quieres aprender y te llevo directo.";
-}
+/* ===== DETECCIÓN INTERÉS ===== */
+if(text.includes("ingles")) userProfile.interes="ingles";
+else if(text.includes("musica")) userProfile.interes="musica";
+else if(text.includes("derecho")) userProfile.interes="derecho";
+else if(text.includes("software")) userProfile.interes="software";
+else if(text.includes("bachillerato")) userProfile.interes="bachillerato";
 
-/* =========================
-CIERRE DIRECTO
-========================= */
-if(userProfile.interes && userProfile.intencion==="compra"){
-
-let curso = findCourse(userProfile.interes);
-
-if(curso){
-
-let extra = "";
-
-if(userProfile.nivel==="basico"){
-extra="\n👉 Empezarás desde nivel básico.";
-}
-
-if(userProfile.nivel==="avanzado"){
-extra="\n👉 Entrarás directo a nivel avanzado.";
-}
-
-go(curso.url);
-
-return `🔥 ${curso.name}
-
-✔️ Acceso inmediato  
-✔️ Tutor inteligente  
-✔️ Aprendizaje real  
-${extra}
-
-Te estoy llevando ahora 🚀`;
-}
-}
-
-/* =========================
-RESPUESTA COMERCIAL
-========================= */
+/* ===== RESPUESTA POR INTERÉS ===== */
 if(userProfile.interes){
 
 return `Perfecto 👇
 
 ${userProfile.interes.toUpperCase()}
 
-👉 Es una excelente elección dentro de MagicBank.
+Es una excelente elección dentro de MagicBank.
 
-Puedo darte acceso directo ahora mismo.
+👉 Puedo llevarte directamente o explicarte primero.
 
-¿Quieres que te lleve?`;
+¿Qué prefieres?`;
 }
 
-/* =========================
-EXPLORACIÓN
-========================= */
-if(text.includes("que puedo") || text.includes("opciones")){
-return `Puedes aprender:
-
-🌎 Idiomas  
-🎓 Carreras  
-🧠 Cursos  
-🏫 Bachillerato  
-🎵 Música  
-
-Dime qué te interesa y te llevo directo.`;
-}
-
-/* =========================
-DUDA
-========================= */
+/* ===== EXPLICACIÓN ===== */
 if(
 text.includes("como funciona") ||
 text.includes("explica") ||
@@ -687,28 +500,42 @@ text.includes("no entiendo")
 ){
 return `MagicBank funciona así:
 
-1. Escoges el tutor  
-2. Realizas el pago  
+1. Eliges qué estudiar  
+2. Pagas la membresía  
 3. Recibes acceso por correo  
-4. Inicias tu formación  
+4. Entras al tutor  
 
-¿Quieres que te lleve directo?`;
+👉 Todo es automático y sin permanencia.
+
+¿Quieres que te lleve?`;
 }
 
-/* =========================
-FALLBACK
-========================= */
-return `Puedo ayudarte a encontrar lo que necesitas.
+/* ===== EXPLORACIÓN ===== */
+if(
+text.includes("opciones") ||
+text.includes("que puedo") ||
+text.includes("que hay")
+){
+return `Puedes explorar:
 
-Dime algo como:
-• "quiero estudiar inglés"  
-• "quiero una carrera"  
-• "quiero cursos"  
+🌎 Idiomas  
+🎓 Carreras profesionales  
+🧠 Cursos especializados  
+🏫 Bachillerato  
+🎵 Música  
 
-👉 ¿Qué te gustaría hacer?`;
+Dime qué te interesa y te guío.`;
 }
-/* FALLBACK */
-return "Dime qué quieres aprender y te llevo directo 🚀";
+
+/* ===== RESPUESTA SI ===== */
+const isYes = ["si","sí","ok","dale","claro"].some(x=>text.includes(x));
+
+if(isYes && userProfile.interes){
+return "Perfecto 👌 Te llevo directamente. (Aquí conectas catálogo)";
+}
+
+/* ===== FALLBACK ===== */
+return "Dime qué quieres aprender y te guío paso a paso.";
 }
 
 /* =========================
@@ -724,7 +551,8 @@ input.value="";
 
 setTimeout(()=>{
 try{
-addMsg("Tutor", brain(msg));
+const res = brain(msg);
+addMsg("Tutor", res);
 }catch(e){
 console.error(e);
 addMsg("Tutor","Hubo un error. Intenta nuevamente.");
@@ -733,6 +561,7 @@ addMsg("Tutor","Hubo un error. Intenta nuevamente.");
 }
 
 sendBtn.onclick = send;
+
 input.addEventListener("keypress", e=>{
 if(e.key==="Enter") send();
 });
@@ -742,7 +571,7 @@ addMsg("Tutor","👋 Bienvenido a MagicBank IA\n\n¿Qué quieres aprender hoy?")
 
 });
 
-</script>
+  </script>
 
 
 
