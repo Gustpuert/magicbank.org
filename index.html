@@ -442,11 +442,17 @@ const div = document.createElement("div");
 div.className = "suggestion";
 div.innerText = item.name;
 
+
 div.onclick = () => {
 go(item.url);
+
+/* LIMPIAR BUSCADOR */
+searchInput.value = "";
+
+/* CERRAR LISTA */
+suggestions.innerHTML = "";
 suggestions.style.display = "none";
 };
-
 suggestions.appendChild(div);
 
 });
