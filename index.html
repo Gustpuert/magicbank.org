@@ -511,6 +511,31 @@ text.includes("activar")
 ){
 userProfile.intencion = "compra";
 }
+  /* =========================
+DETECCIÓN DE INTERÉS (DINÁMICA SUPREMA)
+========================= */
+
+const intereses = {
+  ingles: ["ingles","inglés"],
+  frances: ["frances","francés"],
+  aleman: ["aleman","alemán"],
+  italiano: ["italiano"],
+  portugues: ["portugues","portugués"],
+  chino: ["chino"],
+  español: ["espanol","español"],
+  musica: ["musica","música","conservatorio"],
+  derecho: ["derecho"],
+  software: ["software","programacion","programación"],
+  bachillerato: ["bachillerato"],
+  ia: ["ia","inteligencia artificial"]
+};
+
+for (let key in intereses){
+  if(intereses[key].some(p => m.includes(p))){
+    userProfile.interes = key;
+    break;
+  }
+}
 
 /* INTERESES */
 if(match(text,["ingles","inglés"])) userProfile.interes="ingles";
