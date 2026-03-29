@@ -514,6 +514,40 @@ const wantsInfo = [
 "informacion","información","explica","como funciona","qué es","que es"
 ].some(x => text.includes(x));
 
+  /* =========================
+CIERRE AUTOMÁTICO (CLAVE)
+========================= */
+if((isYes || wantsAction) && userProfile.interes){
+
+const curso = findCourse(userProfile.interes);
+
+if(curso){
+go(curso.url);
+
+let nivelTxt = "";
+
+if(userProfile.nivel==="basico"){
+nivelTxt="\n👉 Empiezas desde nivel básico.";
+}
+
+if(userProfile.nivel==="avanzado"){
+nivelTxt="\n👉 Entras directamente a nivel avanzado.";
+}
+
+return `🔥 ${curso.name}
+${nivelTxt}
+
+✔️ Acceso inmediato  
+✔️ Tutor inteligente  
+✔️ Aprendizaje personalizado  
+
+Te estoy llevando 🚀`;
+}
+
+/* fallback sin catálogo */
+return "Perfecto 👌 estoy listo para llevarte. (Conecta catálogo)";
+}
+
 /* =========================
 NIVEL
 ========================= */
@@ -610,39 +644,7 @@ return name.includes(keyword);
 });
 }
 
-/* =========================
-CIERRE AUTOMÁTICO (CLAVE)
-========================= */
-if((isYes || wantsAction) && userProfile.interes){
 
-const curso = findCourse(userProfile.interes);
-
-if(curso){
-go(curso.url);
-
-let nivelTxt = "";
-
-if(userProfile.nivel==="basico"){
-nivelTxt="\n👉 Empiezas desde nivel básico.";
-}
-
-if(userProfile.nivel==="avanzado"){
-nivelTxt="\n👉 Entras directamente a nivel avanzado.";
-}
-
-return `🔥 ${curso.name}
-${nivelTxt}
-
-✔️ Acceso inmediato  
-✔️ Tutor inteligente  
-✔️ Aprendizaje personalizado  
-
-Te estoy llevando 🚀`;
-}
-
-/* fallback sin catálogo */
-return "Perfecto 👌 estoy listo para llevarte. (Conecta catálogo)";
-}
 
 /* =========================
 RESPUESTA COMERCIAL
