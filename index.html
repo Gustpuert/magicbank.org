@@ -543,98 +543,461 @@ setTimeout(()=>window.open(url,"_blank"),400);
 /* =========================
 🧠 BRAIN (COMPLETO)
 ========================= */
-
 function brain(msg){
 
 const m = normalize(msg);
+  /* =========================
+SALUDO
+========================= */
+if(m.includes("hola")){
+return "👋 Hola, bienvenido a MagicBank.\n\nSoy tu guía inteligente. Estoy aquí para ayudarte a entender todo o llevarte directo a lo que necesitas.\n\n¿Qué te gustaría explorar hoy?";
+}
 
-/* SI */
+/* =========================
+GUÍA COMPLETA (CLAVE)
+========================= */
+if(
+m.includes("informacion") ||
+m.includes("información") ||
+m.includes("guia") ||
+m.includes("guía")
+){
+lastAction = "tutorial";
+
+return `Claro 👇 Te explico MagicBank de forma simple:
+
+🎓 University (Carreras profesionales)  
+Derecho, Marketing, Contaduría, Administración, Software  
+
+🌎 Academy (Idiomas y cursos)  
+Inglés, francés, alemán, cocina, ChatGPT, finanzas  
+
+🏫 Bachillerato completo  
+De 1° a 11° con tutor que enseña y evalúa  
+
+🎵 Conservatorio musical  
+Formación profesional completa  
+
+🧠 TAP (Asistentes profesionales)  
+Herramientas reales para trabajo y empresas  
+
+💡 Todo funciona con tutores inteligentes que se adaptan a ti.
+
+👉 Puedes empezar desde cero o avanzar a nivel profesional.
+
+¿Quieres que te guíe paso a paso o prefieres probar una experiencia real?`;
+}
+
+/* =========================
+BACHILLERATO
+========================= */
+if(m.includes("bachillerato")){
+return `🏫 Bachillerato MagicBank
+
+Un sistema completamente diferente:
+
+• De 1° a 11°  
+• Tutor que enseña y evalúa  
+• Se adapta a tu nivel  
+• Avanzas a tu ritmo  
+• Certificación automática  
+
+👉 No es educación tradicional, es aprendizaje real.
+
+¿Quieres que te lleve directamente o prefieres ver cómo funciona primero?`;
+}
+
+/* =========================
+MÚSICA / CONSERVATORIO
+========================= */
+if(m.includes("musica") || m.includes("música") || m.includes("conservatorio")){
+return `🎵 Conservatorio MagicBank
+
+Formación musical completa:
+
+• Teoría  
+• Técnica  
+• Armonía  
+• Interpretación  
+• Dirección  
+
+👉 Desde nivel básico hasta profesional.
+
+¿Quieres empezar o prefieres que te muestre cómo funciona primero?`;
+}
+
+/* =========================
+TAP (PROFESIONAL)
+========================= */
+if(m.includes("tap")){
+return `🧠 TAP – Tutores Asistentes Profesionales
+
+No es un curso, es una herramienta de trabajo.
+
+Puedes usar tutores en:
+• Derecho  
+• Salud  
+• Contaduría  
+• Ingeniería  
+• Educación  
+• Empresas  
+
+👉 Te ayudan a analizar, decidir y trabajar mejor.
+
+¿Para qué área lo necesitas?`;
+}
+
+/* =========================
+IDIOMAS
+========================= */
+if(m.includes("ingles") || m.includes("idioma")){
+
+let curso = catalog.find(c => normalize(c.name).includes("ingles"));
+
+if(curso){
+go(curso.url);
+return `🔥 Curso de Inglés
+
+No es teoría… es práctica real:
+
+✔️ Hablas desde el inicio  
+✔️ Corrige tus errores  
+✔️ Se adapta a tu nivel  
+✔️ Avanzas rápido  
+
+👉 Es como tener un tutor personal 24/7.
+
+Te estoy llevando 🚀`;
+}
+
+}
+
+/* =========================
+VISITA GUIADA
+========================= */
+if(m.includes("visita") || m.includes("demo")){
+lastAction = "demo";
+
+return `🚀 Te recomiendo esto:
+
+Antes de entrar, puedes probar tutores reales.
+
+Vas a ver cómo responden, cómo enseñan y cómo funciona todo.
+
+👉 Es la mejor forma de entender MagicBank.
+
+¿Quieres entrar ahora?`;
+}
+
+/* =========================
+IA GRATIS
+========================= */
+if(m.includes("ia")){
+lastAction = "ia";
+return `🤖 Tengo un curso gratuito de inteligencia artificial.
+
+Ahí entiendes cómo funciona todo el sistema MagicBank.
+
+👉 Es el mejor punto de inicio.
+
+¿Quieres que te lleve?`;
+}
+
+/* =========================
+FINANZAS
+========================= */
+if(m.includes("inversion") || m.includes("trading") || m.includes("dinero")){
+return `En MagicBank no prometemos ganancias.
+
+Aquí aprendes:
+• cómo funciona el dinero  
+• cómo evitar errores  
+• cómo entender riesgos  
+
+👉 Primero entender, luego decidir.
+
+¿Quieres aprender desde cero o ya tienes experiencia?`;
+}
+
+/* =========================
+FALLBACK PREMIUM
+========================= */
+return `Puedo ayudarte a encontrar exactamente lo que necesitas.
+
+Puedes decirme algo como:
+• "quiero estudiar inglés"  
+• "quiero una carrera"  
+• "quiero emprender"  
+• "quiero aprender desde cero"  
+
+O si prefieres, te guío paso a paso.
+
+👉 ¿Qué te gustaría hacer?`;
+
+/* =========================
+RESPUESTA "SI"
+========================= */
 if(m === "si" || m === "sí"){
 
-if(lastAction === "tutorial"){ go(LINKS.tutorial); return "Te llevo al Tutor Informativo 🧠"; }
-if(lastAction === "demo"){ go(LINKS.demo); return "Te llevo a la experiencia real 🚀"; }
-if(lastAction === "ia"){ go(LINKS.ia); return "Te llevo al curso de IA 🤖"; }
-
-return "¿Qué quieres hacer exactamente?";
+if(lastAction === "tutorial"){
+go(LINKS.tutorial);
+return "Perfecto 🧠 Te llevo al Tutor Informativo";
 }
 
-/* SALUDO */
+if(lastAction === "demo"){
+go(LINKS.demo);
+return "Perfecto 🚀 Te llevo a la experiencia real";
+}
+
+if(lastAction === "ia"){
+go(LINKS.ia);
+return "Perfecto 🤖 Te llevo al curso de IA";
+}
+
+return "¿Qué quieres que haga exactamente?";
+}
+
+/* =========================
+SALUDO
+========================= */
 if(m.includes("hola")){
-return "👋 Bienvenido a MagicBank. ¿Qué quieres aprender?";
+return "👋 Bienvenido a MagicBank.\n\nSoy tu guía inteligente. ¿Qué quieres aprender?";
 }
 
-/* IDENTIDAD */
+/* =========================
+QUÉ ES MAGICBANK
+========================= */
 if(m.includes("magicbank") || m.includes("que es")){
-return `MagicBank es un ecosistema educativo con más de 170 tutores IA.
+return `MagicBank es un ecosistema educativo con más de 170 tutores de inteligencia artificial.
 
-Puedes estudiar carreras, idiomas, cursos, bachillerato, música y usar asistentes profesionales.`;
+Aprendes de forma personalizada, a tu ritmo y con comprensión real.
+
+Puedes estudiar:
+• Carreras profesionales  
+• Idiomas  
+• Cursos especializados  
+• Bachillerato completo  
+• Música profesional  
+• Asistentes profesionales (TAP)
+
+¿Quieres que te guíe a algo específico?`;
 }
 
-/* FUNCIONAMIENTO */
+/* =========================
+FUNCIONAMIENTO
+========================= */
 if(m.includes("como funciona") || m.includes("acceso")){
-return `Así funciona:
+return `Así funciona MagicBank:
 
-1. Eliges tutor  
-2. Pagas  
-3. Recibes acceso al correo  
-4. Ingresas  
-5. Aprendes  
+1. Eliges qué estudiar  
+2. Realizas el pago  
+3. Recibes acceso por correo  
+4. Ingresas al tutor  
+5. Comienzas a aprender  
 
-⚠️ Sigue las instrucciones del correo para mejor experiencia.`;
+⚠️ Sigue las instrucciones del correo para una mejor experiencia.`;
 }
 
-/* GUÍA */
-if(m.includes("informacion") || m.includes("guia")){
+/* =========================
+GUÍA COMPLETA (PRIORIDAD ALTA)
+========================= */
+if(
+m.includes("informacion") ||
+m.includes("información") ||
+m.includes("guia") ||
+m.includes("guía")
+){
 lastAction = "tutorial";
-return `Claro 👇
 
-🎓 University  
-🌎 Academy  
-🧠 TAP  
+return `Claro 👇 Te explico MagicBank:
+
+🎓 University (Carreras)
+Derecho, Marketing, Contaduría, Administración, Software  
+
+🌎 Academy (Idiomas y cursos)
+Inglés, francés, alemán, cocina, ChatGPT, finanzas  
+
+🏫 Bachillerato MagicBank
+De 1° a 11° con tutor inteligente  
+
+🎵 Conservatorio musical
+Formación completa profesional  
+
+🧠 TAP (Asistentes profesionales)
+Empresas, salud, derecho, educación  
+
+👉 Todo funciona con tutores inteligentes adaptados a ti.
+
+¿Quieres que te lleve a una experiencia real o prefieres empezar directamente?`;
+}
+
+/* =========================
+BACHILLERATO (FUERTE)
+========================= */
+if(m.includes("bachillerato")){
+return `🏫 Bachillerato MagicBank
+
+• De 1° a 11°  
+• Tutor que enseña y evalúa  
+• Nivelación automática  
+• Certificación  
+
+¿Quieres que te lleve directamente?`;
+}
+
+/* =========================
+MÚSICA / CONSERVATORIO
+========================= */
+if(m.includes("musica") || m.includes("música") || m.includes("conservatorio")){
+return `🎵 Conservatorio MagicBank
+
+Formación completa:
+• Teoría  
+• Técnica  
+• Armonía  
+• Interpretación  
+• Dirección  
+
+¿Quieres que te lleve a la facultad de música?`;
+}
+
+/* =========================
+TAP (PROFESIONAL)
+========================= */
+if(m.includes("tap")){
+return `🧠 TAP (Asistentes Profesionales)
+
+Puedes usar tutores especializados en:
+• Derecho  
+• Salud  
+• Contaduría  
+• Ingeniería  
+• Educación  
+• Empresas  
+
+Son herramientas profesionales reales.
+
+¿En qué área lo necesitas?`;
+}
+
+/* =========================
+IDIOMAS
+========================= */
+if(m.includes("ingles") || m.includes("idioma")){
+
+let curso = catalog.find(c => normalize(c.name).includes("ingles"));
+
+if(curso){
+go(curso.url);
+return `🔥 Curso de Inglés
+
+✔️ Hablas desde cero hasta avanzado  
+✔️ Tutor inteligente  
+✔️ Práctica real  
+
+Te estoy llevando 🚀`;
+}
+
+}
+
+/* =========================
+CURSOS GENERALES
+========================= */
+if(m.includes("curso") || m.includes("que cursos") || m.includes("que tiene")){
+return `Puedes aprender:
+
+🌎 Idiomas  
+🎓 Carreras  
+🧠 Cursos especializados  
 🏫 Bachillerato  
 🎵 Música  
 
-¿Quieres que te lleve al Tutor Informativo?`;
+Dime qué quieres exactamente y te llevo.`;
 }
 
-/* VISITA */
+/* =========================
+VISITA GUIADA
+========================= */
 if(m.includes("visita") || m.includes("demo")){
 lastAction = "demo";
-return "Puedes probar tutores reales antes de ingresar. ¿Quieres entrar?";
+
+return `🚀 Puedes probar tutores reales antes de ingresar.
+
+¿Quieres entrar ahora?`;
 }
 
-/* IA */
+/* =========================
+IA GRATIS
+========================= */
 if(m.includes("ia")){
 lastAction = "ia";
-return "Tengo un curso gratuito de IA. ¿Quieres que te lleve?";
+return "Tengo un curso gratuito de inteligencia artificial.\n\n¿Quieres que te lleve?";
 }
 
-/* CONTACTO */
-if(m.includes("empresa") || m.includes("contrato")){
-return "Para temas comerciales escribe a: magicbankia@gmail.com";
+/* =========================
+FINANZAS (CONTROLADO)
+========================= */
+if(m.includes("inversion") || m.includes("trading") || m.includes("dinero")){
+return `MagicBank no promete ganancias.
+
+Aquí aprendes a entender riesgos, evitar errores y tomar mejores decisiones.`;
 }
 
-/* MATCH REAL */
+/* =========================
+MATCH INTELIGENTE (CORREGIDO)
+========================= */
 const words = m.split(" ");
 
 let found = catalog.find(c => {
 const name = normalize(c.name);
-return words.some(w => name.includes(w));
+
+return words.some(w => {
+if(w.length < 4) return false;
+return name.includes(w);
+});
 });
 
 if(found){
 go(found.url);
-return `🔥 ${found.name}\n\nTe estoy llevando ahora 🚀`;
+
+return `🔥 Excelente elección
+
+${found.name}
+
+Acceso inmediato, tutor inteligente y aprendizaje real.
+
+Te estoy llevando 🚀`;
 }
 
-/* ESCAPE */
-if(m.includes("no entiendo") || m.includes("ayuda")){
+/* =========================
+ESCAPE INTELIGENTE
+========================= */
+if(
+m.includes("no entiendo") ||
+m.includes("explica") ||
+m.includes("detalle")
+){
 lastAction = "tutorial";
-return "Te recomiendo el Tutor Informativo. ¿Quieres que te lleve?";
+
+return `Te recomiendo el Tutor Informativo.
+
+Ahí tienes la explicación completa paso a paso.
+
+¿Quieres que te lleve?`;
 }
 
-/* DEFAULT */
-return "Dime qué quieres aprender o pide una guía completa.";
+/* =========================
+FALLBACK PRO
+========================= */
+return `Puedo ayudarte a encontrar lo que necesitas.
+
+Puedes decir:
+• "quiero estudiar inglés"  
+• "quiero una carrera"  
+• "quiero cursos"  
+
+O dime exactamente qué buscas y te guío.`;
+
 }
 
 /* =========================
