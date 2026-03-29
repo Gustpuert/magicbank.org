@@ -651,55 +651,6 @@ return name.includes(keyword);
 });
 }
 
-
-
-/* =========================
-RESPUESTA COMERCIAL
-========================= */
-if(userProfile.interes){
-
-return `Perfecto 👇
-
-${userProfile.interes.toUpperCase()}
-
-👉 Es una excelente elección dentro de MagicBank.
-
-Puedo darte acceso directo ahora mismo o explicarte primero.
-
-¿Qué prefieres?`;
-}
-
-/* =========================
-EXPLORAR
-========================= */
-if(text.includes("opciones") || text.includes("que puedo")){
-return `Puedes estudiar:
-
-🌎 Idiomas  
-🎓 Carreras  
-🧠 Cursos  
-🏫 Bachillerato  
-🎵 Música  
-
-Dime qué te interesa y te llevo directo.`;
-}
-
-/* =========================
-FALLBACK
-========================= */
-return `Puedo ayudarte a encontrar exactamente lo que necesitas.
-
-Puedes decir:
-• "quiero estudiar inglés"  
-• "quiero una carrera"  
-• "quiero cursos"  
-
-👉 ¿Qué te gustaría hacer?`;
-}
-  
-
-
-
 /* =========================
 SEND
 ========================= */
