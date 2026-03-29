@@ -579,6 +579,44 @@ userProfile.nivel = "intermedio";
 if(m.includes("avanzado")){
 userProfile.nivel = "avanzado";
 }
+  /* =========================
+INTENCIÓN DE ACCIÓN (CLAVE)
+========================= */
+
+if(
+m.includes("llevame") ||
+m.includes("llévame") ||
+m.includes("quiero entrar") ||
+m.includes("entrar") ||
+m.includes("ir") ||
+m.includes("acceder")
+){
+
+if(userProfile.interes){
+
+let curso = catalog.find(c => {
+return normalize(c.name).includes(userProfile.interes);
+});
+
+if(curso){
+go(curso.url);
+
+return `Perfecto 👌
+
+Te llevo directamente a:
+
+🔥 ${curso.name}
+
+Acceso inmediato, tutor inteligente y aprendizaje real.
+
+Te estoy llevando 🚀`;
+}
+
+}
+
+/* fallback inteligente si no hay interés */
+return "Perfecto 👌 dime qué te interesa y te llevo directamente.";
+}
   
   /* =========================
 SALUDO
