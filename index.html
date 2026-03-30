@@ -702,7 +702,9 @@ map["español"]=map["espanol"];
 MATCH DIRECTO (PRIORIDAD)
 ========================= */
 
-for(let key in map){
+const keys = Object.keys(map).sort((a,b)=> b.length - a.length);
+
+for(let key of keys){
 if(
 text.includes(key) ||
 key.includes(text)
