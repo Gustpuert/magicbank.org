@@ -603,6 +603,29 @@ const map = {
 "tap salud":"https://magicbank2.mitiendanube.com/produtos/tap-salud/",
 "tap contaduria":"https://magicbank2.mitiendanube.com/produtos/asistente-profesional-de-contaduria-pat-accounting-11n5g/",
 
+  /* 🔥 SINÓNIMOS TAP (CLAVE) */
+
+"tap administracion":"https://magicbank2.mitiendanube.com/produtos/tap-administracion-publica/",
+"administracion publica":"https://magicbank2.mitiendanube.com/produtos/tap-administracion-publica/",
+
+"tap empresa":"https://magicbank2.mitiendanube.com/produtos/tap-empresas/",
+"empresa":"https://magicbank2.mitiendanube.com/produtos/tap-empresas/",
+
+"tap ingeniero":"https://magicbank2.mitiendanube.com/produtos/tap-ingenieros/",
+"ingenieria":"https://magicbank2.mitiendanube.com/produtos/tap-ingenieros/",
+
+"tap educacion":"https://magicbank2.mitiendanube.com/produtos/tap-educacion/",
+"educacion":"https://magicbank2.mitiendanube.com/produtos/tap-educacion/",
+
+"tap salud":"https://magicbank2.mitiendanube.com/produtos/tap-salud/",
+"salud":"https://magicbank2.mitiendanube.com/produtos/tap-salud/",
+
+"tap derecho":"https://magicbank2.mitiendanube.com/produtos/tap-derecho/",
+"derecho asistente":"https://magicbank2.mitiendanube.com/produtos/tap-derecho/",
+
+"tap contabilidad":"https://magicbank2.mitiendanube.com/produtos/asistente-profesional-de-contaduria-pat-accounting-11n5g/",
+"contabilidad":"https://magicbank2.mitiendanube.com/produtos/asistente-profesional-de-contaduria-pat-accounting-11n5g/",
+
 /* 🌍 SINÓNIMOS INTELIGENTES */
 
 /* IDIOMAS */
@@ -645,7 +668,30 @@ const map = {
 "automatizar":"https://magicbank2.mitiendanube.com/produtos/curso-profesional-de-chatgpt/"
 };
 
-  
+  /* 🔥 INTELIGENCIA EN INGLÉS (CLAVE) */
+
+/* COCINA */
+"cooking":"https://magicbank2.mitiendanube.com/produtos/curso-de-cocina-avanzado-con-tutor-corrige-ia/",
+"advance cooking":"https://magicbank2.mitiendanube.com/produtos/curso-de-cocina-avanzado-con-tutor-corrige-ia/",
+"cooking class":"https://magicbank2.mitiendanube.com/produtos/curso-de-cocina-avanzado-con-tutor-corrige-ia/",
+"learn cooking":"https://magicbank2.mitiendanube.com/produtos/curso-de-cocina-avanzado-con-tutor-corrige-ia/",
+
+/* NUTRICIÓN */
+"nutrition":"https://magicbank2.mitiendanube.com/produtos/nutricion-inteligente-avanzada-con-tutor-ia/",
+"nutrition course":"https://magicbank2.mitiendanube.com/produtos/nutricion-inteligente-avanzada-con-tutor-ia/",
+"healthy eating":"https://magicbank2.mitiendanube.com/produtos/nutricion-inteligente-avanzada-con-tutor-ia/",
+
+/* ARTES */
+"arts":"https://magicbank2.mitiendanube.com/produtos/artes-y-oficios-magicbank/",
+"crafts":"https://magicbank2.mitiendanube.com/produtos/artes-y-oficios-magicbank/",
+
+/* DERECHO */
+"law":"https://magicbank2.mitiendanube.com/produtos/curso-facultad-de-derecho/",
+"law degree":"https://magicbank2.mitiendanube.com/produtos/curso-facultad-de-derecho/",
+
+/* ADMIN */
+"business":"https://magicbank2.mitiendanube.com/produtos/facultad-de-administracion-y-negocios/",
+"business administration":"https://magicbank2.mitiendanube.com/produtos/facultad-de-administracion-y-negocios/",
 
 /* TILDES */
 map["inglés"]=map["ingles"];
@@ -657,43 +703,58 @@ map["español"]=map["espanol"];
 /* =========================
 MATCH DIRECTO (PRIORIDAD)
 ========================= */
+
 for(let key in map){
-if(text.includes(key)){
+if(
+text.includes(key) ||
+key.includes(text)
+){
 go(map[key]);
 return `🔥 Abriendo ${key.toUpperCase()}...`;
 }
 }
-
+  
+/* 🔥 MATCH FLEXIBLE (INTELIGENTE) */
+for(let key in map){
+if(
+text.includes(key) ||
+key.includes(text)
+){
+go(map[key]);
+return `🔥 Abriendo ${key.toUpperCase()}...`;
+}
+}
 /* =========================
 INFO COMPLETA
 ========================= */
-if(
-text.includes("magicbank") ||
-text.includes("que es") ||
-text.includes("cursos")
-){
-return `MagicBank es un ecosistema educativo con tutores inteligentes.
+
+return `MagicBank es un ecosistema educativo inteligente con tutores de inteligencia artificial.
 
 Puedes aprender:
 
 🎓 Facultades:
-Derecho, Administración, Marketing, Contaduría, Software
+Derecho, Administración y Negocios, Marketing, Contaduría, Software
 
 🌎 Idiomas:
 Inglés, Francés, Alemán, Italiano, Portugués, Chino, Español
 
 🧠 Cursos:
-Cocina, Nutrición, ChatGPT, Trading, Banca Digital, Artes, Diseño
+Cocina avanzada, Nutrición, ChatGPT, Trading, Banca Digital, Artes y Oficios, Diseño de Interiores
 
-🏫 Bachillerato  
-🎵 Música  
+🏫 Bachillerato completo  
+🎵 Conservatorio musical  
 
-🧠 TAP (Asistentes profesionales):
-Salud, Derecho, Empresas, Administración Pública, Educación, Ingeniería, Contaduría
+🧠 TAP (asistentes profesionales):
+Salud, Derecho, Empresas, Administración pública, Educación, Ingeniería, Contaduría
 
-👉 Escribe directamente lo que quieres y te llevo.`;
-}
+✨ También puedes:
+- Ver la calidad académica
+- Tomar el curso gratuito de IA
+- Hacer visita guiada
+- Hablar con el tutor informativo
 
+👉 Escríbeme lo que quieres aprender y te llevo directamente.`;
+  
 /* =========================
 RUTAS INTELIGENTES
 ========================= */
