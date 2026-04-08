@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Crear Tutor MagicBank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f8;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#5b4ee6;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:20px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+background:#5b4ee6;
+color:#fff;
+border:none;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+width:100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Crear tu Tutor Personalizado</h1>
+
+<p>
+En MagicBank podemos crear un tutor exactamente como lo necesitas.
+</p>
+
+<form action="mailto:magicbankia@gmail.com" method="post" enctype="text/plain">
+
+<input type="text" name="Nombre" placeholder="Nombre completo" required>
+
+<input type="email" name="Correo" placeholder="Correo electrónico" required>
+
+<input type="text" name="Telefono" placeholder="Teléfono">
+
+<textarea name="Tipo de tutor" placeholder="¿Qué tipo de tutor necesitas?" required></textarea>
+
+<textarea name="Descripcion" placeholder="Describe exactamente para qué necesitas el tutor"></textarea>
+
+<button type="submit">Enviar solicitud</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
