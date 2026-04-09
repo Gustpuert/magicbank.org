@@ -75,6 +75,51 @@ En MagicBank podemos crear un tutor exactamente como lo necesitas.
 </form>
 
 </div>
+<script>
+function enviarFormulario(){
 
+const nombre = document.getElementById("nombre").value;
+const correo = document.getElementById("correo").value;
+const telefono = document.getElementById("telefono").value;
+const tipo = document.getElementById("tipo").value;
+const descripcion = document.getElementById("descripcion").value;
+
+const mensaje = `
+Nombre: ${nombre}
+Correo: ${correo}
+Teléfono: ${telefono}
+Tipo de tutor: ${tipo}
+Descripción: ${descripcion}
+`;
+
+const mailto = `mailto:magicbankia@gmail.com?subject=Solicitud Tutor&body=${encodeURIComponent(mensaje)}`;
+
+window.location.href = mailto;
+}
+</script>
+  <script>
+function enviarWhatsApp(){
+
+const nombre = document.getElementById("nombre").value;
+const correo = document.getElementById("correo").value;
+const telefono = document.getElementById("telefono").value;
+const tipo = document.getElementById("tipo").value;
+const descripcion = document.getElementById("descripcion").value;
+
+const mensaje = `Hola MagicBank, quiero crear un tutor:
+
+Nombre: ${nombre}
+Correo: ${correo}
+Teléfono: ${telefono}
+Tipo: ${tipo}
+Descripción: ${descripcion}`;
+
+const url = `https://wa.me/573112711772?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url, "_blank");
+}
+  </script>
+  <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+  <button onclick="enviarFormulario()">Enviar solicitud</button>
 </body>
 </html>
