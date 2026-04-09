@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Crear Tutor MagicBank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f8;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:#fff;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1{
+color:#5b4ee6;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:20px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+background:#5b4ee6;
+color:#fff;
+border:none;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+width:100%;
+margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Crear tu Tutor Personalizado</h1>
+
+<p>
+En MagicBank podemos crear un tutor exactamente como lo necesitas.
+</p>
+
+<!-- FORMULARIO CORRECTO -->
+<form onsubmit="return false;">
+
+<input id="nombre" type="text" placeholder="Nombre completo" required>
+
+<input id="correo" type="email" placeholder="Correo electrónico" required>
+
+<input id="telefono" type="text" placeholder="Teléfono">
+
+<input id="tipo" type="text" placeholder="Tipo de tutor que deseas" required>
+
+<textarea id="descripcion" placeholder="Describe exactamente para qué necesitas el tutor"></textarea>
+
+<button type="button" onclick="enviarWhatsApp()">📱 Enviar por WhatsApp</button>
+
+<button type="button" onclick="enviarFormulario()">📧 Enviar por correo</button>
+
+</form>
+
+</div>
+
+<!-- SCRIPT CORREO -->
+<script>
+function enviarFormulario(){
+
+const nombre = document.getElementById("nombre").value;
+const correo = document.getElementById("correo").value;
+const telefono = document.getElementById("telefono").value;
+const tipo = document.getElementById("tipo").value;
+const descripcion = document.getElementById("descripcion").value;
+
+const mensaje = `
+Nombre: ${nombre}
+Correo: ${correo}
+Teléfono: ${telefono}
+Tipo de tutor: ${tipo}
+Descripción: ${descripcion}
+`;
+
+const mailto = `mailto:magicbankia@gmail.com?subject=Solicitud Tutor&body=${encodeURIComponent(mensaje)}`;
+
+window.location.href = mailto;
+}
+</script>
+
+<!-- SCRIPT WHATSAPP -->
+<script>
+function enviarWhatsApp(){
+
+const nombre = document.getElementById("nombre").value;
+const correo = document.getElementById("correo").value;
+const telefono = document.getElementById("telefono").value;
+const tipo = document.getElementById("tipo").value;
+const descripcion = document.getElementById("descripcion").value;
+
+const mensaje = `Hola MagicBank, quiero crear un tutor:
+
+Nombre: ${nombre}
+Correo: ${correo}
+Teléfono: ${telefono}
+Tipo: ${tipo}
+Descripción: ${descripcion}`;
+
+const url = `https://wa.me/573112711772?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
