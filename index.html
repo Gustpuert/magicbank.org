@@ -623,7 +623,7 @@ setTimeout(typeWriter, 1400);
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 
-</div> <!-- 🔴 AQUÍ LA CIERRAS -->
+
 
 <div id="quienes" class="section-page">
 
@@ -832,8 +832,17 @@ function typeWriterComo(){
 }
 
 /* MISMA LÓGICA QUE QUIENES SOMOS */
-setTimeout(typeWriterComo, 1400);
 
+document.querySelector('a[href="#como"]').addEventListener("click", function(){
+
+  const targetComo = document.getElementById("typingComo");
+
+  if(targetComo){
+    targetComo.innerHTML = "";
+  }
+
+  iComo = 0;
+  typeWriterComo();
 });
 </script>
 
