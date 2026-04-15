@@ -794,15 +794,14 @@ Entrar
 <!-- BOTÓN INICIO -->
 <a class="back-home" href="#top">Inicio</a>
 
-</div>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-const textComo = `
-Con tutores entrenados para enseñar con estandares pedagogicos de altisimo nivel.
+  const textComo = `
+Con tutores entrenados para enseñar con estándares pedagógicos de altísimo nivel.
 Con tutores que hablan cualquier idioma perfectamente.
-Los tutores tienen los conocimientos precisos para enseñar lo suficiente y necesario para formar un profesional.
-El tutor se adapta al estudiante y evoluciona con el por medio de los feedbacks.
+Los tutores tienen los conocimientos precisos para enseñar lo suficiente y necesario para formar un profesional ejemplar.
+
 MagicBank utiliza un modelo educativo basado en aprendizaje progresivo, comprensión real y evaluación constante.
 
 El estudiante no avanza por tiempo, sino por dominio del conocimiento, acompañado por tutores inteligentes que guían todo el proceso.
@@ -810,64 +809,38 @@ El estudiante no avanza por tiempo, sino por dominio del conocimiento, acompaña
 Cada interacción fortalece el aprendizaje mediante adaptación al nivel, corrección inmediata y mejora continua.
 
 No se trata de memorizar, sino de entender, aplicar y evolucionar.
-La automatización de las actualizaciones garantizan conocimiento permanentemente "fresco".
+La automatización de las actualizaciones garantiza conocimiento permanentemente fresco.
 Las actualizaciones provienen de fuentes oficiales y pasan por procesos de curaduría.
-
 `;
 
-let iComo = 0;
-const speedComo = 10; // 🔥 más rápido que quienes
-const targetComo = document.getElementById("typingComo");
-
-
-/* =========================================
-ACTIVAR "CÓMO LO HACEMOS" SOLO AL HACER CLICK
-========================================= */
-
-let comoYaSeActivo = false;
-
-
-
-/* =========================================
-ACTIVAR "CÓMO LO HACEMOS" SOLO AL HACER CLICK
-========================================= */
-
-let comoYaSeActivo = false;
-
-function activarComo(){
-
+  let iComo = 0;
+  const speedComo = 10;
   const targetComo = document.getElementById("typingComo");
 
-  // limpiar si vuelve a entrar
-  targetComo.innerHTML = "";
-  iComo = 0;
-  comoYaSeActivo = true;
+  function typeWriterComo(){
 
-  typeWriterComo();
-}
+    if(!targetComo) return;
 
-/* esperar a que cargue toda la página */
-window.addEventListener("load", function(){
+    if(iComo < textComo.length){
+      targetComo.innerHTML += textComo.charAt(iComo);
+      iComo++;
+      setTimeout(typeWriterComo, speedComo);
+    }
+  }
 
   const btnComo = document.querySelector('a[href="#como"]');
 
   if(btnComo){
-
     btnComo.addEventListener("click", function(){
 
-      // permitir volver a ejecutar si entra otra vez
-      comoYaSeActivo = false;
+      targetComo.innerHTML = "";
+      iComo = 0;
 
       setTimeout(function(){
-
-        if(!comoYaSeActivo){
-          activarComo();
-        }
-
-      }, 300);
+        typeWriterComo();
+      }, 200);
 
     });
-
   }
 
 });
