@@ -1856,17 +1856,36 @@ document.addEventListener("DOMContentLoaded", startSlider);
 </script>
 <script>
 window.addEventListener("load", function () {
-  if (window.location.hash === "#tutores") {
-    setTimeout(() => {
-      const section = document.getElementById("tutores");
-      if (section) {
-        section.scrollIntoView({
-          behavior: "instant",
-          block: "start"
-        });
+
+  // espera a que toda la página y scripts terminen
+  setTimeout(function () {
+
+    // si viene con #tutores
+    if (window.location.hash === "#tutores") {
+
+      // ocultar todas las secciones
+      document.querySelectorAll(".section-page").forEach(sec=>{
+        sec.classList.remove("active");
+      });
+
+      // mostrar tutores
+      const tutores = document.getElementById("tutores");
+      if(tutores){
+        tutores.classList.add("active");
       }
-    }, 300);
-  }
+
+      // ocultar menú principal
+      const menu = document.querySelector(".menu-magic");
+      if(menu){
+        menu.style.display = "none";
+      }
+
+      // ir directamente allí SIN animación
+      window.scrollTo(0, tutores.offsetTop - 10);
+    }
+
+  }, 800);
+
 });
 </script>
 </body>
