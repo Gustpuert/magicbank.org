@@ -1857,35 +1857,46 @@ document.addEventListener("DOMContentLoaded", startSlider);
 <script>
 window.addEventListener("load", function () {
 
-  // espera a que toda la página y scripts terminen
-  setTimeout(function () {
+  // si entra directamente a #tutores
+  if (window.location.hash === "#tutores") {
 
-    // si viene con #tutores
-    if (window.location.hash === "#tutores") {
+    // detener cualquier animación o escritura
+    window.stopTyping = true;
 
-      // ocultar todas las secciones
-      document.querySelectorAll(".section-page").forEach(sec=>{
-        sec.classList.remove("active");
-      });
+    // desactivar scroll suave
+    document.documentElement.style.scrollBehavior = "auto";
+    document.body.style.scrollBehavior = "auto";
 
-      // mostrar tutores
+    // esperar un instante y fijar la posición
+    setTimeout(function () {
+
       const tutores = document.getElementById("tutores");
-      if(tutores){
+
+      if (tutores) {
+
+        // mostrar solo la sección tutores
+        document.querySelectorAll(".section-page").forEach(sec=>{
+          sec.classList.remove("active");
+        });
+
         tutores.classList.add("active");
+
+        // ocultar menú
+        const menu = document.querySelector(".menu-magic");
+        if(menu) menu.style.display = "none";
+
+        // ir a la posición exacta y dejarla quieta
+        window.scrollTo(0, tutores.offsetTop);
+
+        // bloquear cualquier otro scroll automático posterior
+        setTimeout(()=>{
+          window.scrollTo(0, tutores.offsetTop);
+        }, 500);
+
       }
 
-      // ocultar menú principal
-      const menu = document.querySelector(".menu-magic");
-      if(menu){
-        menu.style.display = "none";
-      }
-
-      // ir directamente allí SIN animación
-      window.scrollTo(0, tutores.offsetTop - 10);
-    }
-
-  }, 800);
-
+    }, 50);
+  }
 });
 </script>
 </body>
