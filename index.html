@@ -819,30 +819,49 @@ let iComo = 0;
 const speedComo = 10; // 🔥 más rápido que quienes
 const targetComo = document.getElementById("typingComo");
 
-function typeWriterComo(){
+<script>
+/* =========================================
+ACTIVAR "CÓMO LO HACEMOS" SOLO AL HACER CLICK
+========================================= */
 
-  if(!targetComo) return;
+let comoYaSeActivo = false;
 
-  if(iComo < textComo.length){
-    targetComo.innerHTML += textComo.charAt(iComo);
-    iComo++;
-    setTimeout(typeWriterComo, speedComo);
-  }
-
-}
-
-/* MISMA LÓGICA QUE QUIENES SOMOS */
-
-document.querySelector('a[href="#como"]').addEventListener("click", function(){
+function activarComo(){
 
   const targetComo = document.getElementById("typingComo");
 
-  if(targetComo){
-    targetComo.innerHTML = "";
+  // limpiar si vuelve a entrar
+  targetComo.innerHTML = "";
+  iComo = 0;
+  comoYaSeActivo = true;
+
+  typeWriterComo();
+}
+
+/* esperar a que cargue toda la página */
+window.addEventListener("load", function(){
+
+  const btnComo = document.querySelector('a[href="#como"]');
+
+  if(btnComo){
+
+    btnComo.addEventListener("click", function(){
+
+      // permitir volver a ejecutar si entra otra vez
+      comoYaSeActivo = false;
+
+      setTimeout(function(){
+
+        if(!comoYaSeActivo){
+          activarComo();
+        }
+
+      }, 300);
+
+    });
+
   }
 
-  iComo = 0;
-  typeWriterComo();
 });
 </script>
 
