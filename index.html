@@ -1582,22 +1582,73 @@ return name.includes(keyword);
 /* =========================
 SEND
 ========================= */
-function send(){
+async function send(){
 
-const msg = input.value.trim();
-if(!msg) return;
+  const msg = input.value.trim();
+  if(!msg) return;
 
-addMsg("Tú", msg);
-input.value="";
+  addMsg("Tú", msg);
+  input.value = "";
 
-setTimeout(()=>{
-try{
-addMsg("Tutor", brain(msg));
-}catch(e){
-console.error(e);
-addMsg("Tutor","Hubo un error. Intenta nuevamente.");
-}
-},300);
+  try{
+
+    const response = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: msg
+      })
+    });
+
+    const data = await response.json();
+
+    addMsg("Tutor", data.reply || "Sin respuesta.");
+
+    // =========================
+    // GRÁFICAS AUTOMÁTICAS
+    // =========================
+    if(data.graphics && data.graphics.length > 0){
+
+      const oldBlock = document.getElementById("magicbank-graphics");
+      if(oldBlock) oldBlock.remove();
+
+      const graphicsBlock = document.createElement("div");
+      graphicsBlock.id = "magicbank-graphics";
+
+      graphicsBlock.style.display = "grid";
+      graphicsBlock.style.gridTemplateColumns = "repeat(auto-fit,minmax(120px,1fr))";
+      graphicsBlock.style.gap = "10px";
+      graphicsBlock.style.marginTop = "12px";
+      graphicsBlock.style.padding = "10px";
+
+      data.graphics.forEach(src => {
+
+        const img = document.createElement("img");
+
+        img.src = src;
+        img.loading = "lazy";
+        img.style.width = "100%";
+        img.style.borderRadius = "10px";
+        img.style.maxHeight = "140px";
+        img.style.objectFit = "cover";
+        img.style.cursor = "pointer";
+
+        img.onclick = () => window.open(src, "_blank");
+
+        graphicsBlock.appendChild(img);
+      });
+
+      messages.appendChild(graphicsBlock);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+  }catch(error){
+
+    console.error(error);
+    addMsg("Tutor","No pude comunicarme con el backend.");
+  }
 }
 
 sendBtn.onclick = send;
