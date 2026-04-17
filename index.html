@@ -1604,61 +1604,76 @@ async function send(){
 
     const data = await response.json();
 
-    addMsg("Tutor", data.reply || "Sin respuesta.");
+    addMsg("Tutor", data.reply || "Sin respuesta");
 
     // =========================
     // GRÁFICAS AUTOMÁTICAS
     // =========================
-    if(data.graphics && data.graphics.length > 0){
+    if (data.graphics && data.graphics.length > 0) {
 
+      // elimina galería anterior
       const oldBlock = document.getElementById("magicbank-graphics");
-      if(oldBlock) oldBlock.remove();
+      if (oldBlock) oldBlock.remove();
 
       const graphicsBlock = document.createElement("div");
       graphicsBlock.id = "magicbank-graphics";
 
       graphicsBlock.style.display = "grid";
-      graphicsBlock.style.gridTemplateColumns = "repeat(auto-fit,minmax(120px,1fr))";
-      graphicsBlock.style.gap = "10px";
+      graphicsBlock.style.gridTemplateColumns = "1fr";
+      graphicsBlock.style.gap = "12px";
       graphicsBlock.style.marginTop = "12px";
-      graphicsBlock.style.padding = "10px";
+      graphicsBlock.style.padding = "0 10px 10px 10px";
 
-      data.graphics.forEach(src => {
+      // máximo 3 imágenes para celular
+      data.graphics.slice(0, 3).forEach(src => {
 
         const img = document.createElement("img");
 
         img.src = src;
         img.loading = "lazy";
+        img.alt = data.visualQuery || "Imagen educativa";
+
         img.style.width = "100%";
-        img.style.borderRadius = "10px";
-        img.style.maxHeight = "140px";
+        img.style.borderRadius = "14px";
+        img.style.maxHeight = "240px";
         img.style.objectFit = "cover";
+        img.style.display = "block";
+        img.style.background = "#111";
         img.style.cursor = "pointer";
+        img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
 
         img.onclick = () => window.open(src, "_blank");
 
         graphicsBlock.appendChild(img);
       });
 
+      // lo agrega al final del chat
       messages.appendChild(graphicsBlock);
       messages.scrollTop = messages.scrollHeight;
     }
 
-  }catch(error){
+  } catch (error) {
 
-    console.error(error);
-    addMsg("Tutor","No pude comunicarme con el backend.");
+    console.error("CHAT ERROR:", error);
+
+    addMsg(
+      "Tutor",
+      "No pude comunicarme con el backend."
+    );
   }
 }
 
 sendBtn.onclick = send;
 
-input.addEventListener("keypress", e=>{
-if(e.key==="Enter") send();
+input.addEventListener("keypress", e => {
+  if (e.key === "Enter") send();
 });
 
 /* INIT */
-addMsg("Tutor","👋 Bienvenido a MagicBank IA\n\n¿Qué quieres aprender hoy?");
+addMsg(
+  "Tutor",
+  "👋 Bienvenido a MagicBank IA\n\n¿Qué quieres aprender hoy?"
+);
 
 });
 
