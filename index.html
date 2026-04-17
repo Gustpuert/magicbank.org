@@ -1607,50 +1607,44 @@ async function send(){
     addMsg("Tutor", data.reply || "Sin respuesta");
 
     // =========================
-    // GRÁFICAS AUTOMÁTICAS
-    // =========================
-    if (data.graphics && data.graphics.length > 0) {
+// IMÁGENES DEL TUTOR
+// =========================
+if (data.graphics && data.graphics.length > 0) {
 
-      // elimina galería anterior
-      const oldBlock = document.getElementById("magicbank-graphics");
-      if (oldBlock) oldBlock.remove();
+  const old = document.getElementById("magicbank-graphics");
+  if (old) old.remove();
 
-      const graphicsBlock = document.createElement("div");
-      graphicsBlock.id = "magicbank-graphics";
+  const block = document.createElement("div");
+  block.id = "magicbank-graphics";
 
-      graphicsBlock.style.display = "grid";
-      graphicsBlock.style.gridTemplateColumns = "1fr";
-      graphicsBlock.style.gap = "12px";
-      graphicsBlock.style.marginTop = "12px";
-      graphicsBlock.style.padding = "0 10px 10px 10px";
+  block.style.display = "grid";
+  block.style.gridTemplateColumns = "repeat(auto-fit,minmax(120px,1fr))";
+  block.style.gap = "10px";
+  block.style.margin = "12px 0";
+  block.style.padding = "8px";
 
-      // máximo 3 imágenes para celular
-      data.graphics.slice(0, 3).forEach(src => {
+  data.graphics.forEach(src => {
+    const img = document.createElement("img");
 
-        const img = document.createElement("img");
+    img.src = src;
+    img.loading = "lazy";
+    img.style.width = "100%";
+    img.style.height = "140px";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "12px";
+    img.style.cursor = "pointer";
+    img.style.boxShadow = "0 2px 8px rgba(0,0,0,0.18)";
 
-        img.src = src;
-        img.loading = "lazy";
-        img.alt = data.visualQuery || "Imagen educativa";
+    img.onclick = () => {
+      window.open(src, "_blank");
+    };
 
-        img.style.width = "100%";
-        img.style.borderRadius = "14px";
-        img.style.maxHeight = "240px";
-        img.style.objectFit = "cover";
-        img.style.display = "block";
-        img.style.background = "#111";
-        img.style.cursor = "pointer";
-        img.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
+    block.appendChild(img);
+  });
 
-        img.onclick = () => window.open(src, "_blank");
-
-        graphicsBlock.appendChild(img);
-      });
-
-      // lo agrega al final del chat
-      messages.appendChild(graphicsBlock);
-      messages.scrollTop = messages.scrollHeight;
-    }
+  messages.appendChild(block);
+  messages.scrollTop = messages.scrollHeight;
+}
 
   } catch (error) {
 
