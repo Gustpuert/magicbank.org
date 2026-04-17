@@ -1604,15 +1604,17 @@ async function send(){
 
     const data = await response.json();
 
-    addMsg("Tutor", data.reply || "Sin respuesta");
+console.log("RESPUESTA BACKEND:", data);
+console.log("GRAPHICS:", data.graphics);
+
+addMsg("Tutor", data.reply || "Sin respuesta");
 
     // =========================
 // IMÁGENES DEL TUTOR
 // =========================
 if (data.graphics && data.graphics.length > 0) {
 
-  const old = document.getElementById("magicbank-graphics");
-  if (old) old.remove();
+  
 
   const block = document.createElement("div");
   block.id = "magicbank-graphics";
