@@ -6,7 +6,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad:false });
+</script>
+  <head>
+<meta charset="UTF-8">
+<title>MagicBank</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- PEGAR AQUÍ -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad:false });
+</script>
+<!-- FIN -->
+
+<style>
 <style>
 body{
 font-family:Inter,sans-serif;
@@ -425,6 +445,8 @@ font-size:12px;
 font-weight:600;
 }
 </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 </head>
 <script>
 
@@ -1261,6 +1283,53 @@ messages.innerHTML += `<div><b>${user}:</b> ${text}</div>`;
 messages.scrollTop = messages.scrollHeight;
 }
 
+function renderMagicBankVisual(visual){
+
+if(!visual) return "";
+
+if(visual.type === "chart"){
+
+const canvasId = "chart_" + Date.now();
+
+setTimeout(()=>{
+const canvas = document.getElementById(canvasId);
+
+if(!canvas) return;
+
+new Chart(canvas,{
+type: visual.chartType || "bar",
+data: visual.data,
+options:{
+responsive:true,
+plugins:{
+legend:{display:true},
+title:{
+display:true,
+text: visual.title || "Gráfica"
+}
+}
+}
+});
+},100);
+
+return `
+<div style="margin-top:12px;background:#fff;padding:10px;border-radius:12px;">
+<canvas id="${canvasId}" style="max-height:240px;"></canvas>
+</div>
+`;
+}
+
+if(visual.type === "image"){
+return `
+<div style="margin-top:12px;">
+<img src="${visual.url}" style="width:100%;border-radius:12px;">
+</div>
+`;
+}
+
+return "";
+}
+  
 /* =========================
 🧠 BRAIN (PEGAR AQUÍ)
 ========================= */
@@ -1582,7 +1651,73 @@ return name.includes(keyword);
 /* =========================
 SEND
 ========================= */
-function send(){
+function renderMagicBankVisual(visual){
+
+  if(!visual) return;
+
+  const messages = document.getElementById("chatMessages");
+
+  /* TABLA */
+  if(visual.type === "table"){
+
+    let html = `
+    <div style="
+      background:#fff;
+      border-radius:12px;
+      padding:12px;
+      margin:10px 0;
+      overflow:auto;
+      border:1px solid #ddd;
+    ">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+    `;
+
+    if(visual.headers){
+      html += "<tr>";
+      visual.headers.forEach(h=>{
+        html += `<th style="border:1px solid #ccc;padding:6px;background:#f5f5f5;">${h}</th>`;
+      });
+      html += "</tr>";
+    }
+
+    if(visual.rows){
+      visual.rows.forEach(row=>{
+        html += "<tr>";
+        row.forEach(cell=>{
+          html += `<td style="border:1px solid #ccc;padding:6px;">${cell}</td>`;
+        });
+        html += "</tr>";
+      });
+    }
+
+    html += "</table></div>";
+
+    messages.innerHTML += html;
+    messages.scrollTop = messages.scrollHeight;
+    return;
+  }
+
+  /* TEXTO SIMPLE */
+  if(visual.type === "text"){
+    messages.innerHTML += `
+      <div style="
+        background:#fff;
+        border-radius:12px;
+        padding:12px;
+        margin:10px 0;
+        border:1px solid #ddd;
+        font-size:13px;
+      ">
+        ${visual.content}
+      </div>
+    `;
+    messages.scrollTop = messages.scrollHeight;
+  }
+}
+  
+  function send(){
+  
+  
 
 const msg = input.value.trim();
 if(!msg) return;
@@ -1590,14 +1725,45 @@ if(!msg) return;
 addMsg("Tú", msg);
 input.value="";
 
-setTimeout(()=>{
-try{
-addMsg("Tutor", brain(msg));
-}catch(e){
-console.error(e);
-addMsg("Tutor","Hubo un error. Intenta nuevamente.");
-}
+setTimeout(async ()=>{
+  try{
+
+    addMsg("Tutor", "⏳ Pensando...");
+
+    const response = await fetch("https://magic-bank-backend-production-713e.up.railway.app/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: msg
+      })
+    });
+
+    const data = await response.json();
+
+    const thinking = [...messages.querySelectorAll("div")]
+      .find(el => el.innerText.includes("Pensando..."));
+
+    if(thinking) thinking.remove();
+
+    addMsg("Tutor", data.reply || "No hubo respuesta del servidor.");
+
+  }catch(e){
+    console.error(e);
+
+    const thinking = [...messages.querySelectorAll("div")]
+      .find(el => el.innerText.includes("Pensando..."));
+
+    if(thinking) thinking.remove();
+
+    addMsg(
+      "Tutor",
+      "❌ No se pudo comunicar con el backend. Verifica que Railway esté activo y que /api/chat responda."
+    );
+  }
 },300);
+    
 }
 
 sendBtn.onclick = send;
