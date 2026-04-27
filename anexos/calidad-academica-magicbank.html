@@ -216,7 +216,179 @@ content.style.display = content.style.display === "block" ? "none" : "block";
 <h3>Actualización Permanente</h3>
 <p>Contenido actualizado automáticamente desde fuentes oficiales.</p>
 </div>
+<!-- BOTÓN / BLOQUE MAGICBANK — CALIDAD ACADÉMICA -->
+<a href="https://magicbank.org/anexos/auditoria-externa.html" target="_blank" rel="noopener noreferrer" class="magicbank-quality-btn">
+  <div class="mb-quality-icon">🛡️</div>
 
+  <div class="mb-quality-content">
+    <div class="mb-quality-title">Calidad Académica MagicBank</div>
+
+    <div class="mb-quality-text">
+      Estamos construyendo un sistema educativo de altísimo nivel.  
+      Por eso somos estrictos, rigurosos y auditamos constantemente todo lo que hacemos.
+    </div>
+
+    <div class="mb-quality-text">
+      Contamos con auditoría externa exigente para verificar con precisión lo que hemos logrado,
+      identificar lo que aún falta y garantizar mejora institucional continua.
+    </div>
+
+    <div class="mb-quality-text">
+      También escuchamos a nuestros usuarios: recibimos sugerencias, opiniones e inquietudes
+      para fortalecer automáticamente a todos nuestros tutores y elevar continuamente
+      la calidad académica de MagicBank.
+    </div>
+
+    <div class="mb-quality-action">
+      Ver Auditoría Externa y Compromiso de Mejora Continua →
+    </div>
+  </div>
+</a>
+
+<style>
+.magicbank-quality-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100%;
+    max-width: 1100px;
+    padding: 28px;
+    text-decoration: none;
+    border-radius: 30px;
+
+    /* COLORES MAGICBANK */
+    background: linear-gradient(135deg, #4f46e5 0%, #5b4ff5 45%, #4338ca 100%);
+
+    color: white;
+    font-family: Arial, sans-serif;
+
+    /* RELIEVE / PROFUNDIDAD */
+    box-shadow:
+        0 12px 35px rgba(67, 56, 202, 0.45),
+        inset 0 2px 8px rgba(255,255,255,0.18),
+        inset 0 -6px 14px rgba(0,0,0,0.18);
+
+    border: 1px solid rgba(255,255,255,0.18);
+
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Brillo superior */
+.magicbank-quality-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -40%;
+    width: 180%;
+    height: 55%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.18),
+        rgba(255,255,255,0.03)
+    );
+    transform: rotate(-2deg);
+}
+
+/* Hover */
+.magicbank-quality-btn:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 18px 45px rgba(67,56,202,0.55),
+        inset 0 2px 8px rgba(255,255,255,0.22),
+        inset 0 -8px 18px rgba(0,0,0,0.2);
+}
+
+/* Ícono */
+.mb-quality-icon {
+    min-width: 78px;
+    height: 78px;
+    border-radius: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 38px;
+
+    background: linear-gradient(145deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08));
+
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,0.18),
+        0 6px 14px rgba(0,0,0,0.2);
+}
+
+/* Contenido */
+.mb-quality-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+/* Título */
+.mb-quality-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+    line-height: 1.1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+/* Texto */
+.mb-quality-text {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    color: rgba(255,255,255,0.96);
+    font-weight: 500;
+}
+
+/* Acción */
+.mb-quality-action {
+    margin-top: 14px;
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 18px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.20),
+        rgba(255,255,255,0.08)
+    );
+
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,0.16),
+        0 6px 14px rgba(0,0,0,0.18);
+
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .magicbank-quality-btn {
+        flex-direction: column;
+        padding: 22px;
+    }
+
+    .mb-quality-title {
+        font-size: 1.8rem;
+    }
+
+    .mb-quality-text {
+        font-size: 1rem;
+    }
+
+    .mb-quality-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 32px;
+    }
+}
+</style>
 <!-- BLOQUE 2 -->
 <div class="card">
 <h3>Auditoría Académica</h3>
